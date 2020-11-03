@@ -1,0 +1,12 @@
+body.nightTime{
+  background: url(./img/fon-night.jpg);
+}
+body.twilightTime{
+  background: url(./img/fon-twilight.jpg);
+}
+body.sunriseTime{
+  background: url(./img/fon-sunrise.jpg);
+}
+body.dayTime{
+  background: url(./img/fon-day.jpg);
+}

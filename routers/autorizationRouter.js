@@ -12,7 +12,7 @@ const auth = require('../middleware/auth.middleware')
 
   router.post('/login',
   [
-    check('userName', "некоректное имя пользователя ").isLength({min:2}),
+    check('name', "некоректное имя пользователя ").isLength({min:2}),
     check('password', "некоректное имя пользователя ").isLength({min:6})
   ]
    ,async (req, res)=> {
@@ -27,13 +27,13 @@ const auth = require('../middleware/auth.middleware')
         })
       }
 //---------------------------------------------------//
-const {email, password} = req.body;
+const {name, password} = req.body;
     userbd.connect();
-    const user = await userbd.lookForUserByEmail(email);
+    const user = await userbd.lookForUserByName(name);
     if(!user){
-      throw new Error('Пользователь с таким Email не найден');
+      throw new Error('Пользователь с таким именем не найден');
     }
-    const isMatch = await bcrypt.compare(password, user[0][0].Password)
+    const isMatch = await bcrypt.compare(password, user.Password)
     if(isMatch){
       return true;
     }
@@ -57,9 +57,9 @@ const {email, password} = req.body;
   router.post('/register',
   [
     check('email', 'некоректный email').isEmail(),
-    check('userName', "некоректное имя пользователя ").isLength({min:2}),
+    check('name', "некоректное имя пользователя ").isLength({min:2}),
     check('password', "некоректное имя пользователя ").isLength({min:6}),
-    check('key', "некоректное имя пользователя ").isLength({min:1})
+    //check('key', "некоректное имя пользователя ").isLength({min:1})
   ],
   async (req, res)=> {
     try {
@@ -78,7 +78,7 @@ const {email, password} = req.body;
 
       const heshedPassword = await bcrypt.hash(req.body.password, 12)
       userbd.connect();
-      if(userbd.lookForUserByEmail(email)){
+      if(userbd.lookForUserByName(name)){
         throw new Error('Пользователь с таким Email уже создан');
       }
       if(!userbd.addUser({

@@ -46,6 +46,15 @@ module.exports.lookForUserByEmail = async(email)=>{
     return;
   }
 }
+module.exports.lookForUserByName = async(name)=>{
+  try {
+    const result = await conection.execute(`SELECT * FROM smarthome_user WHERE UserName=${name}`);
+    return result[0][0];
+  } catch (e) {
+    console.log("Error",e);
+    return;
+  }
+}
 
 module.exports.addUser = async function(data){
   try {
