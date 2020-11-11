@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "jsonwebtoken": "^8.5.1",
+    "miio": "^0.15.6",
     "mysql2": "^2.2.5"
   },
   "devDependencies": {

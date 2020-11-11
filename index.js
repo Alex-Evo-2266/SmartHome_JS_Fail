@@ -3,6 +3,8 @@ const config = require('config');
 const bodyParser = require('body-parser');
 const routerAuth = require('./routers/autorizationRouter')
 const imageRouter = require('./routers/imageRouter')
+const bcrypt = require('bcryptjs');
+const userbd = require('./mySQL/Users.js')
 
 const app = express();
 

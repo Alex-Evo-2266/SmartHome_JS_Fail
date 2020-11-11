@@ -12,25 +12,30 @@ module.exports.desconnect = async function(){
   })
 }
 
-const idEmpty = ()=>{
-  const Users = users();
-  let b = false;
-  for (var i = 1; i < Users.length+1; i++) {
-    b = false
-    for (var j = 0; j < Users.length; j++) {
-      if(Users[j].User_Id==i){
-        b=true;
-        break;
-      }
-    }
-    if(!b) return i;
-  }
-}
+// const idEmpty = async ()=>{
+//   const Users = await users();
+//   console.log( Users);
+//   let b = false;
+//   for (let i = 1; i < Users.length+1; i++) {
+//     console.log("1");
+//     b = false
+//     for (let j = 0; j < Users.length; j++) {
+//       console.log(b,i,Users[j].User_Id);
+//       if(Users[j].User_Id==i){
+//         b=true;
+//         break;
+//       }
+//     }
+//     if(!b) return i;
+//   }
+//   return 1;
+// }
 
 const users = async()=>{
   try {
-    const result = await conection.execute(`SELECT 'UserId', 'Email', 'UserName', 'UserSurname', 'Level', 'ImageId', 'Mobile' FROM 'smarthome_user'`)
+    const result = await conection.execute(`SELECT 'UserId', 'Email', 'UserName', 'UserSurname', 'Level', 'ImageId', 'Mobile' FROM smarthome_user`)
     return result[0];
+
   } catch (e) {
     console.log("Error",e);
     return;
@@ -48,7 +53,7 @@ module.exports.lookForUserByEmail = async(email)=>{
 }
 module.exports.lookForUserByName = async(name)=>{
   try {
-    const result = await conection.execute(`SELECT * FROM smarthome_user WHERE UserName=${name}`);
+    const result = await conection.execute(`SELECT * FROM \`smarthome_user\` WHERE \`UserName\` = '${name}'`);
     return result[0][0];
   } catch (e) {
     console.log("Error",e);
@@ -58,8 +63,11 @@ module.exports.lookForUserByName = async(name)=>{
 
 module.exports.addUser = async function(data){
   try {
-    if(!data.email||!data.password) return;
-    await conection.execute(`INSERT INTO user(UserId = ${idEmpty()}, Email = ${data.emali}, UserName = ${data.name},UserSurname = ${data.surname}, Password = ${data.password}, Mobile = ${data.mobile})`)
+    if(!data.name||!data.password) return;
+    await conection.execute(
+      "INSERT INTO `smarthome_user`(`Email`, `Password`, `UserName`, `UserSurname`, `Mobile`, `Level`) VALUES (?,?,?,?,?,?)",
+      [data.email, data.password, data.name,data.surname, data.mobile,data.level ]
+    )
     return true;
   }
   catch (e) {

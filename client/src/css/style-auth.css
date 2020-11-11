@@ -89,6 +89,7 @@
 }
 .formBox-auth input[type="submit"]{
   border: none;
+  margin: 50px 0 0 0;
   outline: none;
   height: 40px;
   color: #ccc;

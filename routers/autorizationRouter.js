@@ -34,8 +34,8 @@ const {name, password} = req.body;
       throw new Error('Пользователь с таким именем не найден');
     }
     const isMatch = await bcrypt.compare(password, user.Password)
-    if(isMatch){
-      return true;
+    if(!isMatch){
+      throw new Error('Не верные входные данные');
     }
 
     const token = jwt.sign(
@@ -44,7 +44,7 @@ const {name, password} = req.body;
       { expiresIn: '1day' }
     )
     userbd.desconnect();
-    return res.status(200).json({token, userId: await userList.id(req, res), userLavel:await userList.lavel(req, res)})
+    return res.status(200).json({token, userId: user.UserId, userLavel:user.Level})
     } catch (e) {
       console.log("Error authorization",e);
       userbd.desconnect();
