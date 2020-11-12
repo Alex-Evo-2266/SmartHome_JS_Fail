@@ -17,6 +17,6 @@ export default function setStyle () {
   }else if ((time>=0&&time<sunriseTime)||time>=nightTime) {
     background = "night";
   }
-  document.body.style = `background: url(http://localhost:5000/api/base/fonImage/${background});`;
+  document.body.style = `background: url(http://localhost:5000/api/base/fonImage/base/base/${background});`;
 
 }

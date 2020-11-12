@@ -6,10 +6,22 @@ const auth = require('../middleware/auth.middleware')
 const fs = require('fs');
 const path = require('path');
 
-router.get('/fonImage/:type', async (req, res)=> {
+router.get('/fonImage/:weather/:season/:time', async (req, res)=> {
   try {
-    const type = req.params.type;
-    const filePath = path.join(__dirname,"../img/baseImg",`fon-${type}.jpg`)
+    if(req.params.weather != "goodWeather"&&req.params.weather != "mainlyCloudy"&&req.params.weather != "precipitation"&&req.params.weather != "base"){
+      req.params.weather = "base";
+    }
+    if(req.params.season != "fall"&&req.params.season != "spring"&&req.params.season != "summer"&&req.params.season != "winter"){
+      req.params.season = "base";
+    }
+    if(req.params.time != "day"&&req.params.time != "night"&&req.params.time != "sunrise"&&req.params.time != "twilight"){
+      req.params.time = "day";
+    }
+    const weather = req.params.weather;
+    const season = req.params.season;
+    const time = req.params.time;
+
+    const filePath = path.join(__dirname,"../img/backGroundFon/",`${weather}/`,`${season}/`,`fon-${time}.jpg`)
     console.log(filePath);
     var readableStream = fs.createReadStream(filePath);
     readableStream.on('open', function () {

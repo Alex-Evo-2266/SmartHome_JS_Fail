@@ -39,7 +39,7 @@ const {name, password} = req.body;
     }
 
     const token = jwt.sign(
-      { userId: user.UserId, userLavel: user.Level},
+      { userId: user.UserId, userLevel: user.Level},
       config.get('secret'),
       { expiresIn: '1day' }
     )
