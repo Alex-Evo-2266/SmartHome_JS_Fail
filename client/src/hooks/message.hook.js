@@ -1,5 +1,5 @@
 import {useState, useCallback, useContext} from 'react'
-import {AlertContext} from '../alert/alertContext'
+import {AlertContext} from '../components/alert/alertContext'
 
 export const useMessage = (type = 'error') => {
   const [Message, setMessage] = useState('');

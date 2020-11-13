@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const HomePage = () => {
+export const DevicesPage = () => {
 
   return(
     <div>
-      <h1>HomePage</h1>
+      <h1>DevicesPage</h1>
     </div>
   )
 }

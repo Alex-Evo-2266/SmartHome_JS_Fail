@@ -1,0 +1,10 @@
+.light .navigation nav ul li:hover > a,
+.light .menuTogle:hover
+{
+  background: #0F1AFF;
+}
+.light .menuTogle,
+.light .navigation nav
+{
+  background: #333;
+}
