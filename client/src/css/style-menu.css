@@ -1,11 +1,16 @@
-.menuTogle{
+.topMenu{
   display: none;
   position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.menuTogle{
+  position: relative;
   top: 0;
   right: 0;
   width: 60px;
   height: 60px;
-  border-radius: 0 0 0 10px;
   z-index: 6;
 }
 .navigation nav{
@@ -35,6 +40,7 @@
   position: relative;
   width: 100%;
   list-style: none;
+  transition: 0.5s;
 }
 .navigation nav ul li a{
   position: relative;
@@ -96,6 +102,7 @@
   width: calc(100%-60px);
   top: 0;
   left: 60px;
+  transition: 0.5s;
 }
 .navigation nav ul li.active ul,
 .navigation nav ul li:hover ul
@@ -109,11 +116,12 @@
 
 }
 @media (max-width: 700px) {
-  .menuTogle{
+  .topMenu{
     display: block;
   }
   .navigation nav{
     width: 0;
+    margin-top: 60px;
   }
   .navigation nav.active{
     width: 100%;

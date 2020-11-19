@@ -3,7 +3,6 @@ export default function setStyle () {
   fonUpdata();
   setInterval(()=>{
     fonUpdata();
-    console.log('updata');
   }, 1000*60*30);
 
   function fonUpdata() {
@@ -23,7 +22,7 @@ export default function setStyle () {
     }else if ((time>=0&&time<sunriseTime)||time>=nightTime) {
       background = "night";
     }
-    document.body.classList.add('light')
+    document.body.classList.add('night')
     document.body.style = `background: url(http://localhost:5000/api/base/fonImage/base/base/${background});
       background-size: cover;
       background-attachment: fixed;`;

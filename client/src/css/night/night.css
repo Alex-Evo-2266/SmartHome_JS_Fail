@@ -1,0 +1,30 @@
+.night .navigation nav ul li:hover > a,
+.night .menuTogle:hover
+{
+  background: #0F1AFF;
+  transition: 0.3s;
+}
+.night .topMenu,
+.night .navigation nav
+{
+  background: #333;
+  color: white;
+}
+.night .titlePage{
+  color: black;
+  background: #eee;
+  box-shadow: inset 0 0 10px #000;
+}
+.night .titlePage i{
+  color: #333;
+}
+@media (max-width: 700px){
+  .night .titleTop{
+    background: #0000;
+    box-shadow: none;
+    color: #fff;
+  }
+  .night .titleTop .titleButtonAdd .fas{
+    color: #fff;
+  }
+}

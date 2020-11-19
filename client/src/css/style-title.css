@@ -1,0 +1,46 @@
+.titlePage{
+  transition: 0.5s;
+  height: 100px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+}
+.titleDefault{
+  margin-top: 100px;
+  margin-left: 40px;
+  border-radius: 20px;
+  width: calc(100% - 80px);
+}
+.titleTop{
+  width: 100%;
+}
+.titlePage h1,
+.titlePage h2
+{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sticky{
+  position: sticky;
+}
+.titleButtonAdd{
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0);
+  border: none;
+  outline: none;
+}
+.titleButtonAdd .fas{
+  font-size: 40px;
+}
+@media (max-width: 700px){
+  .titleTop{
+    margin-left: 60px;
+    width: calc(100% - 60px);
+    height: 60px;
+    background:rgba(0,0,0,0);
+  }
+}
