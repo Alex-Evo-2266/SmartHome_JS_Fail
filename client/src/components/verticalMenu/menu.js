@@ -14,8 +14,8 @@ export const Menu = ()=>{
       </div>
     </div>
     <div className="navigation">
-      <nav className={(menu.menu.visible)?"active":""}>
-        <ul>
+      <nav className={(menu.menu.visible)?"active":""} >
+        <ul onClick = {()=>(menu.menu.visible)?menu.togle():null}>
           <li>
             <NavLink to = "/">
               <span className = "icon"><i className="fas fa-home"></i></span>

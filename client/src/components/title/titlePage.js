@@ -7,7 +7,7 @@ export const Title = ({children})=>{
   window.onscroll = ()=>{
     let title = document.getElementById('titlePage')
     let top = title.parentNode.getBoundingClientRect().y;
-    if(top<=0){
+    if(top<=-100){
       setPosition(true);
     }
     else {

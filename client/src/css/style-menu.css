@@ -26,10 +26,6 @@
 .navigation nav::-webkit-scrollbar{
   width: 0;
 }
-.navigation nav:hover
-{
-  width: 300px;
-}
 .navigation nav ul{
   position: absolute;
   width: 100%;
@@ -118,6 +114,7 @@
 @media (max-width: 700px) {
   .topMenu{
     display: block;
+    z-index: 10;
   }
   .navigation nav{
     width: 0;
@@ -125,5 +122,11 @@
   }
   .navigation nav.active{
     width: 100%;
+  }
+}
+@media (min-width: 700px){
+  .navigation nav:hover
+  {
+    width: 300px;
   }
 }

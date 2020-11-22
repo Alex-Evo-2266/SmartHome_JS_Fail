@@ -2,8 +2,10 @@ import React from 'react'
 import {BrowserRouter} from 'react-router-dom'
 import {Alert} from './components/alert/alert.js'
 import {Menu} from './components/verticalMenu/menu.js'
+import {Form} from './components/Form/form'
 import {AlertState} from './components/alert/alertState'
 import {MenuState} from './components/verticalMenu/menuState'
+import {FormState} from './components/Form/formState'
 import {useRoutes} from './routes.js'
 import {useAuth} from './hooks/auth.hook.js'
 import {AuthContext} from './context/AuthContext'
@@ -31,13 +33,18 @@ function App() {
     }}>
     <AlertState>
     <MenuState>
+    <FormState>
+
     <BrowserRouter>
       <div className="App">
         <Alert/>
+        <Form/>
         {(isAuthenticated)?<Menu/>:null}
         {routes}
       </div>
     </BrowserRouter>
+
+    </FormState>
     </MenuState>
     </AlertState>
     </AuthContext.Provider>
