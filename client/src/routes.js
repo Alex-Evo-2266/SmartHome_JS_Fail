@@ -3,18 +3,22 @@ import {Switch,Route,Redirect} from 'react-router-dom'
 import {HomePage} from './Page/Homepage'
 import {AuthPage} from './Page/Authpage'
 import {DevicesPage} from './Page/Devicespage'
+import {ProfilePage} from './Page/ProfilePage'
 
 export const useRoutes = isAuthenticated=>{
   if(isAuthenticated){
     return(
       <Switch>
-        <Route path="/" exact>
+        <Route path="/home" exact>
           <HomePage/>
         </Route>
         <Route path="/devices" exact>
           <DevicesPage/>
         </Route>
-        <Redirect to="/"/>
+        <Route path="/profile" exact>
+          <ProfilePage/>
+        </Route>
+        <Redirect to="/home"/>
       </Switch>
     )
   }

@@ -2,5 +2,9 @@
 @import "./style-page.css";
 @import "./style-title.css";
 @import "./style-form.css";
+@import "./style-devices.css";
+@import "./style-user.css";
+@import "./style-pages.css";
+@import "./styleLoader.css";
 @import "./light/light.css";
 @import "./night/night.css";

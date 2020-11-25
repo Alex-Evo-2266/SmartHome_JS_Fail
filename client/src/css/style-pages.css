@@ -1,0 +1,85 @@
+.pages{
+ position: fixed;
+ left: 50%;
+ transform: translateX(-50%);
+ width: 80%;
+ height: 80%
+}
+.pages .page{
+  display: none;
+  position: relative;
+  width: calc(100% - 64px);
+  height: 100%;
+  border-radius: 4px 0 4px 4px;
+  z-index: 2;
+  box-shadow: 0 0 10px #000;
+  overflow-y: scroll;
+}
+.pages .page::-webkit-scrollbar{
+  width: 0;
+}
+.pages .page.active{
+  display: block;
+}
+.pages .page-nav{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.pages .page-nav li{
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background: #aaa;
+  border-radius: 0 20px 20px 0;
+  list-style: none;
+  z-index: 1;
+}
+.pages .page-nav li.active,
+.pages .page-nav li:hover
+{
+  z-index: 2;
+}
+.pages .page-nav li .fas{
+  position: absolute;
+  font-size: 2em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 700px) {
+  .pages{
+   width: 90%;
+   height: 80%
+  }
+  .pages .page{
+    width: 100%;
+    top:60px;
+    height: calc(100% - 60px);
+    border-radius: 0 4px 4px 4px;
+  }
+  .pages .page-nav{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+  }
+  .pages .page-nav li{
+    border-radius: 20px 20px 0 0;
+    width: 120px;
+    height: 60px;
+  }
+}
+@media (max-width: 450px){
+  .pages{
+   width: 100%;
+   height: 100%
+  }
+}
+@media (max-width: 400px){
+  .pages .page-nav li{
+    border-radius: 20px 20px 0 0;
+    width: 60px;
+    height: 60px;
+  }
+}

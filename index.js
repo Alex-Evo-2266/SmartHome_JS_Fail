@@ -3,6 +3,7 @@ const config = require('config');
 const bodyParser = require('body-parser');
 const routerAuth = require('./routers/autorizationRouter')
 const imageRouter = require('./routers/imageRouter')
+const devicesRouter = require('./routers/devicesRouter')
 const bcrypt = require('bcryptjs');
 const userbd = require('./mySQL/Users.js')
 
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/api/auth',routerAuth);
 app.use('/api/base',imageRouter);
+app.use('/api/devices',devicesRouter);
 ///api/base/fonImage/:type
 
 try {

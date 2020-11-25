@@ -12,8 +12,8 @@ const auth = require('../middleware/auth.middleware')
 
   router.post('/login',
   [
-    check('name', "некоректное имя пользователя ").isLength({min:2}),
-    check('password', "некоректное имя пользователя ").isLength({min:6})
+    check('name', "wrong name user ").isLength({min:2}),
+    check('password', "wrong password ").isLength({min:6})
   ]
    ,async (req, res)=> {
     try {
@@ -23,7 +23,7 @@ const auth = require('../middleware/auth.middleware')
       if(!errors.isEmpty()){
         res.status(400).json({
           errors: errors.array(),
-          message: 'некоректные данные при входе в систему'
+          message: 'wrong input data'
         })
       }
 //---------------------------------------------------//
@@ -56,9 +56,9 @@ const {name, password} = req.body;
 
   router.post('/register',
   [
-    check('email', 'некоректный email').isEmail(),
-    check('name', "некоректное имя пользователя ").isLength({min:2}),
-    check('password', "некоректное имя пользователя ").isLength({min:6}),
+    check('email', 'wrong email').isEmail(),
+    check('name', "wrong name user ").isLength({min:2}),
+    check('password', "wrong password ").isLength({min:6}),
     //check('key', "некоректное имя пользователя ").isLength({min:1})
   ],
   async (req, res)=> {
@@ -69,7 +69,7 @@ const {name, password} = req.body;
             if(!errors.isEmpty()){
               return res.status(400).json({
                 errors: errors.array(),
-                message: 'некоректные данные'
+                message: 'wrong input data'
               })
             }
       //---------------------------------------------------//

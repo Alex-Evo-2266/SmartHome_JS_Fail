@@ -12,11 +12,17 @@ export const Form = ()=>{
     if(event.target.className === "backForm")
       hide();
   }
+  const hideAndApdata = () =>{
+    hide();
+    if(form.OK){
+      form.OK()
+    }
+  }
 
   if(form.type === "AddDevices"){
     return (
       <div className = "backForm" onClick = {click}>
-        <AddDevicesForm hide = {hide}/>
+        <AddDevicesForm hide = {hideAndApdata}/>
       </div>
     )
   }

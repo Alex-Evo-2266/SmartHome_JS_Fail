@@ -3,20 +3,23 @@ import {AlertContext} from '../components/alert/alertContext'
 
 export const useMessage = (type = 'error') => {
   const [Message, setMessage] = useState('');
-  const alert = useContext(AlertContext);
+  const {show,hide} = useContext(AlertContext);
+
 
   const message = useCallback((text, type) =>{
       if(text){
         setMessage(text)
-        alert.show(text, type)
+        show(text, type)
       }
       setTimeout(function () {
         setMessage('')
+        hide()
       }, 30000);
-    },[alert])
+    },[show,hide])
 
   const clearMessage = () => {
     setMessage('')
+    hide()
   }
   return {message,Message,clearMessage}
 }

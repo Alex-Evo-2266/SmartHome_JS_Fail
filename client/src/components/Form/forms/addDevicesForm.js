@@ -1,13 +1,21 @@
-import React, {useState,useEffect,useCallback} from 'react'
+import React, {useState,useEffect,useCallback, useContext} from 'react'
+import {useHttp} from '../../../hooks/http.hook'
+import {useMessage} from '../../../hooks/message.hook'
+import {AuthContext} from '../../../context/AuthContext.js'
 
 export const AddDevicesForm = (props)=>{
   const [showPage, setShowPage] = useState(0);
+  const [result, setResult] = useState("");
   const [form, setForm] = useState({
     typeConnect: '',
     typeDevice: '',
     name: '',
-    tokenOrTopic:''
+    tokenOrTopic:'',
+    IP: ''
   });
+  const {message, clearMessage} = useMessage();
+  const {loading, request, error, clearError} = useHttp();
+  const auth = useContext(AuthContext)
 
   const next = ()=>{
     setShowPage(showPage + 1);
@@ -35,6 +43,13 @@ export const AddDevicesForm = (props)=>{
     updatePage();
   },[showPage,updatePage])
 
+  useEffect(()=>{
+    message(error,"error")
+    return ()=>{
+      clearError();
+    }
+  },[error,message, clearError])
+
   const changeHandlerImageBtn = event => {
     if(event.target.className.split(' ')[0]!=="choiceElem"&&event.target.className!=="textInput"){
       setForm({ ...form, [event.target.offsetParent.name]: event.target.offsetParent.value })
@@ -44,6 +59,18 @@ export const AddDevicesForm = (props)=>{
   }
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
+  }
+
+  const outHandler = async () => {
+    try {
+      clearMessage();
+      const data = await request('/api/devices/add', 'POST', {...form},{Authorization: `Bearer ${auth.token}`})
+      console.log(data);
+      setResult(data.message);
+      next();
+    } catch (e) {
+
+    }
   }
 
   return (
@@ -76,7 +103,7 @@ export const AddDevicesForm = (props)=>{
             </div>
           </div>
           <div className="formFooter">
-            <button onClick={next} className ={`FormControlBtn right ${(!form.typeConnect)?'disabled':''}`} disabled = {!form.typeConnect}>Next <i className="fas fa-arrow-right"></i></button>
+            <button onClick={next} className ="FormControlBtn right" disabled = {!form.typeConnect}>Next <i className="fas fa-arrow-right"></i></button>
             <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
           </div>
         </div>
@@ -101,7 +128,7 @@ export const AddDevicesForm = (props)=>{
               </div>
             </div>
             <div className="formFooter">
-              <button onClick={next} className ={`FormControlBtn right ${(!form.typeDevice)?'disabled':''}`} disabled = {!form.typeDevice}>Next <i className="fas fa-arrow-right"></i></button>
+              <button onClick={next} className ='FormControlBtn right' disabled = {!form.typeDevice}>Next <i className="fas fa-arrow-right"></i></button>
               <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
             </div>
           </div>:
@@ -117,22 +144,34 @@ export const AddDevicesForm = (props)=>{
             <input className = "textInput" placeholder="name" id="name" type="text" name="name" value={form.name} onChange={changeHandler} required/>
           </div>
           <div className="formFooter">
-            <button onClick={next} className ={`FormControlBtn right ${(!form.name)?'disabled':''}`} disabled = {!form.name}>Next <i className="fas fa-arrow-right"></i></button>
+            <button onClick={next} className ='FormControlBtn right' disabled = {!form.name}>Next <i className="fas fa-arrow-right"></i></button>
             <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
           </div>
         </div>
         <div className = "pageForm hide">
-        <div className = "formContent">
+          <div className = "formContent">
           {
             (form.typeConnect === "mqtt")?
             <h2>Enter topic</h2>:
             <h2>Enter token</h2>
           }
           <input className = "textInput" placeholder={(form.typeConnect === "mqtt")?"Enter topic":"Enter token"} id="token" type="text" name="tokenOrTopic" value={form.tokenOrTopic} onChange={changeHandler} required/>
-        </div>
+          </div>
           <div className="formFooter">
-            <button onClick={props.hide} className ={`FormControlBtn right ${(!form.tokenOrTopic)?'disabled':''}`} disabled = {!form.tokenOrTopic}>Finish</button>
+            <button onClick={outHandler} className ='FormControlBtn right' disabled = {!form.tokenOrTopic}>Create</button>
             <button onClick={back} className ="FormControlBtn left"> <i className="fas fa-arrow-left"></i> Previous</button>
+          </div>
+        </div>
+        <div className = "pageForm hide">
+          <div className = "formContent">
+            {
+              (loading)?
+              <h2>loading...</h2>:
+              <h2>{result}</h2>
+            }
+          </div>
+          <div className="formFooter">
+            <button onClick={props.hide} className ='FormControlBtn right' disabled = {loading}>Finish</button>
           </div>
         </div>
     </div>

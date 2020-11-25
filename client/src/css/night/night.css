@@ -1,4 +1,5 @@
 .night .navigation nav ul li:hover > a,
+.night .navigation nav ul li a.active,
 .night .menuTogle:hover
 {
   background: #1E90FF;
@@ -12,11 +13,12 @@
 }
 .night .titlePage{
   color: black;
-  background: #eee;
+  background: #333;
+  color: #fff;
   box-shadow: inset 0 0 10px #000;
 }
 .night .titlePage i{
-  color: #fff;
+  color: #333;
 }
 .night .form {
   background: #555;
@@ -36,7 +38,10 @@
   color: #fff;
 }
 .night .titleButtonAdd{
-  background: #333;
+  background: #fff;
+}
+.night .titleButtonAdd:hover{
+  box-shadow: inset 0 0 5px #000;
 }
 .night .form .FormControlBtn:hover{
   box-shadow: inset 0 0 5px #000;
@@ -62,16 +67,30 @@
 .night .choiceElem.square{
   border: 2px solid #000;
 }
-.night .disabled:hover{
+.night .formFooter button[disabled]:hover{
   background: red;
+}
+.night .CardConteiner .CardElement{
+  background: #111c;
+}
+.night .pages .page{
+  background: #111c;
+  border: 2px solid #1E90FF;
+  color: #fff;
+}
+.night .pages .page-nav li{
+  color: #000;
+}
+.night .pages .page-nav li.active,
+.night .pages .page-nav li:hover
+{
+  background: #1E90FF;
+  color: #fff;
 }
 @media (max-width: 700px){
   .night .titleTop{
     background: #0000;
     box-shadow: none;
-    color: #fff;
-  }
-  .night .titleTop .titleButtonAdd .fas{
     color: #fff;
   }
 }
