@@ -5,6 +5,7 @@
 @import "./style-devices.css";
 @import "./style-user.css";
 @import "./style-pages.css";
+@import "./style-config.css";
 @import "./styleLoader.css";
 @import "./light/light.css";
 @import "./night/night.css";

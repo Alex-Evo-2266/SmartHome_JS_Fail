@@ -15,7 +15,7 @@ router.get('/fonImage/:weather/:season/:time', async (req, res)=> {
       req.params.season = "base";
     }
     if(req.params.time != "day"&&req.params.time != "night"&&req.params.time != "sunrise"&&req.params.time != "twilight"){
-      req.params.time = "day";
+      req.params.time = "base";
     }
     const weather = req.params.weather;
     const season = req.params.season;

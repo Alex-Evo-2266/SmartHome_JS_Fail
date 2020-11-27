@@ -32,22 +32,22 @@ export const Menu = ()=>{
             </NavLink>
           </li>
           <li>
-            <NavLink to = "/profile" exact>
+            <NavLink to = "/profile">
               <span className = "icon"><i className="fas fa-user-circle"></i></span>
               <span className = "title">Profile</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to = "/" exact>
+            <NavLink to = "/config">
               <span className = "icon"><i className="fas fa-cog"></i></span>
               <span className = "title">Options</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to = "#" onClick={auth.logout}>
+            <Link to = "#" onClick={auth.logout}>
               <span className = "icon"><i className="fas fa-sign-out-alt"></i></span>
               <span className = "title">Logout</span>
-            </NavLink>
+            </Link>
           </li>
         </ul>
       </nav>
