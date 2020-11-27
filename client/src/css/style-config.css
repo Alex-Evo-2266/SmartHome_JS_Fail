@@ -3,7 +3,7 @@
   position: relative;
 }
 .configElement.img{
-  height: 170px;
+  
 }
 .configElement.choice{
   height: 170px;
@@ -46,24 +46,7 @@
   border: none;
   background: #0000;
 }
-.inputImg{
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  width: 120px;
-}
-input[type="file"]{
-  display: none;
-}
-.configElement.img button{
-  position: relative;
-  left: 10px;
-  border-radius:4px;
-  height: 40px;
-  width: calc(100% - 160px);
-  margin: 0;
-  transform: none;
-}
+
 .switch input{
   appearance: none;
   display: none;

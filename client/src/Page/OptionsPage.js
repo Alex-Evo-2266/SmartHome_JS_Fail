@@ -27,8 +27,16 @@ export const OptionsPage = () => {
   const checkedHandler = event => {
     setServerconf({ ...serverconf, [event.target.name]: event.target.checked })
   }
-  const fileHandler = event =>{
-    console.log(event);
+  const fileHandler = async event =>{
+
+    const file = event.target.files[0]
+    var data = new FormData();
+    data.append('photo',file)
+    const data2 = await request(`/api/base/fonImage/set`, 'POST',
+    data
+    ,{
+      Authorization: `Bearer ${auth.token}`
+    },true)
   }
 
   useEffect(()=>console.log(serverconf),[serverconf])
@@ -73,11 +81,11 @@ export const OptionsPage = () => {
                 (serverconf.staticBackground)?
                 <div className="configElement img">
                   <h3>Background</h3>
-                  <ImageInput title="day" onChange={fileHandler}/>
+                  <ImageInput title="day" name = "base" onChange={fileHandler} src = "http://localhost:5000/api/base/fonImage/base/base/day"/>
                 </div>:
                 <div className="configElement img">
                   <h3>Background</h3>
-                  <ImageInput title="day2" onChange={fileHandler}/>
+                  <ImageInput title="day2" name="day" onChange={fileHandler} src = "http://localhost:5000/api/base/fonImage/base/base/day"/>
                 </div>
               }
               <button onClick={serverConfigHandler}>Save</button>

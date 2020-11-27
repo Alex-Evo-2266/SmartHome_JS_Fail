@@ -5,6 +5,7 @@ const {check, validationResult} = require('express-validator')
 const auth = require('../middleware/auth.middleware')
 const fs = require('fs');
 const path = require('path');
+var multer = require ('multer')
 
 router.get('/fonImage/:weather/:season/:time', async (req, res)=> {
   try {
@@ -21,8 +22,11 @@ router.get('/fonImage/:weather/:season/:time', async (req, res)=> {
     const season = req.params.season;
     const time = req.params.time;
 
-    const filePath = path.join(__dirname,"../img/backGroundFon/",`${weather}/`,`${season}/`,`fon-${time}.jpg`)
+    let filePath = path.join(__dirname,"../img/backGroundFon/",`${weather}/`,`${season}/`,`fon-${time}.jpg`)
     console.log(filePath);
+    if(!fs.existsSync(filePath)){
+      filePath = path.join(__dirname,"../img/backGroundFon/",`base/`,`fon-day.jpg`)
+    }
     var readableStream = fs.createReadStream(filePath);
     readableStream.on('open', function () {
       res.set('Content-Type', 'image/jpeg');
@@ -37,5 +41,8 @@ router.get('/fonImage/:weather/:season/:time', async (req, res)=> {
   }
 })
 
+router.post('/fonImage/set',async (req,res)=>{
+    return res.status(202).json(req.body.photo)
+})
 
 module.exports = router;

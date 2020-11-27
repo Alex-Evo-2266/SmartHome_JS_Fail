@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const ImageInput = ({title, onChange}) =>{
+export const ImageInput = ({title, onChange, src, name}) =>{
 
   function handleFiles(event) {
     const files = event.target.files
@@ -17,7 +17,7 @@ export const ImageInput = ({title, onChange}) =>{
     img.onload = function() {
       window.URL.revokeObjectURL(this.src);
     }
-    onChange(files[0])
+    onChange(event)
   }
 }
 
@@ -25,9 +25,9 @@ export const ImageInput = ({title, onChange}) =>{
     <div className="imageInput">
       <label>
         <p>{title}</p>
-        <input type="file" id="fileElem" accept="image/*" onChange={handleFiles}/>
-        <img src="http://localhost:5000/api/base/fonImage/base/base/day" id="sammerDayImg" className="inputImg"/>
+        <input type="file" name={name} id="fileElem" accept="image/*" onChange={handleFiles}/>
         <div id="fileList">
+          <img src={src} id="sammerDayImg" className="inputImg"/>
         </div>
       </label>
     </div>
