@@ -6,24 +6,7 @@ const imageRouter = require('./routers/imageRouter')
 const devicesRouter = require('./routers/devicesRouter')
 const userRouter = require('./routers/userRouter')
 const configRouter = require('./routers/configRouter')
-var multer = require ('multer')
-
-var storage = multer.diskStorage({
-        destination: './uploads',
-        filename: function (req, file, cb) {
-            switch (file.mimetype) {
-                case 'image/jpeg':
-                    ext = '.jpeg';
-                    break;
-                case 'image/png':
-                    ext = '.png';
-                    break;
-            }
-            cb(null, file.originalname + ext);
-        }
-    });
-
-var upload = multer({storage: storage});
+// const fon = require('./multerConfig/fon.js')
 
 const app = express();
 
@@ -31,7 +14,8 @@ const PORT = config.get('port') || 5000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(upload.single('photo'));
+// app.use(fon('fon-day'));
+
 app.use(bodyParser.json());
 app.use('/api/auth',routerAuth);
 app.use('/api/base',imageRouter);

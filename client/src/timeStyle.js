@@ -23,7 +23,7 @@ export default function setStyle () {
       background = "night";
     }
     document.body.classList.add('night')
-    document.body.style = `background: url(http://localhost:5000/api/base/fonImage/goodWeather/summer/${background});
+    document.body.style = `background: url(http://localhost:5000/api/base/fonImage/${background});
       background-size: cover;
       background-attachment: fixed;`;
   }

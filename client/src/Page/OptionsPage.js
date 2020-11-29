@@ -14,30 +14,40 @@ export const OptionsPage = () => {
 
   const [serverconf , setServerconf] = useState({
     auteStyle:false,
+    staticBackground:false
   });
 
+  useEffect(()=>{
+    message(error,"error")
+    return ()=>{
+      clearError();
+    }
+  },[error,message, clearError])
+
   const styleHandler = async(event)=>{
-    const data = await request(`/api/user/config/style/edit`, 'POST', {style:event.target.name},{Authorization: `Bearer ${auth.token}`})
+    await request(`/api/user/config/style/edit`, 'POST', {style:event.target.name},{Authorization: `Bearer ${auth.token}`})
   }
 
   const serverConfigHandler = async(event)=>{
-    const data = await request(`/api/server/config/edit`, 'POST', serverconf,{Authorization: `Bearer ${auth.token}`})
+    await request(`/api/server/config/edit`, 'POST', serverconf,{Authorization: `Bearer ${auth.token}`})
   }
 
   const checkedHandler = event => {
     setServerconf({ ...serverconf, [event.target.name]: event.target.checked })
   }
-  const fileHandler = async event =>{
 
-    const file = event.target.files[0]
-    var data = new FormData();
-    data.append('photo',file)
-    const data2 = await request(`/api/base/fonImage/set`, 'POST',
-    data
-    ,{
-      Authorization: `Bearer ${auth.token}`
-    },true)
-  }
+  const updataConf = useCallback(async()=>{
+    const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
+    console.log(data);
+    setServerconf({
+      auteStyle:data.server.auteStyle,
+      staticBackground:data.server.staticBackground
+    })
+  },[request,auth.token])
+
+  useEffect(()=>{
+    updataConf()
+  },[updataConf])
 
   useEffect(()=>console.log(serverconf),[serverconf])
 
@@ -64,7 +74,7 @@ export const OptionsPage = () => {
               <div className="configElement">
                 <p className="switchText">changing style when changing time of day</p>
                 <label className="switch">
-                  <input onChange={checkedHandler} name="auteStyle" type="checkbox" value={serverconf.auteStyle}></input>
+                  <input onChange={checkedHandler} name="auteStyle" type="checkbox" checked={serverconf.auteStyle}></input>
                   <span></span>
                   <i className="indicator"></i>
                 </label>
@@ -72,23 +82,22 @@ export const OptionsPage = () => {
               <div className="configElement">
                 <p className="switchText">static background</p>
                 <label className="switch">
-                  <input onChange={checkedHandler} name="staticBackground" type="checkbox" value={serverconf.staticBackground}></input>
+                  <input onChange={checkedHandler} name="staticBackground" type="checkbox" checked={serverconf.staticBackground}></input>
                   <span></span>
                   <i className="indicator"></i>
                 </label>
               </div>
-              {
-                (serverconf.staticBackground)?
-                <div className="configElement img">
-                  <h3>Background</h3>
-                  <ImageInput title="day" name = "base" onChange={fileHandler} src = "http://localhost:5000/api/base/fonImage/base/base/day"/>
-                </div>:
-                <div className="configElement img">
-                  <h3>Background</h3>
-                  <ImageInput title="day2" name="day" onChange={fileHandler} src = "http://localhost:5000/api/base/fonImage/base/base/day"/>
-                </div>
-              }
               <button onClick={serverConfigHandler}>Save</button>
+            </div>
+          </div>
+          <div className = {`page ${(location.pathname==="/config/image")?"active":""}`}>
+            <div className="configElement img">
+              <h3>Background</h3>
+              <ImageInput id="1" title="Base" name = "fon-base" src = "http://localhost:5000/api/base/fonImage/base"/>
+              <ImageInput id="2" title="Sunrise" name="fon-sunrise" src = "http://localhost:5000/api/base/fonImage/sunrise"/>
+              <ImageInput id="3" title="Day" name="fon-day" src = "http://localhost:5000/api/base/fonImage/day"/>
+              <ImageInput id="4" title="Twilight" name="fon-twilight" src = "http://localhost:5000/api/base/fonImage/twilight"/>
+              <ImageInput id="5" title="Night" name="fon-night" src = "http://localhost:5000/api/base/fonImage/night"/>
             </div>
           </div>
           <ul className = "page-nav">
@@ -100,6 +109,11 @@ export const OptionsPage = () => {
             <li className = {(location.pathname==="/config/server")?"active":""}>
               <NavLink to = "/config/server" >
                 <i className="fas fa-server"></i>
+              </NavLink>
+            </li>
+            <li className = {(location.pathname==="/config/server")?"active":""}>
+              <NavLink to = "/config/image" >
+                <i className="fas fa-image"></i>
               </NavLink>
             </li>
           </ul>
