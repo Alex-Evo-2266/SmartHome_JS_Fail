@@ -23,6 +23,29 @@ export const useBackground = () => {
     return "sunrise";
   }
 
+  const fonUpdata = useCallback((data)=>{
+  if(data.auteStyle){
+    if(backgroundType()==="night"){
+      document.body.classList.add('night')
+    }
+    else{
+      document.body.classList.add(data.style)
+    }
+  }
+  else{
+    document.body.classList.add(data.style)
+  }
+  if(data.staticBackground){
+    document.body.style = `background: url(http://localhost:5000/api/base/fonImage/base);
+      background-size: cover;
+      background-attachment: fixed;`;
+    return
+  }
+  document.body.style = `background: url(http://localhost:5000/api/base/fonImage/${backgroundType()});
+    background-size: cover;
+    background-attachment: fixed;`;
+},[])
+
   const updataBackground = useCallback(async(token)=>{
     if(!token){
       console.error("no Autorization");
@@ -38,7 +61,7 @@ export const useBackground = () => {
     setInterval(()=>{
       fonUpdata(config);
     }, 1000*60*30);
-  },[request])
+  },[request,fonUpdata])
 
   useEffect(()=>{
     if(error)
@@ -47,29 +70,6 @@ export const useBackground = () => {
       clearError();
     }
   },[error, clearError])
-
-  function fonUpdata(data) {
-    if(data.auteStyle){
-      if(backgroundType()==="night"){
-        document.body.classList.add('night')
-      }
-      else{
-        document.body.classList.add(data.style)
-      }
-    }
-    else{
-      document.body.classList.add(data.style)
-    }
-    if(data.staticBackground){
-      document.body.style = `background: url(http://localhost:5000/api/base/fonImage/base);
-        background-size: cover;
-        background-attachment: fixed;`;
-      return
-    }
-    document.body.style = `background: url(http://localhost:5000/api/base/fonImage/${backgroundType()});
-      background-size: cover;
-      background-attachment: fixed;`;
-  }
 
   return {updataBackground}
 }

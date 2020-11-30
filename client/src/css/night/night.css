@@ -11,6 +11,11 @@
   background: #333;
   color: white;
 }
+.night .navigation nav ul li a,
+.night .navigation nav ul li a .icon,
+.night .menuTogle .icon{
+  color: white;
+}
 .night .titlePage{
   color: black;
   background: #333;

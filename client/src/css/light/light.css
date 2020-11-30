@@ -2,3 +2,145 @@
   background: #E0FFFF;
   color: black;
 }
+.light .navigation nav ul li:hover > a,
+.light .navigation nav ul li a.active,
+.light .menuTogle:hover
+{
+  background: #1E90FF;
+  transition: 0.3s;
+}
+.light .topMenu,
+.light .navigation nav
+{
+  background:#76d7ff;
+  color: black;
+}
+.light .navigation nav ul li a,
+.light .navigation nav ul li a .icon,
+.light .menuTogle .icon{
+  color: black;
+}
+.light .titlePage{
+  color: black;
+  background: #76d7ff;
+  color: #000;
+  box-shadow: inset 0 0 10px #000;
+}
+.light .titlePage i{
+  color: #000;
+}
+.light .form {
+  background: #fffc;
+  color: #000;
+  /* background: url(../../img/formFon.jpg);
+  background-size: cover;
+  background-position: center; */
+  /* background-attachment: fixed; */
+}
+.light .form .formFooter{
+  background: #1E90FFc0
+}
+.light .form .FormControlBtn{
+  background: #1E90FF00;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
+.light .titleButtonAdd{
+  background: #76d7ff;
+}
+.light .titleButtonAdd:hover{
+  box-shadow: inset 0 0 5px #000;
+}
+.light .form .FormControlBtn:hover{
+  box-shadow: inset 0 0 5px #000;
+}
+.light .FormControlBtn.right{
+
+}
+.light .FormControlBtn.left{
+
+}
+.light .choiceElem{
+  background: #888;
+  color: white;
+}
+.light .choiceElem.square{
+  border: 2px solid #000;
+}
+.light .formFooter button[disabled]:hover{
+  background: red;
+}
+.light .CardConteiner .CardElement{
+  background: #fffa;
+}
+.light .pages .page{
+  background: #fffc;
+  border: 2px solid #1E90FF;
+  color: #000;
+}
+.light .pages .page-nav li a{
+  color: #000;
+}
+.light .pages .page-nav li a.active,
+.light .pages .page-nav li a:hover
+{
+  background: #1E90FF;
+  color: #fff;
+}
+.light .pagecontent p{
+  border: 1px solid #333;
+  background: #76d7ff;
+}
+.light .pagecontent label.textLabel{
+  border: 1px solid #76d7ff;
+  background: #fffc;
+  color: #fff;
+  padding-bottom: 8px;
+}
+.light .pagecontent label p{
+  border: none;
+  background: #0000;
+}
+.light .pagecontent label input{
+  border: 1px solid #76d7ff;
+  color: #fff;
+}
+/* .night .pagecontent p:hover{
+  box-shadow: inset 0 0 5px #1E90FF;
+} */
+.light .pagecontent label p:hover{
+  box-shadow: none;
+}
+.light .pagecontent a,
+.light .pagecontent button{
+  color: #000;
+  background: #76d7ff;
+  box-shadow: inset 0 0 10px #000;
+}
+.light .pagecontent a:hover,
+.light .pagecontent button:hover{
+  background: #1E90FF;
+  color: #000;
+}
+.light .configElement{
+  border: 2px solid #76d7ff;
+  box-shadow: inset 0 0 10px #000;
+}
+.light .switch span{
+  background: #76d7ff;
+}
+.light .switch .indicator{
+  background: linear-gradient(to bottom, #444, #222);
+}
+.light .pagecontent .configElement p{
+  background: #0000;
+  border: none;
+}
+@media (max-width: 700px){
+  .light .titleTop{
+    background: #0000;
+    box-shadow: none;
+    color: #fff;
+  }
+}

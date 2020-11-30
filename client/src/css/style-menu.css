@@ -47,7 +47,6 @@
   display: flex;
   list-style: none;
   text-decoration: none;
-  color: #fff;
 }
 .navigation nav ul li a span{
   padding: 0;

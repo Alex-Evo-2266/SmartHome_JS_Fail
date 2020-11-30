@@ -110,7 +110,7 @@ export const OptionsPage = () => {
                 <i className="fas fa-server"></i>
               </NavLink>
             </li>
-            <li className = {(location.pathname==="/config/server")?"active":""}>
+            <li className = {(location.pathname==="/config/image")?"active":""}>
               <NavLink to = "/config/image" >
                 <i className="fas fa-image"></i>
               </NavLink>
