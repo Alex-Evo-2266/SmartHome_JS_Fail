@@ -26,10 +26,12 @@ export const OptionsPage = () => {
 
   const styleHandler = async(event)=>{
     await request(`/api/user/config/style/edit`, 'POST', {style:event.target.name},{Authorization: `Bearer ${auth.token}`})
+    window.location.reload();
   }
 
   const serverConfigHandler = async(event)=>{
     await request(`/api/server/config/edit`, 'POST', serverconf,{Authorization: `Bearer ${auth.token}`})
+    window.location.reload();
   }
 
   const checkedHandler = event => {
@@ -38,7 +40,6 @@ export const OptionsPage = () => {
 
   const updataConf = useCallback(async()=>{
     const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
-    console.log(data);
     setServerconf({
       auteStyle:data.server.auteStyle,
       staticBackground:data.server.staticBackground
@@ -48,8 +49,6 @@ export const OptionsPage = () => {
   useEffect(()=>{
     updataConf()
   },[updataConf])
-
-  useEffect(()=>console.log(serverconf),[serverconf])
 
 
   return(

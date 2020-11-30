@@ -30,6 +30,8 @@ export const ImageInput = ({title, src, name, onChange=null, id}) =>{
     if(onChange){
       onChange(event)
     }
+
+    window.location.reload();
   }
 
   useEffect(()=>{

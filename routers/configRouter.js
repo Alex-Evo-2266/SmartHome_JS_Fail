@@ -14,7 +14,7 @@ router.get('/config',auth,async (req, res)=>{
     const content = require('../serverConfig/config.json');
     console.log(content);
     res.status(201).json({
-      user:await user.lookForUserById(req.user.userId),
+      user:await user.lookForConfigUserById(req.user.userId),
       server:content
     })
     await user.desconnect();

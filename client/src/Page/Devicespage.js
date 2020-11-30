@@ -24,7 +24,6 @@ export const DevicesPage = () => {
 
   const updataDevice = useCallback(async()=>{
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
-    console.log(data);
     setDevices(data);
   },[request,auth.token])
 

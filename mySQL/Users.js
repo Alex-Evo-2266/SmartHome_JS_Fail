@@ -70,6 +70,16 @@ module.exports.lookForUserById = async(id)=>{
   }
 }
 
+module.exports.lookForConfigUserById = async(id)=>{
+  try {
+    const result = await conection.execute(`SELECT \`Style\` FROM \`smarthome_user\` WHERE \`UserId\` = '${id}'`);
+    return result[0][0];
+  } catch (e) {
+    console.log("Error",e);
+    return;
+  }
+}
+
 module.exports.addUser = async function(data){
   try {
     if(!data.name||!data.password) return;
