@@ -14,7 +14,8 @@ export const OptionsPage = () => {
 
   const [serverconf , setServerconf] = useState({
     auteStyle:false,
-    staticBackground:false
+    staticBackground:false,
+    mqttBroker:''
   });
 
   useEffect(()=>{
@@ -37,12 +38,16 @@ export const OptionsPage = () => {
   const checkedHandler = event => {
     setServerconf({ ...serverconf, [event.target.name]: event.target.checked })
   }
+  const changeHandler = event => {
+    setServerconf({ ...serverconf, [event.target.name]: event.target.value })
+  }
 
   const updataConf = useCallback(async()=>{
     const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
     setServerconf({
       auteStyle:data.server.auteStyle,
-      staticBackground:data.server.staticBackground
+      staticBackground:data.server.staticBackground,
+      mqttBroker:data.server.mqttBroker||""
     })
   },[request,auth.token])
 
@@ -82,6 +87,14 @@ export const OptionsPage = () => {
                 <p className="switchText">static background</p>
                 <label className="switch">
                   <input onChange={checkedHandler} name="staticBackground" type="checkbox" checked={serverconf.staticBackground}></input>
+                  <span></span>
+                  <i className="indicator"></i>
+                </label>
+              </div>
+              <div className="configElement">
+                <p className="text">Mqtt broker</p>
+                <label className="text">
+                  <input placeholder="IP Mqtt broker" onChange={changeHandler} name="mqttBroker" type="text" value={serverconf.mqttBroker}></input>
                   <span></span>
                   <i className="indicator"></i>
                 </label>

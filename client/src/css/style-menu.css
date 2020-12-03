@@ -109,8 +109,11 @@
 .navigation nav ul li ul li{
   display: block;
 }
-.navigation nav ul li ul li:hover{
-
+.navigation nav.hide{
+  width: 0;
+}
+.navigation nav.hide:hover{
+  width: 0;
 }
 @media (max-width: 700px) {
   .topMenu{

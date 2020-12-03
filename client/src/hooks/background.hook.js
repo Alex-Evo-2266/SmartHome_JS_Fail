@@ -52,10 +52,18 @@ export const useBackground = () => {
       return ;
     }
     const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${token}`})
-    const config = {
-      style:data.user.Style,
-      auteStyle:data.server.auteStyle,
-      staticBackground: data.server.staticBackground
+    console.log(data);
+    let config = {
+      style:"light",
+      auteStyle:false,
+      staticBackground:false
+    }
+    if(data){
+      config = {
+        style:data.user.Style||"light",
+        auteStyle:data.server.auteStyle||false,
+        staticBackground: data.server.staticBackground||false
+      }
     }
     fonUpdata(config);
     setInterval(()=>{

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {NavLink,Link} from 'react-router-dom'
+import {NavLink,Link,useLocation} from 'react-router-dom'
 import {MenuContext} from './menuContext'
 import {AuthContext} from '../../context/AuthContext.js'
 import {AlertContext} from '../alert/alertContext.js'
@@ -8,6 +8,7 @@ export const Menu = ()=>{
   const menu = useContext(MenuContext)
   const auth = useContext(AuthContext)
   const {hide} = useContext(AlertContext)
+  const location = useLocation();
 
   return(
     <>
@@ -17,7 +18,7 @@ export const Menu = ()=>{
       </div>
     </div>
     <div className="navigation">
-      <nav className={(menu.menu.visible)?"active":""} onClick = {hide}>
+      <nav className={(menu.menu.visible)?"active":(location.pathname==="/home")?"hide":""} onClick = {hide}>
         <ul onClick = {()=>(menu.menu.visible)?menu.togle():null}>
           <li>
             <NavLink to = "/home" exact>
