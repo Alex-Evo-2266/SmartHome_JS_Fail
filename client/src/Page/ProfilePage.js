@@ -75,9 +75,9 @@ export const ProfilePage = () => {
               <p>User Email: {user.Email||"NuN"}</p>
               <p>User Mobile: {user.Mobile||"NuN"}</p>
               <p>User Level: {(user.Level===3)?"Admin":(user.Level===2)?"Mid":"Low"}</p>
+              <hr/>
               <NavLink to = "/config">Client settings</NavLink>
               <NavLink to = "/profile/edit">Edit profile</NavLink>
-              <button onClick={()=>console.log("clic2")}>Client settings</button>
             </div>
           </div>
           <div className = {`page ${(location.pathname==="/profile/edit")?"active":""}`}>

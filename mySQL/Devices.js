@@ -30,6 +30,11 @@ const idEmpty = (elements)=>{
 const devices = async()=>{
   try {
     const result = await conection.execute(`SELECT * FROM smarthome_devices`)
+    if(result&&result[0]){
+      for (var item of result[0]) {
+        item.DeviceConfig = JSON.parse(item.DeviceConfig)
+      }
+    }
     return result[0];
 
   } catch (e) {
@@ -45,10 +50,10 @@ module.exports.addDevice = async function(data){
       data.id = idEmpty(await devices());
     }
     if(!data.name) return;
-    if(!data.IP)data.IP = "";
+    if(!data.config)data.config = {};
     await conection.execute(
-      "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`, `DeviceIP`, `DeviceTopic`, `DeviceTypeConnect`, `DeviceType`) VALUES (?,?,?,?,?,?)",
-      [data.id, data.name,data.IP, data.tokenOrTopic, data.typeConnect, data.typeDevice]
+      "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`, `DeviceTypeConnect`, `DeviceType`, `DeviceConfig`) VALUES (?,?,?,?,?)",
+      [data.id, data.name, data.typeConnect, data.typeDevice, data.config]
     )
 
     return true;

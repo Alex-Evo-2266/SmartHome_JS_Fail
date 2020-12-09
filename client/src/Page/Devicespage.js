@@ -1,5 +1,4 @@
 import React, {useContext,useEffect,useState,useCallback} from 'react'
-import {Title} from '../components/title/titlePage.js'
 import {FormContext} from '../components/Form/formContext'
 import {Loader} from '../components/Loader'
 import {useHttp} from '../hooks/http.hook'
@@ -24,6 +23,7 @@ export const DevicesPage = () => {
 
   const updataDevice = useCallback(async()=>{
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
+    console.log(data);
     setDevices(data);
   },[request,auth.token])
 
@@ -34,16 +34,18 @@ export const DevicesPage = () => {
   return(
     <>
       <div className = "conteiner">
-        <Title>
+        <header>
           <h1>All Delices</h1>
           <button className="titleButtonAdd"><i onClick={()=>{form.show("AddDevices",updataDevice)}} className="fas fa-plus"></i></button>
-        </Title>
+          <input type="search" name="search" id="searchDevices"/>
+          <button className="searchBtn">Search</button>
+        </header>
         <div className = "Devices">
           {
             (loading)?
             <Loader/>:
             (!devices||devices.length === 0)?
-            <h2>Not elements</h2>:
+            <h2 className="empty">Not elements</h2>:
             <div className = "CardConteiner">
               {
                 devices.map((item,index)=>{

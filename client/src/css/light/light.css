@@ -104,7 +104,7 @@
 }
 .light .pagecontent label input{
   border: 1px solid #76d7ff;
-  color: #fff;
+  color: #000;
 }
 /* .night .pagecontent p:hover{
   box-shadow: inset 0 0 5px #1E90FF;
@@ -126,6 +126,7 @@
 .light .configElement{
   border: 2px solid #76d7ff;
   box-shadow: inset 0 0 10px #000;
+  color: #000;
 }
 .light .switch span{
   background: #76d7ff;

@@ -16,6 +16,9 @@
 .night .menuTogle .icon{
   color: white;
 }
+.night hr{
+  border: 1px inset #333;
+}
 .night .titlePage{
   color: black;
   background: #333;
@@ -25,7 +28,7 @@
 .night .titlePage i{
   color: #333;
 }
-.night .form {
+.night .form .pageForm{
   background: #555;
   color: #fff;
   /* background: url(../../img/formFon.jpg);
@@ -72,7 +75,9 @@
 .night .choiceElem.square{
   border: 2px solid #000;
 }
-.night .formFooter button[disabled]:hover{
+.night .formFooter button[disabled]:hover,
+.night .formFooter button.disabled:hover
+{
   background: red;
 }
 .night .CardConteiner .CardElement{

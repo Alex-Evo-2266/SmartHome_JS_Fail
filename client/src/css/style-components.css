@@ -8,5 +8,6 @@
 @import "./style-config.css";
 @import "./style-ImageInput.css";
 @import "./styleLoader.css";
+@import "./hidingLi.css";
 @import "./light/light.css";
 @import "./night/night.css";

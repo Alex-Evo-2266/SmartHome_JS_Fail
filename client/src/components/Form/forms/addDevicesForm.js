@@ -2,6 +2,7 @@ import React, {useState,useEffect,useCallback, useContext} from 'react'
 import {useHttp} from '../../../hooks/http.hook'
 import {useMessage} from '../../../hooks/message.hook'
 import {AuthContext} from '../../../context/AuthContext.js'
+import {LightMqttConf} from './formPages/LightMqttConf.js'
 
 export const AddDevicesForm = (props)=>{
   const [showPage, setShowPage] = useState(0);
@@ -10,9 +11,9 @@ export const AddDevicesForm = (props)=>{
     typeConnect: '',
     typeDevice: '',
     name: '',
-    tokenOrTopic:'',
-    IP: ''
+    config:{},
   });
+
   const {message, clearMessage} = useMessage();
   const {loading, request, error, clearError} = useHttp();
   const auth = useContext(AuthContext)
@@ -50,20 +51,15 @@ export const AddDevicesForm = (props)=>{
     }
   },[error,message, clearError])
 
-  const changeHandlerImageBtn = event => {
-    if(event.target.className.split(' ')[0]!=="choiceElem"&&event.target.className!=="textInput"){
-      setForm({ ...form, [event.target.offsetParent.name]: event.target.offsetParent.value })
-      return
-    }
-    setForm({ ...form, [event.target.name]: event.target.value })
-  }
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
+
   const outHandler = async () => {
     try {
       clearMessage();
+      console.log(form);
       const data = await request('/api/devices/add', 'POST', {...form},{Authorization: `Bearer ${auth.token}`})
       console.log(data);
       setResult(data.message);
@@ -71,6 +67,32 @@ export const AddDevicesForm = (props)=>{
     } catch (e) {
 
     }
+  }
+  const confSave = (conf)=>{
+    setForm({...form, config:conf})
+    next()
+  }
+
+  const obj = ()=>{
+    let str = []
+    let i  = 0;
+    for(let key in form){
+      if(key==="config"){
+        for(let key2 in form[key]){
+          if(form[key][key2]===0){
+            str[i] = `${key2}: ${form[key][key2]}`;
+          }
+          else {
+            str[i] = `${key2}: ${form[key][key2]||"\"\""}`;
+          }
+          i++;
+        }
+        continue;
+      }
+      str[i] = `${key}: ${form[key]}`;
+      i++;
+    }
+    return str;
   }
 
   return (
@@ -87,19 +109,56 @@ export const AddDevicesForm = (props)=>{
             <button onClick={next} className ="FormControlBtn right">Start <i className="fas fa-arrow-right"></i></button>
           </div>
         </div>
+        <div className = "choiceDeviceType pageForm hide">
+          <div className = "formContent">
+            <h2>Select device type</h2>
+            <ul className="devicesList">
+              <li id="typeLight" className={(form.typeDevice==="light")?"active":""}>
+                <label>
+                  <div className="img"></div>
+                  <p>Light</p>
+                  <input type="button" name="typeDevice" value="light" onClick={changeHandler} />
+                  <span className="indecator"/>
+                </label>
+              </li>
+              <li id="typeSwitch" className={(form.typeDevice==="switch")?"active":""}>
+                <label>
+                  <div className="img"></div>
+                  <p>Switch</p>
+                  <input type="button" name="typeDevice" value="switch" onClick={changeHandler} />
+                  <span className="indecator"/>
+                </label>
+              </li>
+              <li id="typeSensor" className={(form.typeDevice==="sensor")?"active":""}>
+                <label>
+                  <div className="img"></div>
+                  <p>Sensor</p>
+                  <input type="button" name="typeDevice" value="sensor" onClick={changeHandler} />
+                  <span className="indecator"/>
+                </label>
+              </li>
+              <li id="typeBinarySensor" className={(form.typeDevice==="binarySensor")?"active":""}>
+                <label>
+                  <div className="img"></div>
+                  <p>BinarySensor</p>
+                  <input type="button" name="typeDevice" value="binarySensor" onClick={changeHandler} />
+                  <span className="indecator"/>
+                </label>
+              </li>
+            </ul>
+          </div>
+            <div className="formFooter">
+              <button onClick={next} className ='FormControlBtn right' disabled = {!form.typeDevice}>Next <i className="fas fa-arrow-right"></i></button>
+              <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
+            </div>
+          </div>
         <div className = "pageForm hide">
           <div className = "formContent">
             <h2>Select communication protocol</h2>
             <div className = "choice flex">
-              <button content = "miio" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="miio")?"active":""}`} value = "miio" onClick = {changeHandler}>
-                Miio
-              </button>
-              <button content = "mqtt" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="mqtt")?"active":""}`} value = "mqtt" onClick = {changeHandler}>
-                Mqtt
-              </button>
-              <button content = "other" name="typeConnect" className={`choiceElem circle ${(form&&form.typeConnect!=="miio"&&form.typeConnect!=="mqtt"&&form.typeConnect!=="")?"active":""}`} value = " " onClick = {changeHandler}>
-                <h4>Other</h4>
-              </button>
+              <input type="button" content = "miio" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="miio")?"active":""}`} value = "Miio" onClick = {()=>setForm({ ...form, typeConnect: "miio" })}/>
+              <input type="button" content = "mqtt" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="mqtt")?"active":""}`} value = "Mqtt" onClick = {()=>setForm({ ...form, typeConnect: "mqtt" })}/>
+              <input type="button" content = "other" name="typeConnect" className={`choiceElem circle ${(form&&form.typeConnect!=="miio"&&form.typeConnect!=="mqtt"&&form.typeConnect!=="")?"active":""}`} value = "Other" onClick = {()=>setForm({ ...form, typeConnect: "other" })}/>
             </div>
           </div>
           <div className="formFooter">
@@ -107,40 +166,9 @@ export const AddDevicesForm = (props)=>{
             <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
           </div>
         </div>
-        {
-          (form.typeConnect !== "mqtt")?
-          <div className = "pageForm hide">
-            <div className = "formContent">
-              <h2>Select device type</h2>
-              <div className = "choice flex">
-                <button name = "typeDevice" className ={`choiceElem square ${(form&&form.typeDevice&&form.typeDevice==="lamp")?"active":""}`} value = "lamp" onClick = {changeHandlerImageBtn}>
-                  <i className="far fa-lightbulb"></i>
-                </button>
-                <button name = "typeDevice" className ={`choiceElem square ${(form&&form.typeDevice&&form.typeDevice==="switch")?"active":""}`} value = "switch" onClick = {changeHandlerImageBtn}>
-                  <i className="fas fa-toggle-on"></i>
-                </button>
-                <button name = "typeDevice" className ={`choiceElem square ${(form&&form.typeDevice&&form.typeDevice==="switch")?"active":""}`} value = "switch" onClick = {changeHandlerImageBtn}>
-                  <i className="fas fa-toggle-on"></i>
-                </button>
-                <button name="typeDevice" className={`choiceElem square ${(form&&form.typeDevice&&form.typeDevice!=="lamp"&&form.typeConnect!=="switch")?"active":""}`} value = " " onClick = {changeHandlerImageBtn}>
-                  <h4>Other</h4>
-                </button>
-              </div>
-            </div>
-            <div className="formFooter">
-              <button onClick={next} className ='FormControlBtn right' disabled = {!form.typeDevice}>Next <i className="fas fa-arrow-right"></i></button>
-              <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
-            </div>
-          </div>:
-          null
-        }
         <div className = "pageForm hide">
           <div className = "formContent">
-            {
-              (form.typeConnect === "mqtt")?
-              <h2>Enter connection name</h2>:
               <h2>Enter the device name</h2>
-            }
             <input className = "textInput" placeholder="name" id="name" type="text" name="name" value={form.name} onChange={changeHandler} required/>
           </div>
           <div className="formFooter">
@@ -148,18 +176,31 @@ export const AddDevicesForm = (props)=>{
             <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
           </div>
         </div>
+        {
+          (form.typeConnect === "mqtt")?
+          (form.typeDevice === "light")?
+          <LightMqttConf next={confSave} back={back}/>
+          :
+          <div className = "pageForm hide">
+
+          </div>
+          :
+          <div className = "pageForm hide">
+
+          </div>
+
+        }
         <div className = "pageForm hide">
-          <div className = "formContent">
-          {
-            (form.typeConnect === "mqtt")?
-            <h2>Enter topic</h2>:
-            <h2>Enter token</h2>
-          }
-          <input className = "textInput" placeholder={(form.typeConnect === "mqtt")?"Enter topic":"Enter token"} id="token" type="text" name="tokenOrTopic" value={form.tokenOrTopic} onChange={changeHandler} required/>
+          <div className = "formContent check">
+            <h2>Check</h2>
+            {
+              obj().map((str, index)=><p className="pading0" key = {index}>{str}</p>)
+            }
+
           </div>
           <div className="formFooter">
-            <button onClick={outHandler} className ='FormControlBtn right' disabled = {!form.tokenOrTopic}>Create</button>
-            <button onClick={back} className ="FormControlBtn left"> <i className="fas fa-arrow-left"></i> Previous</button>
+            <button onClick={outHandler} className ='FormControlBtn right'>Send <i className="fas fa-arrow-right"></i></button>
+            <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
           </div>
         </div>
         <div className = "pageForm hide">

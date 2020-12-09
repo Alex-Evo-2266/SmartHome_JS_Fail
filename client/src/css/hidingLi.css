@@ -1,0 +1,47 @@
+li.hidingLi{
+  width: calc(100% - 20px);
+  transform: none;
+  background: #333;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  overflow: hidden;
+  position: relative;
+  transition: 0.5s;
+  margin-top: 6px;
+  border-radius: 4px;
+}
+li.hidingLi h3{
+  font-size: 24px;
+  padding: 5px;
+}
+li.hidingLi.hide{
+  height: 40px;
+  transition: 0.5s;
+
+}
+li.hidingLi.show{
+  height: auto;
+  transition: 0.5s;
+
+}
+.LiContent{
+  margin-top: 40px;
+}
+li.hidingLi .LiTitle{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+li.hidingLi .fas{
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 20px;
+  padding: 10px;
+  transition: 0.5s;
+
+}
+li.hidingLi.show .fas{
+  transform: rotate(-180deg);
+}

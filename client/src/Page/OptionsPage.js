@@ -44,6 +44,7 @@ export const OptionsPage = () => {
 
   const updataConf = useCallback(async()=>{
     const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
+    if(!data)return;
     setServerconf({
       auteStyle:data.server.auteStyle,
       staticBackground:data.server.staticBackground,
