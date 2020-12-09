@@ -3,6 +3,9 @@ import {useHttp} from '../../../hooks/http.hook'
 import {useMessage} from '../../../hooks/message.hook'
 import {AuthContext} from '../../../context/AuthContext.js'
 import {LightMqttConf} from './formPages/LightMqttConf.js'
+import {SwitchMqttConf} from './formPages/SwitchMqttConf.js'
+import {SensorMqttConf} from './formPages/SensorMqttConf.js'
+import {BinarySensorMqttConf} from './formPages/BinarySensorMqttConf.js'
 
 export const AddDevicesForm = (props)=>{
   const [showPage, setShowPage] = useState(0);
@@ -180,6 +183,15 @@ export const AddDevicesForm = (props)=>{
           (form.typeConnect === "mqtt")?
           (form.typeDevice === "light")?
           <LightMqttConf next={confSave} back={back}/>
+          :
+          (form.typeDevice === "switch")?
+          <SwitchMqttConf next={confSave} back={back}/>
+          :
+          (form.typeDevice === "sensor")?
+          <SensorMqttConf next={confSave} back={back}/>
+          :
+          (form.typeDevice === "binarySensor")?
+          <BinarySensorMqttConf next={confSave} back={back}/>
           :
           <div className = "pageForm hide">
 

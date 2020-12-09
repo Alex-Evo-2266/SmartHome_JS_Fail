@@ -139,6 +139,17 @@
   background: #0000;
   border: none;
 }
+.night header{
+  background: #333;
+  color: #fff;
+}
+.night .searchBtn{
+  background: #555;
+  color: #fff;
+}
+.night li.hidingLi{
+  background: #333;
+}
 .configElement button[name="night"]{
   background: url("../../img/nightstyle.png");
   background-size: cover;

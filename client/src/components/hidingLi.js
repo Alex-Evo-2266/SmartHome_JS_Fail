@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
-export const HidingLi = ({children, title})=>{
-  const [visible, setVisible] = useState(false)
+export const HidingLi = ({children, title, show=false})=>{
+  const [visible, setVisible] = useState(show)
 
   const togle = (event)=>{
     if(event.target.className.split(" ")[0]!=="hidingLi"&&event.target.parentNode.className.split(" ")[0]!=="hidingLi") return;

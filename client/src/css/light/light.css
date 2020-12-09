@@ -15,6 +15,17 @@
   background:#76d7ff;
   color: black;
 }
+.light header{
+  background: #eee;
+  color: #000;
+}
+.light .searchBtn{
+  background: #76d7ff;
+  color: #000;
+}
+.light li.hidingLi{
+  background: #76d7ff;
+}
 .light .navigation nav ul li a,
 .light .navigation nav ul li a .icon,
 .light .menuTogle .icon{
