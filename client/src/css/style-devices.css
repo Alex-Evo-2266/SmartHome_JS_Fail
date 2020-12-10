@@ -73,6 +73,10 @@ header h1{
   clip-path: circle(180px at center 0);
   text-align: center;
   z-index: 1;
+  overflow-y: scroll;
+}
+.CardConteiner .CardElement .CardHeader::-webkit-scrollbar{
+  width: 0;
 }
 .CardConteiner .CardElement .CardHeader .typeConnect{
   background: #888;
@@ -93,7 +97,7 @@ header h1{
 }
 .CardConteiner .CardElement .CardHeader h3{
   color: #fff;
-  font-size: 3.5em;
+  font-size: 2em;
   padding: 30px 0;
 }
 .CardConteiner .CardElement .CardBody{

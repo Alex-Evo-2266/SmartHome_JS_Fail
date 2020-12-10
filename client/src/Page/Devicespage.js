@@ -12,7 +12,8 @@ export const DevicesPage = () => {
   const {message} = useMessage();
   const {loading, request, error, clearError} = useHttp();
   const [devices, setDevices] = useState([]);
-
+  const [allDevices, setAllDevices] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(()=>{
     message(error,"error")
@@ -24,11 +25,25 @@ export const DevicesPage = () => {
   const updataDevice = useCallback(async()=>{
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
     setDevices(data);
+    setAllDevices(data);
   },[request,auth.token])
 
   useEffect(()=>{
     updataDevice()
   },[updataDevice])
+
+  const searchout = ()=>{
+    if(search===""){
+      setDevices(allDevices)
+      return
+    }
+    let array = allDevices.filter(item => item.DeviceName.indexOf(search)!==-1)
+    setDevices(array)
+  }
+
+  const searchHandler = event => {
+    setSearch(event.target.value)
+  }
 
   return(
     <>
@@ -36,8 +51,8 @@ export const DevicesPage = () => {
         <header>
           <h1>All Delices</h1>
           <button className="titleButtonAdd"><i onClick={()=>{form.show("AddDevices",updataDevice)}} className="fas fa-plus"></i></button>
-          <input type="search" name="search" id="searchDevices"/>
-          <button className="searchBtn">Search</button>
+          <input type="search" name="search" id="searchDevices" onChange={searchHandler} value={search}/>
+          <button onClick={searchout} className="searchBtn">Search</button>
         </header>
         <div className = "Devices">
           {
@@ -54,7 +69,7 @@ export const DevicesPage = () => {
                       DeviceId = {item.DeviceId}
                       DeviceName = {item.DeviceName}
                       DeviceType = {item.DeviceType}
-                      PoverTopic = {item.DeviceConfig.pover||""}
+                      PoverTopic = {item.DeviceConfig.pover||item.DeviceConfig.status||""}
                       DeviceTypeConnect = {item.DeviceTypeConnect}
                       DeviceInformation={item.DeviceInformation}
                       updataDevice={updataDevice}

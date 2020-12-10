@@ -16,8 +16,10 @@ export const DeviceElement = (props) =>{
       <div className = "CardBody">
         <p>{`Type device - ${props.DeviceType||""}`}</p>
         {
-          (props.DeviceTypeConnect==="mqtt")?
+          (props.DeviceTypeConnect==="mqtt"&&(props.DeviceType==="light"||props.DeviceType==="switch"))?
           <p>{`Pover topic - ${props.PoverTopic||""}`}</p>:
+          (props.DeviceTypeConnect==="mqtt"&&(props.DeviceType==="sensor"||props.DeviceType==="binarySensor"))?
+          <p>{`Status topic - ${props.PoverTopic||""}`}</p>:
           null
         }
         <p>{`Information - ${props.DeviceInformation||""}`}</p>
