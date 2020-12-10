@@ -11,11 +11,11 @@ export const useMessage = (type = 'error') => {
         setMessage(text)
         show(text, type)
       }
-      setTimeout(function () {
-        setMessage('')
-        hide()
-      }, 30000);
-    },[show,hide])
+      // setTimeout(function () {
+      //   setMessage('')
+      //   hide()
+      // }, 30000);
+    },[show])
 
   const clearMessage = () => {
     setMessage('')

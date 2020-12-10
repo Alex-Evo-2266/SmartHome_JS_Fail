@@ -75,6 +75,10 @@ router.post('/add',
  router.post('/edit',auth,async (req, res)=>{
    try {
      await devices.connect();
+     const condidate = await devices.lookForDeviceByName(req.body.DeviceName)
+     if(condidate.length !== 0){
+       throw new Error("device with the same name already exists.")
+     }
      res.status(201).json(await devices.updataDevice({
        id:req.body.DeviceId,
        name:req.body.DeviceName,
