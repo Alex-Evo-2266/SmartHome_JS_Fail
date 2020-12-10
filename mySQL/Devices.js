@@ -44,6 +44,22 @@ const devices = async()=>{
 }
 module.exports.Devices = devices;
 
+const device = async(id)=>{
+  try {
+    const result = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceId = ${id}`)
+    if(result&&result[0][0]){
+      result[0][0].DeviceConfig = JSON.parse(result[0][0].DeviceConfig)
+    }
+    return result[0][0];
+
+  } catch (e) {
+    console.log("Error",e);
+    return;
+  }
+}
+
+module.exports.Device = device;
+
 module.exports.addDevice = async function(data){
   try {
     if(!data.id){
@@ -68,6 +84,44 @@ module.exports.lookForDeviceByName = async function (name) {
     const result = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceName = '${name}'`)
     return result[0];
   } catch (e) {
+    console.log("Error",e);
+    return
+  }
+}
+
+module.exports.updataDevice = async function(data){
+  try {
+    if(!data.id){
+      return;
+    }
+    if(!data.name) return;
+    if(!data.config)data.config = {};
+    await conection.execute(
+      "UPDATE `smarthome_devices` SET `DeviceName`=?,`DeviceInformation`=?,`RoomId`=?,`DeviceTypeConnect`=?,`DeviceType`=?,`DeviceConfig`=? WHERE `DeviceId`=?" ,
+      [data.name,data.info,data.idRoom, data.typeConnect, data.typeDevice, data.config,data.id]
+    )
+
+    return true;
+  }
+  catch (e) {
+    console.log("Error",e);
+    return
+  }
+}
+module.exports.deleteDevice = async function(id){
+  try {
+    console.log(id);
+    if(!id){
+      return;
+    }
+    await conection.execute(
+      "DELETE FROM `smarthome_devices` WHERE `DeviceId`= ?" ,
+      [id]
+    )
+
+    return true;
+  }
+  catch (e) {
     console.log("Error",e);
     return
   }

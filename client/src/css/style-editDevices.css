@@ -1,0 +1,35 @@
+.editDevicesForm{
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.controlForm{
+  height: 50px;
+  display: flex;
+}
+.formEditBtn{
+  position: relative;
+  width: 100%;
+  padding: 5px;
+  margin: 10px;
+  border: none;
+  transform: translate(-1px, -1px);
+  transition: 0.5s;
+  box-shadow: 1px 1px 5px #000;
+}
+.formEditBtn.Delete{
+  width: 20%;
+  background: #a00;
+  color: #fff;
+}
+.formEditBtn:hover{
+  background: #1E90FF
+}
+.formEditBtn.Delete:hover{
+  background: red;
+}
+.formEditBtn:active{
+  transform:none;
+  box-shadow: none;
+}

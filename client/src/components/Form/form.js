@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import {FormContext} from './formContext'
 import {AddDevicesForm} from './forms/addDevicesForm'
+import {EditDevicesForm} from './forms/editDevicesForm'
 
 export const Form = ()=>{
   const {form, hide} = useContext(FormContext)
@@ -23,6 +24,13 @@ export const Form = ()=>{
     return (
       <div className = "backForm" onClick = {click}>
         <AddDevicesForm hide = {hideAndApdata}/>
+      </div>
+    )
+  }
+  if(form.type === "EditDevices"){
+    return (
+      <div className = "backForm" onClick = {click}>
+        <EditDevicesForm hide = {hideAndApdata} id = {form.id}/>
       </div>
     )
   }

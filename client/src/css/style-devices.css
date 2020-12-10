@@ -72,6 +72,7 @@ header h1{
   background: #000;
   clip-path: circle(180px at center 0);
   text-align: center;
+  z-index: 1;
 }
 .CardConteiner .CardElement .CardHeader .typeConnect{
   background: #888;
@@ -97,12 +98,41 @@ header h1{
 }
 .CardConteiner .CardElement .CardBody{
   position: absolute;
-  bottom: 10px;
+  top: 170px;
+  width: calc(100% - 20px);
+  height: calc(100% - 192px);
   page-break-after: 20px;
   text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid #333;
 }
 .CardConteiner .CardElement .CardBody p{
-  color: #666;
+  color: #fff;
+  font-size: 20px;
+}
+.CardConteiner .CardElement .CardBody .CardControl{
+  position: absolute;
+  bottom: 10px;
+  left: auto;
+  width: calc(100% - 20px);
+}
+.CardConteiner .CardElement .CardBody .CardControl button{
+  padding: 5px;
+  width: calc(100% - 5px);
+  border-radius: 5px;
+  background: #333;
+  border: none;
+  color: #fff;
+  transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 5px #000;
+  transition: 0.25s;
+}
+.CardConteiner .CardElement .CardBody .CardControl button:hover{
+  background: #1E90FF;
+}
+.CardConteiner .CardElement .CardBody .CardControl button:active{
+  transform: none;
+  box-shadow: none;
 }
 .CardConteiner .CardElement:nth-child(4n+1) .CardHeader{
   background: #ffaf00;

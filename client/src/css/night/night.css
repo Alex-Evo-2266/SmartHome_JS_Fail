@@ -19,6 +19,9 @@
 .night hr{
   border: 1px inset #333;
 }
+.night .editDevicesForm{
+  background: #555;
+}
 .night .titlePage{
   color: black;
   background: #333;

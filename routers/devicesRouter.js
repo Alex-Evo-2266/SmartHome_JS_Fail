@@ -59,4 +59,50 @@ router.post('/add',
    }
  })
 
+ router.get('/get/:id',auth,async (req, res)=>{
+   try {
+     console.log(req.params.id);
+     await devices.connect();
+     res.status(201).json(await devices.Device(req.params.id))
+     await devices.desconnect();
+     return
+   } catch (e) {
+     console.log("Error AddDevices",e);
+     return res.status(500).json({message: e.message})
+   }
+ })
+
+ router.post('/edit',auth,async (req, res)=>{
+   try {
+     await devices.connect();
+     res.status(201).json(await devices.updataDevice({
+       id:req.body.DeviceId,
+       name:req.body.DeviceName,
+       info:req.body.DeviceInformation,
+       idRoom:req.body.RoomId,
+       typeConnect:req.body.DeviceTypeConnect,
+       typeDevice:req.body.DeviceType,
+       config:req.body.DeviceConfig
+     }))
+     await devices.desconnect();
+     return
+   } catch (e) {
+     console.log("Error AddDevices",e);
+     return res.status(500).json({message: e.message})
+   }
+ })
+
+ router.post('/delete',auth,async (req, res)=>{
+   try {
+     const {DeviceId} = req.body
+     await devices.connect();
+     res.status(201).json(await devices.deleteDevice(DeviceId))
+     await devices.desconnect();
+     return
+   } catch (e) {
+     console.log("Error AddDevices",e);
+     return res.status(500).json({message: e.message})
+   }
+ })
+
 module.exports = router;

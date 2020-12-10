@@ -22,8 +22,7 @@
   width: 100%;
   height: 100%;
 }
-.pageForm::-webkit-scrollbar,
-.formContent::-webkit-scrollbar
+.form *::-webkit-scrollbar
 {
   width: 0;
 }
@@ -204,13 +203,13 @@ button.typeDevice{
   0 0 25px #fff,
   0 0 30px #fff;
 }
-.formContent.moreInput label{
+.form *.moreInput label{
   border-top: 2px solid #333;
   border-bottom: 2px solid #333;
   padding: 30px;
   display: block;
 }
-.formContent label h5{
+.form * label h5{
   position: relative;
   width: 100%;
   top: 0;
@@ -218,7 +217,8 @@ button.typeDevice{
   font-size: 24px;
   text-align: center;
 }
-.formContent label input{
+.formContent label input,
+.editDevicesForm label input{
   text-align: center;
   position: relative;
   width: calc(100% - 20px);
@@ -236,6 +236,9 @@ button.typeDevice{
   outline: none;
   border-radius: 5px;
   border: none;
+}
+input.textInput[name="name"]{
+  top:30%;
 }
 .check p.pading0{
   padding: 0;

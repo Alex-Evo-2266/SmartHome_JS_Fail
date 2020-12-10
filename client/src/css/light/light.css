@@ -15,6 +15,9 @@
   background:#76d7ff;
   color: black;
 }
+.light .editDevicesForm{
+  background: #eee;
+}
 .light header{
   background: #eee;
   color: #000;

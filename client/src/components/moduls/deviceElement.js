@@ -1,6 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {FormContext} from '../Form/formContext'
+
 
 export const DeviceElement = (props) =>{
+  const form = useContext(FormContext)
+
   return(
     <div className = "CardElement">
       <div className = "CardHeader">
@@ -10,8 +14,15 @@ export const DeviceElement = (props) =>{
         </div>
       </div>
       <div className = "CardBody">
-        <p>{props.DeviceInformation||""}</p>
+        <p>{`Type device - ${props.DeviceType||""}`}</p>
+        {
+          (props.DeviceTypeConnect==="mqtt")?
+          <p>{`Pover topic - ${props.PoverTopic||""}`}</p>:
+          null
+        }
+        <p>{`Information - ${props.DeviceInformation||""}`}</p>
         <div className = "CardControl">
+          <button className="cardControlBtn" onClick={()=>{form.show("EditDevices",props.updataDevice,props.DeviceId)}}>edit</button>
         </div>
       </div>
     </div>

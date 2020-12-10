@@ -23,7 +23,6 @@ export const DevicesPage = () => {
 
   const updataDevice = useCallback(async()=>{
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
-    console.log(data);
     setDevices(data);
   },[request,auth.token])
 
@@ -52,9 +51,13 @@ export const DevicesPage = () => {
                   return(
                     <DeviceElement
                       key = {index}
+                      DeviceId = {item.DeviceId}
                       DeviceName = {item.DeviceName}
+                      DeviceType = {item.DeviceType}
+                      PoverTopic = {item.DeviceConfig.pover||""}
                       DeviceTypeConnect = {item.DeviceTypeConnect}
                       DeviceInformation={item.DeviceInformation}
+                      updataDevice={updataDevice}
                     />
                   )
                 })

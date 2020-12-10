@@ -6,10 +6,10 @@ import {SHOW_FORM, HIDE_FORM} from '../types'
 export const FormState = ({children}) =>{
   const [state, dispatch] = useReducer(formReducer,{visible:false})
 
-  const show = (type = "404", OK = null) =>{
+  const show = (type = "404", OK = null, id = null) =>{
     dispatch({
       type:SHOW_FORM,
-      payload: {type,OK}
+      payload: {type,OK,id}
     })
   }
 
