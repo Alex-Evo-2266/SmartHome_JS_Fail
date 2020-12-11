@@ -11,6 +11,7 @@ import {useAuth} from './hooks/auth.hook.js'
 import {useBackground} from './hooks/background.hook.js'
 import {AuthContext} from './context/AuthContext'
 import {ModalWindow} from './components/modalWindow/modalWindow'
+import {Terminal} from './components/terminal/terminal'
 import './css/style-auth.css'
 import './icon/css/all.min.css'
 import './css/style-alert.css'
@@ -46,9 +47,7 @@ function App() {
         <Alert/>
         <Form/>
         <ModalWindow>
-          <div>
-          fr
-          </div>
+          <Terminal/>
         </ModalWindow>
         {(isAuthenticated)?<Menu/>:null}
         {routes}
