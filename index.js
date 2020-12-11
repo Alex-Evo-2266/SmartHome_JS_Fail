@@ -29,6 +29,6 @@ try {
     console.log("Server started");
   });
 } catch (e) {
-  console.log("server error", e.message);
+  console.log("server error linux test", e.message);
   //process.exit();
 }
