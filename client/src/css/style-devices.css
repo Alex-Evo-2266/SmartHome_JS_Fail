@@ -11,13 +11,14 @@ header{
   left: 60px;
   display: flex;
   width: calc(100% - 60px);
-  z-index: 2;
+  z-index: 4;
 }
 header h1{
   padding-top: 10px;
   margin: 0 30px;
 }
 #searchDevices{
+  display: block;
   position: relative;
   outline: none;
   font-size: 20px;
@@ -32,6 +33,7 @@ header h1{
   margin: 0 10px;
   top:15px;
   font-weight: bold;
+  display: block;
   padding: 3px;
   border: none;
   border-radius: 5px;
@@ -46,6 +48,19 @@ header h1{
 .searchBtn:hover{
   background: #1E90FF;
 }
+
+@media (max-width: 700px){
+  header{
+    z-index: 10
+  }
+  #searchDevices{
+    display: none;
+  }
+  .searchBtn{
+    display: none;
+  }
+}
+
 .CardConteiner{
   position: relative;
   width: 1150px;

@@ -49,7 +49,7 @@ export const DevicesPage = () => {
     <>
       <div className = "conteiner">
         <header>
-          <h1>All Delices</h1>
+          <h1>All Devices</h1>
           <button className="titleButtonAdd"><i onClick={()=>{form.show("AddDevices",updataDevice)}} className="fas fa-plus"></i></button>
           <input type="search" name="search" id="searchDevices" onChange={searchHandler} value={search}/>
           <button onClick={searchout} className="searchBtn">Search</button>
