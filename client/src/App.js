@@ -6,11 +6,14 @@ import {Form} from './components/Form/form'
 import {AlertState} from './components/alert/alertState'
 import {MenuState} from './components/verticalMenu/menuState'
 import {FormState} from './components/Form/formState'
+import {TerminalState} from './components/terminal/terminalState'
 import {useRoutes} from './routes.js'
 import {useAuth} from './hooks/auth.hook.js'
 import {useBackground} from './hooks/background.hook.js'
 import {AuthContext} from './context/AuthContext'
 import {ModalWindow} from './components/modalWindow/modalWindow'
+import {Terminal} from './components/terminal/terminal'
+import {TerminalCart} from './components/terminal/terminalCart'
 import './css/style-auth.css'
 import './icon/css/all.min.css'
 import './css/style-alert.css'
@@ -40,21 +43,19 @@ function App() {
     <AlertState>
     <MenuState>
     <FormState>
+    <TerminalState>
 
     <BrowserRouter>
       <div className="App">
         <Alert/>
         <Form/>
-        <ModalWindow>
-          <div>
-          fr
-          </div>
-        </ModalWindow>
+        <TerminalCart/>
         {(isAuthenticated)?<Menu/>:null}
         {routes}
       </div>
     </BrowserRouter>
 
+    </TerminalState>
     </FormState>
     </MenuState>
     </AlertState>

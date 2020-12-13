@@ -1,21 +1,19 @@
 import React, {useContext} from 'react'
 import {TerminalContext} from './terminalContext'
+import {Terminal} from './terminal'
+import {ModalWindow} from '../modalWindow/modalWindow'
 
-export const Form = ()=>{
+export const TerminalCart = ()=>{
   const {terminal, hide} = useContext(TerminalContext)
 
   if(!terminal.visible){
     return null;
   }
-  // const click = (event) =>{
-  //   if(event.target.className === "backForm")
-  //     hide();
-  // }
 
-  // return(
-  //   <div>
-  //   dsfgjh
-  //   </div>
-  // )
+  return(
+    <ModalWindow hide={hide} width={250} height={350}>
+      <Terminal/>
+    </ModalWindow>
+  )
 
 }

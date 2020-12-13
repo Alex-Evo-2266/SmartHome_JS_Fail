@@ -7,6 +7,8 @@ export const ModalWindow = ({children,hide,width = 100,height = 200})=>{
   })
 
   const mouseDown = (event)=>{
+    if(event.target.className!=="modalHeader")
+      return;
     var coords = getCoords(event.target);
     var shiftX = event.pageX - coords.left;
     var shiftY = event.pageY - coords.top;

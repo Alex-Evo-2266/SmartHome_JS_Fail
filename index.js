@@ -6,6 +6,7 @@ const imageRouter = require('./routers/imageRouter')
 const devicesRouter = require('./routers/devicesRouter')
 const userRouter = require('./routers/userRouter')
 const configRouter = require('./routers/configRouter')
+const terminalRouter = require('./routers/terminalRouter')
 // const fon = require('./multerConfig/fon.js')
 
 const app = express();
@@ -22,6 +23,7 @@ app.use('/api/base',imageRouter);
 app.use('/api/devices',devicesRouter);
 app.use('/api/user',userRouter);
 app.use('/api/server',configRouter);
+app.use('/api/terminal',terminalRouter);
 ///api/base/fonImage/:type
 
 try {

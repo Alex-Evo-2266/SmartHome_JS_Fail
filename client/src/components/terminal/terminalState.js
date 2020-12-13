@@ -19,9 +19,18 @@ export const TerminalState = ({children}) =>{
     })
   }
 
+  const target = () =>{
+    if(state.visible){
+      hide()
+    }
+    else {
+      show()
+    }
+  }
+
   return(
     <TerminalContext.Provider
-    value={{show, hide, terminal: state}}>
+    value={{show, hide,target, terminal: state}}>
       {children}
     </TerminalContext.Provider>
   )

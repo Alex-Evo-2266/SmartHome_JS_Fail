@@ -58,7 +58,7 @@ export const useBackground = () => {
       auteStyle:false,
       staticBackground:false
     }
-    if(data){
+    if(data&&data.user){
       config = {
         style:data.user.Style||"light",
         auteStyle:data.server.auteStyle||false,

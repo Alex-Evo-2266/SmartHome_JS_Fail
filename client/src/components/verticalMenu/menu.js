@@ -3,10 +3,12 @@ import {NavLink,Link} from 'react-router-dom'
 import {MenuContext} from './menuContext'
 import {AuthContext} from '../../context/AuthContext.js'
 import {AlertContext} from '../alert/alertContext.js'
+import {TerminalContext} from '../terminal/terminalContext.js'
 
 export const Menu = ()=>{
   const menu = useContext(MenuContext)
   const auth = useContext(AuthContext)
+  const terminal = useContext(TerminalContext)
   const {hide} = useContext(AlertContext)
   // const location = useLocation();
 
@@ -43,6 +45,12 @@ export const Menu = ()=>{
               <span className = "icon"><i className="fas fa-cog"></i></span>
               <span className = "title">Options</span>
             </NavLink>
+          </li>
+          <li>
+            <Link to = "#" onClick={()=>terminal.target()}>
+              <span className = "icon"><i className="fas fa-terminal"></i></span>
+              <span className = "title">Terminal</span>
+            </Link>
           </li>
           <li>
             <Link to = "#" onClick={auth.logout}>

@@ -1,6 +1,5 @@
 .modalWindow{
   z-index: 4;
-  background: #333;
   position: absolute;
   border: 2px solid #555;
   border-radius: 4px;
