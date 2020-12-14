@@ -69,11 +69,8 @@
 .light .form .FormControlBtn:hover{
   box-shadow: inset 0 0 5px #000;
 }
-.light .FormControlBtn.right{
-
-}
-.light .FormControlBtn.left{
-
+.light .CardElement .CardBody p{
+  color: #000;
 }
 .light .choiceElem{
   background: #888;

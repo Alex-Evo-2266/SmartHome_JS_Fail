@@ -45,13 +45,19 @@ export const DevicesPage = () => {
     setSearch(event.target.value)
   }
 
+  const keyd = (e)=>{
+    if(e.keyCode===13){
+      searchout()
+    }
+  }
+
   return(
     <>
       <div className = "conteiner">
         <header>
           <h1>All Devices</h1>
           <button className="titleButtonAdd"><i onClick={()=>{form.show("AddDevices",updataDevice)}} className="fas fa-plus"></i></button>
-          <input type="search" name="search" id="searchDevices" onChange={searchHandler} value={search}/>
+          <input type="search" name="search" id="searchDevices" onChange={searchHandler} onKeyDown={keyd} value={search}/>
           <button onClick={searchout} className="searchBtn">Search</button>
         </header>
         <div className = "Devices">

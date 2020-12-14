@@ -6,13 +6,12 @@ import {Form} from './components/Form/form'
 import {AlertState} from './components/alert/alertState'
 import {MenuState} from './components/verticalMenu/menuState'
 import {FormState} from './components/Form/formState'
+import {SocketState} from './hooks/socket.hook'
 import {TerminalState} from './components/terminal/terminalState'
 import {useRoutes} from './routes.js'
 import {useAuth} from './hooks/auth.hook.js'
 import {useBackground} from './hooks/background.hook.js'
 import {AuthContext} from './context/AuthContext'
-import {ModalWindow} from './components/modalWindow/modalWindow'
-import {Terminal} from './components/terminal/terminal'
 import {TerminalCart} from './components/terminal/terminalCart'
 import './css/style-auth.css'
 import './icon/css/all.min.css'
@@ -20,7 +19,7 @@ import './css/style-alert.css'
 import './css/style-components.css'
 
 function App() {
-  const {token, login, logout, userId, userLevel,ready} = useAuth();
+  const {token, login, logout, userId, userLevel,ready,socket} = useAuth();
   const {updataBackground} = useBackground(token);
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated);
@@ -38,9 +37,10 @@ function App() {
 
   return (
     <AuthContext.Provider value={{
-      token, login, logout, userId, userLevel, isAuthenticated
+      token, login, logout, userId, userLevel, isAuthenticated,socket
     }}>
     <AlertState>
+    <SocketState>
     <MenuState>
     <FormState>
     <TerminalState>
@@ -58,6 +58,7 @@ function App() {
     </TerminalState>
     </FormState>
     </MenuState>
+    </SocketState>
     </AlertState>
     </AuthContext.Provider>
   );
