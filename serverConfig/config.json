@@ -1,1 +1,1 @@
-{"auteStyle":true,"staticBackground":false,"mqttBroker":"192.168.1.34:34"}
+{"auteStyle":true,"staticBackground":false,"mqttBroker":"127.0.0.1:1883","loginMqttBroker":"root","passwordMqttBroker":"root"}

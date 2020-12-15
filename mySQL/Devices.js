@@ -68,8 +68,8 @@ module.exports.addDevice = async function(data){
     if(!data.name) return;
     if(!data.config)data.config = {};
     await conection.execute(
-      "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`, `DeviceTypeConnect`, `DeviceType`, `DeviceConfig`) VALUES (?,?,?,?,?)",
-      [data.id, data.name, data.typeConnect, data.typeDevice, data.config]
+      "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`,`DeviceSystemName`, `DeviceTypeConnect`, `DeviceType`, `DeviceConfig`) VALUES (?,?,?,?,?)",
+      [data.id, data.name,data.systemName, data.typeConnect, data.typeDevice, data.config]
     )
 
     return true;
@@ -89,6 +89,16 @@ module.exports.lookForDeviceByName = async function (name) {
   }
 }
 
+module.exports.lookForDeviceBySystemName = async function (systemname) {
+  try {
+    const result = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceSystemName = '${systemname}'`)
+    return result[0];
+  } catch (e) {
+    console.log("Error",e);
+    return
+  }
+}
+
 module.exports.updataDevice = async function(data){
   try {
     if(!data.id){
@@ -97,8 +107,8 @@ module.exports.updataDevice = async function(data){
     if(!data.name) return;
     if(!data.config)data.config = {};
     await conection.execute(
-      "UPDATE `smarthome_devices` SET `DeviceName`=?,`DeviceInformation`=?,`RoomId`=?,`DeviceTypeConnect`=?,`DeviceType`=?,`DeviceConfig`=? WHERE `DeviceId`=?" ,
-      [data.name,data.info,data.idRoom, data.typeConnect, data.typeDevice, data.config,data.id]
+      "UPDATE `smarthome_devices` SET `DeviceName`=?, `DeviceSystemName`=?,`DeviceInformation`=?,`RoomId`=?,`DeviceTypeConnect`=?,`DeviceType`=?,`DeviceConfig`=? WHERE `DeviceId`=?" ,
+      [data.name,data.systemName,data.info,data.idRoom, data.typeConnect, data.typeDevice, data.config,data.id]
     )
 
     return true;

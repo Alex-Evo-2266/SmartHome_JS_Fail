@@ -8,6 +8,7 @@ const userRouter = require('./routers/userRouter')
 const configRouter = require('./routers/configRouter')
 const terminalRouter = require('./routers/terminalRouter')
 const socket = require('./socket/socket')
+const mqtt = require('./mqtt/mqtt')
 // const fon = require('./multerConfig/fon.js')
 const app = express();
 const server = require('http').createServer(app);
@@ -35,6 +36,7 @@ try {
     console.log("Server started");
   });
   socket(server,io)
+  mqtt.connect()
 } catch (e) {
   console.log("server error linux test", e.message);
   //process.exit();

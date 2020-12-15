@@ -6,14 +6,19 @@ import {LightMqttConf} from './formPages/LightMqttConf.js'
 import {SwitchMqttConf} from './formPages/SwitchMqttConf.js'
 import {SensorMqttConf} from './formPages/SensorMqttConf.js'
 import {BinarySensorMqttConf} from './formPages/BinarySensorMqttConf.js'
+import {HidingLi} from '../../hidingLi.js'
+import {useChecked} from '../../../hooks/checked.hook'
+
 
 export const AddDevicesForm = (props)=>{
   const [showPage, setShowPage] = useState(0);
+  const {USText} = useChecked()
   const [result, setResult] = useState("");
   const [form, setForm] = useState({
     typeConnect: '',
     typeDevice: '',
     name: '',
+    systemName:'',
     config:{},
   });
 
@@ -57,7 +62,13 @@ export const AddDevicesForm = (props)=>{
   const changeHandler = event => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
-
+  const changeHandlerTest = event=>{
+    if(USText(event.target.value)){
+      changeHandler(event)
+      return ;
+    }
+    message("forbidden symbols","error")
+  }
 
   const outHandler = async () => {
     try {
@@ -170,9 +181,19 @@ export const AddDevicesForm = (props)=>{
           </div>
         </div>
         <div className = "pageForm hide">
-          <div className = "formContent">
-              <h2>Enter the device name</h2>
-            <input className = "textInput" placeholder="name" id="name" type="text" name="name" value={form.name} onChange={changeHandler} required/>
+          <div className = "formContent moreInput">
+            <ul>
+              <HidingLi show={true} title="Name">
+              <label>
+                <h5>Enter the device name</h5>
+                <input className = "textInput" placeholder="name" id="name" type="text" name="name" value={form.name} onChange={changeHandler} required/>
+              <label>
+              </label>
+                <h5>Enter the device System name</h5>
+                <input className = "textInput" placeholder="system name" id="SystemName" type="text" name="systemName" value={form.sysyemName} onChange={changeHandlerTest} required/>
+              </label>
+              </HidingLi>
+            </ul>
           </div>
           <div className="formFooter">
             <button onClick={next} className ='FormControlBtn right' disabled = {!form.name}>Next <i className="fas fa-arrow-right"></i></button>

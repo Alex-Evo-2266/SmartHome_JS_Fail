@@ -1,7 +1,9 @@
- const socket = function (http, io) {
+ const socket = function (http, io,cb) {
   io.on('connection', socket => {
     console.log("io connect");
-
+    if(typeof(cb) === "function"){
+      cb(io,socket)
+    }
     socket.on('disconnect', () => {
       console.log('user disconnected');
     });

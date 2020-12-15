@@ -25,15 +25,20 @@ router.post('/add',
            }
      //---------------------------------------------------//
      console.log(req.body);
-     const {name, typeConnect, typeDevice, config} = req.body;
+     const {name, typeConnect, typeDevice,systemName, config} = req.body;
 
      await devices.connect();
      const condidate = await devices.lookForDeviceByName(name)
      if(condidate.length !== 0){
        throw new Error("device with the same name already exists.")
      }
+     const condidate2 = await devices.lookForDeviceBySystemName(req.body.DeviceSystemName)
+     if(condidate2&&condidate2[0]&&condidate2[0].DeviceId!==req.body.DeviceId){
+       throw new Error("device with the same system name already exists.")
+     }
      await devices.addDevice({
        name,
+       systemName,
        typeDevice,
        typeConnect,
        config
@@ -76,12 +81,17 @@ router.post('/add',
    try {
      await devices.connect();
      const condidate = await devices.lookForDeviceByName(req.body.DeviceName)
-     if(condidate.length !== 0){
+     if(condidate&&condidate[0]&&condidate[0].DeviceId!==req.body.DeviceId){
        throw new Error("device with the same name already exists.")
+     }
+     const condidate2 = await devices.lookForDeviceBySystemName(req.body.DeviceSystemName)
+     if(condidate2&&condidate2[0]&&condidate2[0].DeviceId!==req.body.DeviceId){
+       throw new Error("device with the same system name already exists.")
      }
      res.status(201).json(await devices.updataDevice({
        id:req.body.DeviceId,
        name:req.body.DeviceName,
+       systemName:req.body.DeviceSystemName,
        info:req.body.DeviceInformation,
        idRoom:req.body.RoomId,
        typeConnect:req.body.DeviceTypeConnect,

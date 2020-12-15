@@ -237,9 +237,6 @@ button.typeDevice{
   border-radius: 5px;
   border: none;
 }
-input.textInput[name="name"]{
-  top:30%;
-}
 .check p.pading0{
   padding: 0;
   padding-top: 0;

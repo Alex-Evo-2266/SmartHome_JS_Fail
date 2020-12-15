@@ -15,7 +15,9 @@ export const OptionsPage = () => {
   const [serverconf , setServerconf] = useState({
     auteStyle:false,
     staticBackground:false,
-    mqttBroker:''
+    mqttBroker:'none',
+    loginMqttBroker:'',
+    passwordMqttBroker:''
   });
 
   useEffect(()=>{
@@ -32,7 +34,9 @@ export const OptionsPage = () => {
 
   const serverConfigHandler = async(event)=>{
     await request(`/api/server/config/edit`, 'POST', serverconf,{Authorization: `Bearer ${auth.token}`})
-    window.location.reload();
+    setTimeout(()=>{
+      window.location.reload();
+    },2000)
   }
 
   const checkedHandler = event => {
@@ -48,7 +52,9 @@ export const OptionsPage = () => {
     setServerconf({
       auteStyle:data.server.auteStyle,
       staticBackground:data.server.staticBackground,
-      mqttBroker:data.server.mqttBroker||""
+      mqttBroker:data.server.mqttBroker||"",
+      loginMqttBroker:data.server.loginMqttBroker||"",
+      passwordMqttBroker:data.server.passwordMqttBroker||""
     })
   },[request,auth.token])
 
@@ -95,9 +101,15 @@ export const OptionsPage = () => {
               <div className="configElement">
                 <p className="text">Mqtt broker</p>
                 <label className="text">
-                  <input placeholder="IP Mqtt broker" onChange={changeHandler} name="mqttBroker" type="text" value={serverconf.mqttBroker}></input>
-                  <span></span>
-                  <i className="indicator"></i>
+                  <input placeholder="IP Mqtt broker" onChange={changeHandler} name="mqttBroker" type="text" value={serverconf.mqttBroker} disabled = {(serverconf.mqttBroker==="none")}></input>
+                </label>
+                <p className="text">Mqtt login</p>
+                <label className="text">
+                  <input placeholder="login Mqtt broker" onChange={changeHandler} name="loginMqttBroker" type="text" value={serverconf.loginMqttBroker} disabled = {(serverconf.mqttBroker==="none")}></input>
+                </label>
+                <p className="text">Mqtt password</p>
+                <label className="text">
+                  <input placeholder="password Mqtt broker" onChange={changeHandler} name="passwordMqttBroker" type="text" value={serverconf.passwordMqttBroker} disabled = {(serverconf.mqttBroker==="none")}></input>
                 </label>
               </div>
               <button onClick={serverConfigHandler}>Save</button>

@@ -1,4 +1,4 @@
-import React, {useContext,useEffect} from 'react'
+import React, {useContext,useEffect,useState} from 'react'
 import {useHttp} from '../../hooks/http.hook'
 import {useMessage} from '../../hooks/message.hook'
 import {AuthContext} from '../../context/AuthContext.js'
@@ -9,6 +9,8 @@ export const Terminal = ()=>{
   const socket = useContext(SocketContext)
   const {message} = useMessage();
   const {request, error, clearError} = useHttp();
+  const [inputmes, setInputmes] = useState("")
+  const [lod, setLod] = useState(false)
 
   useEffect(()=>{
     message(error,"error")
@@ -17,52 +19,38 @@ export const Terminal = ()=>{
     }
   },[error,message, clearError])
 
-  function getCursorPosition( ctrl ) {
-        var CaretPos = 0;
-        console.log(document.selection);
-        if ( document.selection ) {
-            ctrl.focus ();
-            var Sel = document.selection.createRange();
-            Sel.moveStart ('character', -ctrl.value.length);
-            CaretPos = Sel.text.length;
-        } else if ( ctrl.selectionStart || ctrl.selectionStart === '0' ) {
-            CaretPos = ctrl.selectionStart;
-        }
-        return CaretPos;
-    }
-
-
-  const end = (e)=>{
-    setTimeout(()=>{
+  useEffect(()=>{
+    if(lod){
       let area = document.getElementById('area')
-      var end = area.value.length;
-      area.setSelectionRange(end,end);
-      area.focus();
-    },0)
-  }
-  const keyd = async(e)=>{
-    if(e.keyCode === 37 || e.keyCode === 39||e.keyCode === 38||e.keyCode === 40)
-        e.preventDefault();
-    if(e.keyCode === 13){
-      let r = e.target.value.split("\n")
-      let c = r.length;
-      r = r[c-1]
-      r = r.replace('>', '');
-      e.target.readOnly = true
-      socket.terminalMessage("test")
-      e.target.value = e.target.value + "\n>"
-      e.target.readOnly = false
-      e.preventDefault();
+      area.value = area.value + `System: ${socket.message.message}\n`
     }
-    if(e.keyCode === 8 && getCursorPosition(e.target)===1){
-      e.preventDefault();
+    else{
+      setLod(true)
+    }
+  },[socket.message])
+
+  const changeHandler = (event) => setInputmes(event.target.value)
+
+  const output = (event)=>{
+    if(event.keyCode === 13){
+      if(!inputmes)return;
+      socket.terminalMessage(inputmes)
+      let area = document.getElementById('area')
+      area.value = area.value + `You:${inputmes}\n`
+      setInputmes("")
+      event.preventDefault();
     }
   }
+
+  const focus = () => document.getElementById('terminalInput').focus()
 
   return(
     <div className = "terminal">
-      <textarea id="area" onClick={end} onKeyDown={keyd} defaultValue={">"}>
+      <textarea id="area" readOnly={true} onClick={focus}>
       </textarea>
+      <div className = "terminalInput">
+        <input id="terminalInput" type="text" onKeyDown={output} onChange={changeHandler} value = {inputmes}/>
+      </div>
     </div>
   )
 }

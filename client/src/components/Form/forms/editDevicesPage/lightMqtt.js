@@ -3,9 +3,12 @@ import {HidingLi} from '../../../hidingLi.js'
 import {useHttp} from '../../../../hooks/http.hook'
 import {useMessage} from '../../../../hooks/message.hook'
 import {AuthContext} from '../../../../context/AuthContext.js'
+import {useChecked} from '../../../../hooks/checked.hook'
+
 
 export const LightMqttEdit = ({deviceData,hide})=>{
   const auth = useContext(AuthContext)
+  const {USText} = useChecked()
   const {message} = useMessage();
   const {request, error, clearError} = useHttp();
 
@@ -20,6 +23,7 @@ export const LightMqttEdit = ({deviceData,hide})=>{
     DeviceId:deviceData.DeviceId,
     DeviceInformation:deviceData.DeviceInformation,
     DeviceName:deviceData.DeviceName,
+    DeviceSystemName:deviceData.DeviceSystemName,
     DeviceType:deviceData.DeviceType,
     DeviceTypeConnect:deviceData.DeviceTypeConnect,
     RoomId:deviceData.RoomId,
@@ -42,6 +46,13 @@ export const LightMqttEdit = ({deviceData,hide})=>{
 
   const changeHandler = event => {
     setDevice({ ...device, [event.target.name]: event.target.value })
+  }
+  const changeHandlerTest = event=>{
+    if(USText(event.target.value)){
+      changeHandler(event)
+      return ;
+    }
+    message("forbidden symbols","error")
   }
   const outHandler = async ()=>{
     let dataout = {DeviceConfig:{}}
@@ -74,6 +85,12 @@ export const LightMqttEdit = ({deviceData,hide})=>{
         <label>
           <h5>Name</h5>
           <input className = "textInput" placeholder="name" id="DeviceName" type="text" name="DeviceName" value={device.DeviceName} onChange={changeHandler} required/>
+        </label>
+      </li>
+      <li>
+        <label>
+          <h5>System name</h5>
+          <input className = "textInput" placeholder="system name" id="DeviceSystemName" type="text" name="DeviceSystemName" value={device.DeviceSystemName} onChange={changeHandlerTest} required/>
         </label>
       </li>
       <li>

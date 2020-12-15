@@ -15,6 +15,7 @@ export const DeviceElement = (props) =>{
       </div>
       <div className = "CardBody">
         <p>{`Type device - ${props.DeviceType||""}`}</p>
+        <p>{`Name in system - ${props.DeviceSystemName||"none"}`}</p>
         {
           (props.DeviceTypeConnect==="mqtt"&&(props.DeviceType==="light"||props.DeviceType==="switch"))?
           <p>{`Pover topic - ${props.PoverTopic||""}`}</p>:

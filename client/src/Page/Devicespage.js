@@ -74,6 +74,7 @@ export const DevicesPage = () => {
                       key = {index}
                       DeviceId = {item.DeviceId}
                       DeviceName = {item.DeviceName}
+                      DeviceSystemName = {item.DeviceSystemName}
                       DeviceType = {item.DeviceType}
                       PoverTopic = {item.DeviceConfig.pover||item.DeviceConfig.status||""}
                       DeviceTypeConnect = {item.DeviceTypeConnect}

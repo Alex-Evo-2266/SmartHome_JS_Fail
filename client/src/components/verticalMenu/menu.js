@@ -47,7 +47,7 @@ export const Menu = ()=>{
             </NavLink>
           </li>
           <li>
-            <Link to = "#" onClick={()=>terminal.target()}>
+            <Link to = "#" className={(terminal.terminal.visible)?"active":""} onClick={()=>terminal.target()}>
               <span className = "icon"><i className="fas fa-terminal"></i></span>
               <span className = "title">Terminal</span>
             </Link>
