@@ -1,7 +1,7 @@
 
 export const useChecked = () => {
   const USText = str =>{
-    const simbol = "1234567890-_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+    const simbol = "1234567890_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
     for (var i = 0; i < str.length; i++) {
       let p = false;
       for (var j = 0; j < simbol.length; j++) {

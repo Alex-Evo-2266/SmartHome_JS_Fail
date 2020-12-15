@@ -20,9 +20,10 @@ const subscribe = (topik)=>{
 }
 module.exports.subscribe = subscribe
 
-const public = ()=>{
-  client.publish('presence', 'Hello mqtt')
+const public = (topic, mes)=>{
+  client.publish(topic, mes)
 }
+module.exports.public = public
 
 const input = (ret)=>{
   client.on('message', function (topic, message) {
@@ -34,3 +35,4 @@ const input = (ret)=>{
 const desconnect = ()=>{
   client.end()
 }
+module.exports.desconnect = desconnect

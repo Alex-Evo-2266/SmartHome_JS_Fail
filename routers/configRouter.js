@@ -12,7 +12,6 @@ router.get('/config',auth,async (req, res)=>{
   try {
     await user.connect();
     const content = require('../serverConfig/config.json');
-    console.log(content);
     res.status(201).json({
       user:await user.lookForConfigUserById(req.user.userId),
       server:content
@@ -30,7 +29,6 @@ router.post('/config/edit',
   auth,
   async (req, res)=>{
   try {
-    console.log(req.body);
     const filePath = path.join(__dirname,'../serverConfig/config.json')
     let data = JSON.stringify(req.body);
     fs.writeFileSync(filePath, data);

@@ -20,11 +20,11 @@ export const SocketState = ({children})=>{
     console.log(message);
     socket.emit('terminal message',{message})
   }
-  socket.on('server',(data)=>{
-    if(data&&data.message==="started"){
-      window.location.reload();
-    }
-  })
+  // socket.on('server',(data)=>{
+  //   if(data&&data.message==="started"){
+  //     window.location.reload();
+  //   }
+  // })
   socket.on('terminal ret message',(data)=>{
     saveMessage(data)
   })

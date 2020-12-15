@@ -24,7 +24,6 @@ router.post('/add',
              })
            }
      //---------------------------------------------------//
-     console.log(req.body);
      const {name, typeConnect, typeDevice,systemName, config} = req.body;
 
      await devices.connect();
@@ -53,7 +52,6 @@ router.post('/add',
  })
  router.get('/all',auth,async (req, res)=>{
    try {
-     console.log('ergfb');
      await devices.connect();
      res.status(201).json(await devices.Devices())
      await devices.desconnect();
@@ -66,7 +64,6 @@ router.post('/add',
 
  router.get('/get/:id',auth,async (req, res)=>{
    try {
-     console.log(req.params.id);
      await devices.connect();
      res.status(201).json(await devices.Device(req.params.id))
      await devices.desconnect();
