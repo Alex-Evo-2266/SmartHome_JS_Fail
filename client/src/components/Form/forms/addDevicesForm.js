@@ -159,6 +159,14 @@ export const AddDevicesForm = (props)=>{
                   <span className="indecator"/>
                 </label>
               </li>
+              <li id="typeIR" className={(form.typeDevice==="ir")?"active":""}>
+                <label>
+                  <div className="img"></div>
+                  <p>IR port</p>
+                  <input type="button" name="typeDevice" value="ir" onClick={changeHandler} />
+                  <span className="indecator"/>
+                </label>
+              </li>
             </ul>
           </div>
             <div className="formFooter">
@@ -187,8 +195,8 @@ export const AddDevicesForm = (props)=>{
               <label>
                 <h5>Enter the device name</h5>
                 <input className = "textInput" placeholder="name" id="name" type="text" name="name" value={form.name} onChange={changeHandler} required/>
-              <label>
               </label>
+              <label>
                 <h5>Enter the device System name</h5>
                 <input className = "textInput" placeholder="system name" id="SystemName" type="text" name="systemName" value={form.sysyemName} onChange={changeHandlerTest} required/>
               </label>
@@ -215,11 +223,11 @@ export const AddDevicesForm = (props)=>{
           <BinarySensorMqttConf next={confSave} back={back}/>
           :
           <div className = "pageForm hide">
-
+            <p>404</p>
           </div>
           :
           <div className = "pageForm hide">
-
+            <p>404</p>
           </div>
 
         }

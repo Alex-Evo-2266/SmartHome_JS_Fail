@@ -1,6 +1,6 @@
 .modalWindow{
-  z-index: 4;
-  position: absolute;
+  z-index: 5;
+  position: fixed;
   border: 2px solid #555;
   border-radius: 4px;
 }
@@ -19,6 +19,13 @@
   background: red;
   border: none;
   border-radius: 4px;
+}
+.modalHeader h4{
+  position: absolute;
+  color: #fff;
+  top: 5px;
+  left: 5px;
+  height: 20px;
 }
 .modalHeader button:hover{
   box-shadow: inset 0 0 10px #000;

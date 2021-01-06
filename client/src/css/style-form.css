@@ -124,29 +124,36 @@ button.typeDevice{
   background-size: cover;
   background-position: center;
 }
-#typeLight .img{
+#typeLight div.img{
   background: url(../img/lightDevices.jpg);
   width: 80px;
   height: 80px;
   background-size: cover;
   background-position: center;
 }
-#typeSwitch .img{
+#typeSwitch div.img{
   background: url(../img/switchDevices.jpg);
   width: 80px;
   height: 80px;
   background-size: cover;
   background-position: center;
 }
-#typeSensor .img{
+#typeSensor div.img{
   background: url(../img/sensorDevices.jpg);
   width: 80px;
   height: 80px;
   background-size: cover;
   background-position: center;
 }
-#typeBinarySensor .img{
+#typeBinarySensor div.img{
   background: url(../img/binarySensorDevices.jpg);
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+}
+#typeIR div.img{
+  background: url(../img/IR.jpg);
   width: 80px;
   height: 80px;
   background-size: cover;

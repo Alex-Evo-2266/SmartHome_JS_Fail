@@ -49,6 +49,7 @@ const device = async(id)=>{
     const result = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceId = ${id}`)
     if(result&&result[0][0]){
       result[0][0].DeviceConfig = JSON.parse(result[0][0].DeviceConfig)
+      result[0][0].DeviceValue = JSON.parse(result[0][0].DeviceValue)
     }
     return result[0][0];
 
@@ -92,6 +93,8 @@ module.exports.lookForDeviceByName = async function (name) {
 module.exports.lookForDeviceBySystemName = async function (systemname) {
   try {
     const result = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceSystemName = '${systemname}'`)
+    result[0][0].DeviceConfig = JSON.parse(result[0][0].DeviceConfig)
+    result[0][0].DeviceValue = JSON.parse(result[0][0].DeviceValue)
     return result[0];
   } catch (e) {
     console.log("Error",e);
@@ -111,6 +114,22 @@ module.exports.updataDevice = async function(data){
       [data.name,data.systemName,data.info,data.idRoom, data.typeConnect, data.typeDevice, data.config,data.id]
     )
 
+    return true;
+  }
+  catch (e) {
+    console.log("Error",e);
+    return
+  }
+}
+module.exports.setValue = async function (id,value) {
+  try {
+    if(!id){
+      return;
+    }
+    await conection.execute(
+      "UPDATE `smarthome_devices` SET `DeviceValue`=? WHERE `DeviceId`=?" ,
+      [value, id]
+    )
     return true;
   }
   catch (e) {

@@ -16,9 +16,13 @@ export const SocketState = ({children})=>{
     }
   }
 
-  const terminalMessage = (message)=>{
+  const terminalMessage = (message,cb)=>{
     console.log(message);
-    socket.emit('terminal message',{message})
+    socket.emit('terminal message',{message},data=>{
+      console.log(data);
+      if(typeof(cb)==="function"&&data)
+        cb(data)
+    })
   }
   // socket.on('server',(data)=>{
   //   if(data&&data.message==="started"){

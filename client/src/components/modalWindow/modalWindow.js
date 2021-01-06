@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 
-export const ModalWindow = ({children,hide,width = 100,height = 200})=>{
+export const ModalWindow = ({children,hide,width = 100,height = 200,title="window"})=>{
   const [point, setPoint] = useState({
     top:240,
     left:300
@@ -56,6 +56,7 @@ export const ModalWindow = ({children,hide,width = 100,height = 200})=>{
   return(
     <div className="modalWindow" style={{top:`${point.top}px`,left:`${point.left}px`}}>
       <div className="modalHeader" onMouseDown={mouseDown} onDragStart={()=>false}>
+        <h4>{title}</h4>
         <button onClick = {hide}>&times;</button>
       </div>
       <div className="modalContent" style={{width:`${width}px`,height:`${height}px`}}>
