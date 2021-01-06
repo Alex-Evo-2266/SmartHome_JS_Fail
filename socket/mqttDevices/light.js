@@ -1,5 +1,4 @@
 const mqtt = require('../../mqtt/mqtt')
-const devices = require('../../mySQL/Devices');
 
 module.exports = async function (device,action,atrebut,socket) {
   try {

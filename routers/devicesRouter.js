@@ -11,7 +11,7 @@ router.post('/add',
   [
     check('name', "wrong name device").isLength({min:2}),
     check('typeConnect', "wrong type connect").isLength({min:3}),
-    check('typeDevice', "error input data").isLength({min:3})
+    check('typeDevice', "error input data").isLength({min:2})
   ],
   auth,
   async (req, res)=> {
@@ -26,7 +26,7 @@ router.post('/add',
            }
      //---------------------------------------------------//
      const {name, typeConnect, typeDevice,systemName, config} = req.body;
-
+     console.log(req.body);
      await devices.connect();
      const condidate = await devices.lookForDeviceByName(name)
      if(condidate.length !== 0){

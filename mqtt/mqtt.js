@@ -84,8 +84,8 @@ const subscribeDevicesStatus = async()=>{
       if(devicesList[i].DeviceConfig.pover){
         subscribe(devicesList[i].DeviceConfig.pover)
       }
-      if(devicesList[i].DeviceConfig.dimmes){
-        subscribe(devicesList[i].DeviceConfig.dimmes)
+      if(devicesList[i].DeviceConfig.dimmer){
+        subscribe(devicesList[i].DeviceConfig.dimmer)
       }
       if(devicesList[i].DeviceConfig.lavelLight){
         subscribe(devicesList[i].DeviceConfig.lavelLight)

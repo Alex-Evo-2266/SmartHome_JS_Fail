@@ -5,6 +5,8 @@ import {AuthContext} from '../../../context/AuthContext.js'
 import {LightMqttConf} from './formPages/LightMqttConf.js'
 import {SwitchMqttConf} from './formPages/SwitchMqttConf.js'
 import {SensorMqttConf} from './formPages/SensorMqttConf.js'
+import {IRMqttConf} from './formPages/IRMqttConf.js'
+import {DimmerMqttConf} from './formPages/DimmerMqttConf.js'
 import {BinarySensorMqttConf} from './formPages/BinarySensorMqttConf.js'
 import {HidingLi} from '../../hidingLi.js'
 import {useChecked} from '../../../hooks/checked.hook'
@@ -212,7 +214,7 @@ export const AddDevicesForm = (props)=>{
             </ul>
           </div>
           <div className="formFooter">
-            <button onClick={next} className ='FormControlBtn right' disabled = {!form.name}>Next <i className="fas fa-arrow-right"></i></button>
+            <button onClick={next} className ='FormControlBtn right' disabled = {!form.name||!form.systemName}>Next <i className="fas fa-arrow-right"></i></button>
             <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
           </div>
         </div>
@@ -229,6 +231,12 @@ export const AddDevicesForm = (props)=>{
           :
           (form.typeDevice === "binarySensor")?
           <BinarySensorMqttConf next={confSave} back={back}/>
+          :
+          (form.typeDevice === "ir")?
+          <IRMqttConf next={confSave} back={back}/>
+          :
+          (form.typeDevice === "dimmer")?
+          <DimmerMqttConf next={confSave} back={back}/>
           :
           <div className = "pageForm hide">
             <p>404</p>

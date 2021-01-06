@@ -7,6 +7,8 @@ import {LightMqttEdit} from './editDevicesPage/lightMqtt'
 import {SwitchMqttEdit} from './editDevicesPage/SwitchMqtt'
 import {SensorMqttEdit} from './editDevicesPage/SensorMqtt'
 import {BinarySensorMqttEdit} from './editDevicesPage/BinarySensorMqtt'
+import {IRMqttEdit} from './editDevicesPage/IRMqtt.js'
+import {DimmerMqttEdit} from './editDevicesPage/DimmerMqtt.js'
 
 export const EditDevicesForm = (props)=>{
   const auth = useContext(AuthContext)
@@ -69,6 +71,24 @@ if(device.DeviceTypeConnect==="mqtt"&&device.DeviceType==="binarySensor"){
     <div className = "form">
       <div className="editDevicesForm moreInput">
         <BinarySensorMqttEdit deviceData = {device} hide={props.hide}/>
+      </div>
+    </div>
+  )
+}
+if(device.DeviceTypeConnect==="mqtt"&&device.DeviceType==="ir"){
+  return(
+    <div className = "form">
+      <div className="editDevicesForm moreInput">
+        <IRMqttEdit deviceData = {device} hide={props.hide}/>
+      </div>
+    </div>
+  )
+}
+if(device.DeviceTypeConnect==="mqtt"&&device.DeviceType==="dimmer"){
+  return(
+    <div className = "form">
+      <div className="editDevicesForm moreInput">
+        <DimmerMqttEdit deviceData = {device} hide={props.hide}/>
       </div>
     </div>
   )

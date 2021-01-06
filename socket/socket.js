@@ -2,6 +2,8 @@ const mqtt = require('../mqtt/mqtt')
 const devices = require('../mySQL/Devices');
 const lightMqtt = require("./mqttDevices/light")
 const switchMqtt = require('./mqttDevices/switch');
+const ir = require('./mqttDevices/ir');
+const dimmer = require('./mqttDevices/dimmer');
 
  const socket = function (http, io,cb) {
   io.on('connection', socket => {
@@ -58,6 +60,36 @@ const switchMqtt = require('./mqttDevices/switch');
               return
             }else{
               if(await switchMqtt(device[0] , action, mes, socket)){
+                socket.emit('terminal ret message',{
+                  message:"ok",
+                })
+                return
+              }
+            }
+          }
+          if(device[0].DeviceType==="ir"){
+            if(!action){
+              socket.emit('terminal ret message',{
+                message:"switch action: send command"
+              })
+              return
+            }else{
+              if(await ir(device[0] , action, mes, socket)){
+                socket.emit('terminal ret message',{
+                  message:"ok",
+                })
+                return
+              }
+            }
+          }
+          if(device[0].DeviceType==="dimmer"){
+            if(!action){
+              socket.emit('terminal ret message',{
+                message:"switch action: poverOn, poverOff, poverTogle, dimmer number"
+              })
+              return
+            }else{
+              if(await dimmer(device[0] , action, mes, socket)){
                 socket.emit('terminal ret message',{
                   message:"ok",
                 })

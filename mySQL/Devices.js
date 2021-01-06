@@ -68,8 +68,9 @@ module.exports.addDevice = async function(data){
     }
     if(!data.name) return;
     if(!data.config)data.config = {};
+    console.log(data.id, data.name,data.systemName, data.typeConnect, data.typeDevice, data.config);
     await conection.execute(
-      "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`,`DeviceSystemName`, `DeviceTypeConnect`, `DeviceType`, `DeviceConfig`) VALUES (?,?,?,?,?)",
+      "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`,`DeviceSystemName`, `DeviceTypeConnect`, `DeviceType`, `DeviceConfig`) VALUES (?,?,?,?,?,?)",
       [data.id, data.name,data.systemName, data.typeConnect, data.typeDevice, data.config]
     )
 
@@ -93,8 +94,10 @@ module.exports.lookForDeviceByName = async function (name) {
 module.exports.lookForDeviceBySystemName = async function (systemname) {
   try {
     const result = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceSystemName = '${systemname}'`)
-    result[0][0].DeviceConfig = JSON.parse(result[0][0].DeviceConfig)
-    result[0][0].DeviceValue = JSON.parse(result[0][0].DeviceValue)
+    if(result[0][0])
+      result[0][0].DeviceConfig = JSON.parse(result[0][0].DeviceConfig)
+    if(result[0][0])
+      result[0][0].DeviceValue = JSON.parse(result[0][0].DeviceValue)
     return result[0];
   } catch (e) {
     console.log("Error",e);
