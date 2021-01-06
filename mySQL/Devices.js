@@ -121,14 +121,18 @@ module.exports.updataDevice = async function(data){
     return
   }
 }
-module.exports.setValue = async function (id,value) {
+//device lamp1 color 3000
+module.exports.setValue = async function (id,key,value) {
+  console.log(id,key,value);
   try {
-    if(!id){
-      return;
-    }
+    if(!id)
+      return
+    let devicebuf = await device(id);
+    let newValue = devicebuf.DeviceValue
+    newValue[key] = value
     await conection.execute(
       "UPDATE `smarthome_devices` SET `DeviceValue`=? WHERE `DeviceId`=?" ,
-      [value, id]
+      [newValue, id]
     )
     return true;
   }
@@ -137,6 +141,29 @@ module.exports.setValue = async function (id,value) {
     return
   }
 }
+
+module.exports.lookForDeviceByTopic = async function (topic) {
+  try {
+    const mqttDevicessqlreq = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceTypeConnect = 'mqtt'`)
+    let mqttDevices = mqttDevicessqlreq[0]
+    let ret = []
+    for (let i = 0; i < mqttDevices.length; i++) {
+      mqttDevices[i].DeviceConfig = JSON.parse(mqttDevices[i].DeviceConfig)
+      mqttDevices[i].DeviceValue = JSON.parse(mqttDevices[i].DeviceValue)
+      for (let key in mqttDevices[i].DeviceConfig) {
+        if(mqttDevices[i].DeviceConfig[key]===topic){
+          let obj = {deviceId:mqttDevices[i].DeviceId,device:mqttDevices[i].DeviceSystemName,key,topic,value:mqttDevices[i].DeviceValue}
+          ret.push(obj)
+        }
+      }
+    }
+    return ret;
+  } catch (e) {
+    console.log("Error",e);
+    return
+  }
+}
+
 module.exports.deleteDevice = async function(id){
   try {
     console.log(id);

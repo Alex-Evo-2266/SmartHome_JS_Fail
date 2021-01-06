@@ -5,7 +5,7 @@ export const SwitchMqttConf = ({next,back})=>{
 
   const [form, setForm] = useState({
     pover: '',
-    poverStatus:'',
+    status:'',
     turnOnSignal:'1',
     turnOffSignal:'0',
   });
@@ -35,7 +35,7 @@ export const SwitchMqttConf = ({next,back})=>{
           </label>
           <label>
             <h5>Enter the topic by pover status</h5>
-            <input className = "textInput" placeholder="topic pover status" id="poverStatus" type="text" name="poverStatus" value={form.poverStatus} onChange={changeHandler} required/>
+            <input className = "textInput" placeholder="topic status" id="status" type="text" name="status" value={form.status} onChange={changeHandler} required/>
           </label>
           <label>
             <h5>Enter the turn on signal</h5>

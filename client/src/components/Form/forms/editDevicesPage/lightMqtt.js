@@ -28,19 +28,16 @@ export const LightMqttEdit = ({deviceData,hide})=>{
     DeviceTypeConnect:deviceData.DeviceTypeConnect,
     RoomId:deviceData.RoomId,
     pover:deviceData.DeviceConfig.pover,
-    poverStatus:deviceData.DeviceConfig.poverStatus,
+    status:deviceData.DeviceConfig.status,
     turnOnSignal:deviceData.DeviceConfig.turnOnSignal,
     turnOffSignal:deviceData.DeviceConfig.turnOffSignal,
-    lavelLight:deviceData.DeviceConfig.lavelLight,
-    lavelLightStatus:deviceData.DeviceConfig.lavelLightStatus,
-    maxLight:deviceData.DeviceConfig.maxLight,
-    minLight:deviceData.DeviceConfig.minLight,
+    dimmer:deviceData.DeviceConfig.dimmer,
+    maxDimmer:deviceData.DeviceConfig.maxDimmer,
+    minDimmer:deviceData.DeviceConfig.minDimmer,
     color:deviceData.DeviceConfig.color,
-    colorStatus:deviceData.DeviceConfig.colorStatus,
     maxColor:deviceData.DeviceConfig.maxColor,
     minColor:deviceData.DeviceConfig.minColor,
     mode:deviceData.DeviceConfig.mode,
-    modeStatus:deviceData.DeviceConfig.modeStatus,
     countMode: deviceData.DeviceConfig.countMode
   })
 
@@ -99,14 +96,16 @@ export const LightMqttEdit = ({deviceData,hide})=>{
           <input className = "textInput" placeholder="information" id="DeviceInformation" type="text" name="DeviceInformation" value={device.DeviceInformation} onChange={changeHandler} required/>
         </label>
       </li>
+      <li>
+        <label>
+          <h5>status</h5>
+          <input className = "textInput" placeholder="status" id="status" type="text" name="status" value={device.status} onChange={changeHandler} required/>
+        </label>
+      </li>
       <HidingLi title = "Pover config">
         <label>
           <h5>pover topic</h5>
           <input className = "textInput" placeholder="pover" id="pover" type="text" name="pover" value={device.pover} onChange={changeHandler} required/>
-        </label>
-        <label>
-          <h5>pover status topic</h5>
-          <input className = "textInput" placeholder="poverStatus" id="poverStatus" type="text" name="poverStatus" value={device.poverStatus} onChange={changeHandler} required/>
         </label>
         <label>
           <h5>turn on signal</h5>
@@ -120,29 +119,21 @@ export const LightMqttEdit = ({deviceData,hide})=>{
       <HidingLi title = "Dimmer">
       <label>
         <h5>lavel light topic</h5>
-        <input className = "textInput" placeholder="lavelLight" id="lavelLight" type="text" name="lavelLight" value={device.lavelLight} onChange={changeHandler} required/>
-      </label>
-      <label>
-        <h5>lavel light status</h5>
-        <input className = "textInput" placeholder="lavelLightStatus" id="lavelLightStatus" type="text" name="lavelLightStatus" value={device.lavelLightStatus} onChange={changeHandler} required/>
+        <input className = "textInput" placeholder="lavelLight" id="lavelLight" type="text" name="dimmer" value={device.dimmer} onChange={changeHandler} required/>
       </label>
       <label>
         <h5>max light</h5>
-        <input className = "textInput" placeholder="maxLight" id="maxLight" type="text" name="maxLight" value={device.maxLight} onChange={changeHandler} required/>
+        <input className = "textInput" placeholder="maxLight" id="maxLight" type="text" name="maxDimmer" value={device.maxDimmer} onChange={changeHandler} required/>
       </label>
       <label>
         <h5>min light</h5>
-        <input className = "textInput" placeholder="minLight" id="minLight" type="text" name="minLight" value={device.minLight} onChange={changeHandler} required/>
+        <input className = "textInput" placeholder="minLight" id="minLight" type="text" name="minDimmer" value={device.minDimmer} onChange={changeHandler} required/>
       </label>
       </HidingLi>
       <HidingLi title = "Color">
       <label>
         <h5>color topic</h5>
         <input className = "textInput" placeholder="color" id="color" type="text" name="color" value={device.color} onChange={changeHandler} required/>
-      </label>
-      <label>
-        <h5>color status topic</h5>
-        <input className = "textInput" placeholder="colorStatus" id="colorStatus" type="text" name="colorStatus" value={device.colorStatus} onChange={changeHandler} required/>
       </label>
       <label>
         <h5>max color</h5>
@@ -157,10 +148,6 @@ export const LightMqttEdit = ({deviceData,hide})=>{
       <label>
         <h5>mode topic</h5>
         <input className = "textInput" placeholder="mode" id="mode" type="text" name="mode" value={device.mode} onChange={changeHandler} required/>
-      </label>
-      <label>
-        <h5>mode status topic</h5>
-        <input className = "textInput" placeholder="modeStatus" id="modeStatus" type="text" name="modeStatus" value={device.modeStatus} onChange={changeHandler} required/>
       </label>
       <label>
         <h5>count mode</h5>

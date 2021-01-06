@@ -167,6 +167,14 @@ export const AddDevicesForm = (props)=>{
                   <span className="indecator"/>
                 </label>
               </li>
+              <li id="typeDimmer" className={(form.typeDevice==="dimmer")?"active":""}>
+                <label>
+                  <div className="img"></div>
+                  <p>Dimmer</p>
+                  <input type="button" name="typeDevice" value="dimmer" onClick={changeHandler} />
+                  <span className="indecator"/>
+                </label>
+              </li>
             </ul>
           </div>
             <div className="formFooter">

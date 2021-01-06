@@ -28,7 +28,7 @@ export const SwitchMqttEdit = ({deviceData,hide})=>{
     DeviceTypeConnect:deviceData.DeviceTypeConnect,
     RoomId:deviceData.RoomId,
     pover:deviceData.DeviceConfig.pover,
-    poverStatus:deviceData.DeviceConfig.poverStatus,
+    status:deviceData.DeviceConfig.status,
     turnOnSignal:deviceData.DeviceConfig.turnOnSignal,
     turnOffSignal:deviceData.DeviceConfig.turnOffSignal
   })
@@ -88,14 +88,16 @@ export const SwitchMqttEdit = ({deviceData,hide})=>{
           <input className = "textInput" placeholder="information" id="DeviceInformation" type="text" name="DeviceInformation" value={device.DeviceInformation} onChange={changeHandler} required/>
         </label>
       </li>
+      <li>
+        <label>
+          <h5>status topic</h5>
+          <input className = "textInput" placeholder="poverStatus" id="poverStatus" type="text" name="status" value={device.status} onChange={changeHandler} required/>
+        </label>
+      </li>
       <HidingLi title = "Pover config">
         <label>
           <h5>pover topic</h5>
           <input className = "textInput" placeholder="pover" id="pover" type="text" name="pover" value={device.pover} onChange={changeHandler} required/>
-        </label>
-        <label>
-          <h5>pover status topic</h5>
-          <input className = "textInput" placeholder="poverStatus" id="poverStatus" type="text" name="poverStatus" value={device.poverStatus} onChange={changeHandler} required/>
         </label>
         <label>
           <h5>turn on signal</h5>

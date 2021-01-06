@@ -24,7 +24,7 @@ module.exports.connect = connect
 
 const subscribe = (topik)=>{
   client.subscribe(topik, function () {
-    console.log(topik);
+    console.log("connect topic",topik);
   })
 }
 module.exports.subscribe = subscribe
@@ -38,11 +38,36 @@ const input = (ret)=>{
   client.on('message', function (topic, message) {
     // message is Buffer
     console.log(message.toString(),topic)
+    updataValueDevices(topic,message.toString())
   })
+}
+
+const updataValueDevices = async(topic,mes)=>{
+  await devices.connect()
+  const elements = await devices.lookForDeviceByTopic(topic)
+  await devices.desconnect();
+  for(let item of elements) {
+    console.log("!",item);
+    let value = 0;
+    if(item.key==="pover"){
+      if(mes==="0")
+        value='0'
+      else
+        value='1'
+    }
+    else {
+      value = mes
+    }
+    await devices.connect()
+    await devices.setValue(item.deviceId,item.key,value)
+    await devices.desconnect();
+  }
+
 }
 
 const desconnect = ()=>{
   client.end()
+  console.log("mqtt desconnect");
 }
 module.exports.desconnect = desconnect
 
@@ -56,17 +81,20 @@ const subscribeDevicesStatus = async()=>{
       if (devicesList[i].DeviceConfig.status) {
         subscribe(devicesList[i].DeviceConfig.status)
       }
-      if(devicesList[i].DeviceConfig.poverStatus){
-        subscribe(devicesList[i].DeviceConfig.poverStatus)
+      if(devicesList[i].DeviceConfig.pover){
+        subscribe(devicesList[i].DeviceConfig.pover)
       }
-      if(devicesList[i].DeviceConfig.lavelLightStatus){
-        subscribe(devicesList[i].DeviceConfig.lavelLightStatus)
+      if(devicesList[i].DeviceConfig.dimmes){
+        subscribe(devicesList[i].DeviceConfig.dimmes)
       }
-      if(devicesList[i].DeviceConfig.colorStatus){
-        subscribe(devicesList[i].DeviceConfig.colorStatus)
+      if(devicesList[i].DeviceConfig.lavelLight){
+        subscribe(devicesList[i].DeviceConfig.lavelLight)
       }
-      if(devicesList[i].DeviceConfig.modeStatus){
-        subscribe(devicesList[i].DeviceConfig.modeStatus)
+      if(devicesList[i].DeviceConfig.color){
+        subscribe(devicesList[i].DeviceConfig.color)
+      }
+      if(devicesList[i].DeviceConfig.mode){
+        subscribe(devicesList[i].DeviceConfig.mode)
       }
     }
   } catch (e) {

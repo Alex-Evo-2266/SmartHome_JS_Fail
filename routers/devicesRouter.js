@@ -5,6 +5,7 @@ const config = require('config');
 const auth = require('../middleware/auth.middleware')
 const {check, validationResult} = require('express-validator')
 const devices = require('../mySQL/Devices');
+const mqtt = require('../mqtt/mqtt');
 
 router.post('/add',
   [
@@ -43,6 +44,8 @@ router.post('/add',
        config
      })
      await devices.desconnect();
+     mqtt.desconnect()
+     mqtt.connect()
      return res.status(201).json({message: "ok"})
    }
    catch(e){
@@ -96,6 +99,8 @@ router.post('/add',
        config:req.body.DeviceConfig
      }))
      await devices.desconnect();
+     mqtt.desconnect()
+     mqtt.connect()
      return
    } catch (e) {
      console.log("Error AddDevices",e);

@@ -159,6 +159,13 @@ button.typeDevice{
   background-size: cover;
   background-position: center;
 }
+#typeDimmer div.img{
+  background: url(../img/dimmerDevices.jpg);
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+}
 .formContent ul.devicesList li{
   width: calc(100% - 20px);
   height: 80px;

@@ -2,6 +2,7 @@
   "port": 5000,
   "secret": "AlexHome",
   "sqlConfDef":{
+    "connectionLimit":100,
     "host": "localhost",
     "port": "3306",
     "user":"roothome",
