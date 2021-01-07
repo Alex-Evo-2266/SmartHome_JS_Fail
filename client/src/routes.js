@@ -5,6 +5,7 @@ import {AuthPage} from './Page/Authpage'
 import {DevicesPage} from './Page/Devicespage'
 import {ProfilePage} from './Page/ProfilePage'
 import {OptionsPage} from './Page/OptionsPage'
+import {ScriptsPage} from './Page/Scriptspage'
 
 export const useRoutes = isAuthenticated=>{
   if(isAuthenticated){
@@ -15,6 +16,9 @@ export const useRoutes = isAuthenticated=>{
         </Route>
         <Route path="/devices" exact>
           <DevicesPage/>
+        </Route>
+        <Route path="/scripts" exact>
+          <ScriptsPage/>
         </Route>
         <Route path="/profile">
           <ProfilePage/>

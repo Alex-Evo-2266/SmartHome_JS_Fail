@@ -7,6 +7,9 @@
   /* overflow-y: scroll; */
 
 }
+.conteiner.home{
+  min-height: calc(100vh - 30px);
+}
 body::-webkit-scrollbar{
   width: 0;
 }

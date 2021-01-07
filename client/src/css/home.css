@@ -1,0 +1,7 @@
+.conteiner.home{
+  transition: 0.5s;
+  transform: translateY(0);
+}
+.conteiner.home.editMode{
+  transform: translateY(100px);
+}

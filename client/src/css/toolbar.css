@@ -1,0 +1,16 @@
+.toolbar{
+  position: absolute;
+  height: 90px;
+  width: 100%;
+  top: -100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+.toolbar.active{
+  top:0;
+}
+.toolbar .elementConteiner.top{
+  border-radius: 0 0 20px 20px;
+}

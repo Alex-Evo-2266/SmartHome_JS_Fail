@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
 
-export const ModalWindow = ({children,hide,width = 100,height = 200,title="window"})=>{
+export const ModalWindow = ({position = "fixed",z=5,children,top=240,left=300,hide = null,width = "auto",height = "auto",title="window", moving = true})=>{
   const [point, setPoint] = useState({
-    top:240,
-    left:300
+    top:top,
+    left:left
   })
 
   const mouseDown = (event)=>{
@@ -15,7 +15,7 @@ export const ModalWindow = ({children,hide,width = 100,height = 200,title="windo
     moveAt(event)
 
     function moveAt(e) {
-      if(e.pageX < 65||e.pageX+width > document.body.clientWidth||e.pageY < 5||e.pageY > document.clientHeight){
+      if(e.pageX < 65||e.pageX > document.body.clientWidth||e.pageY < 5||e.pageY > document.clientHeight){
         return
       }
       setPoint({
@@ -54,12 +54,12 @@ export const ModalWindow = ({children,hide,width = 100,height = 200,title="windo
   }
 
   return(
-    <div className="modalWindow" style={{top:`${point.top}px`,left:`${point.left}px`}}>
-      <div className="modalHeader" onMouseDown={mouseDown} onDragStart={()=>false}>
+    <div className="modalWindow" style={{top:`${point.top}px`,left:`${point.left}px`,zIndex:z,position:position}}>
+      <div className="modalHeader" onMouseDown={(moving)?mouseDown:null} onDragStart={()=>false}>
         <h4>{title}</h4>
-        <button onClick = {hide}>&times;</button>
+        {(hide)?<button onClick = {hide}>&times;</button>:null}
       </div>
-      <div className="modalContent" style={{width:`${width}px`,height:`${height}px`}}>
+      <div className="modalContent" style={{width:(width!="auto")?`${width}px`:"",height:(height!="auto")?`${height}px`:""}}>
         {children}
       </div>
     </div>

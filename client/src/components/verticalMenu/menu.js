@@ -35,6 +35,12 @@ export const Menu = ()=>{
             </NavLink>
           </li>
           <li>
+            <NavLink to = "/scripts" exact>
+              <span className = "icon"><i className="fas fa-code-branch"></i></span>
+              <span className = "title">Scripts</span>
+            </NavLink>
+          </li>
+          <li>
             <NavLink to = "/profile">
               <span className = "icon"><i className="fas fa-user-circle"></i></span>
               <span className = "title">Profile</span>

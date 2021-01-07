@@ -6,6 +6,7 @@ const imageRouter = require('./routers/imageRouter')
 const devicesRouter = require('./routers/devicesRouter')
 const userRouter = require('./routers/userRouter')
 const configRouter = require('./routers/configRouter')
+const homeConfig = require('./routers/homeRouter')
 const terminalRouter = require('./routers/terminalRouter')
 const socket = require('./socket/socket')
 const mqtt = require('./mqtt/mqtt')
@@ -28,6 +29,7 @@ app.use('/api/base',imageRouter);
 app.use('/api/devices',devicesRouter);
 app.use('/api/user',userRouter);
 app.use('/api/server',configRouter);
+app.use('/api/homeConfig',homeConfig);
 app.use('/api/terminal',terminalRouter);
 ///api/base/fonImage/:type
 
