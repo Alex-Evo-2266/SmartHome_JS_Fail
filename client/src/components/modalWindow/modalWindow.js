@@ -1,17 +1,32 @@
 import React,{useState} from 'react'
 
-export const ModalWindow = ({position = "fixed",z=5,children,top=240,left=300,hide = null,width = "auto",height = "auto",title="window", moving = true})=>{
+export const ModalWindow = ({
+  position = "fixed",
+  z=5,
+  children,
+  top=240,
+  left=300,
+  hide = null,
+  userBtn = null,
+  width = "auto",
+  height = "auto",
+  title="window",
+  moving = true,
+  heightToolbar = 30,
+  className = ""
+})=>{
   const [point, setPoint] = useState({
     top:top,
     left:left
   })
-
+// .getBoundingClientRect()
   const mouseDown = (event)=>{
     if(event.target.className!=="modalHeader")
       return;
+    let parent = event.target.parentNode.parentNode.getBoundingClientRect()
     var coords = getCoords(event.target);
-    var shiftX = event.pageX - coords.left;
-    var shiftY = event.pageY - coords.top;
+    var shiftX = event.pageX - coords.left + parent.x;
+    var shiftY = event.pageY - coords.top + parent.y;
     moveAt(event)
 
     function moveAt(e) {
@@ -34,6 +49,7 @@ export const ModalWindow = ({position = "fixed",z=5,children,top=240,left=300,hi
         document.onmousemove = null;
         event.onmouseup = null;
         document.onkeydown = null;
+
       }
     }
 
@@ -41,6 +57,7 @@ export const ModalWindow = ({position = "fixed",z=5,children,top=240,left=300,hi
       document.onmousemove = null;
       event.onmouseup = null;
       document.onkeydown = null;
+
     };
 
 
@@ -54,10 +71,11 @@ export const ModalWindow = ({position = "fixed",z=5,children,top=240,left=300,hi
   }
 
   return(
-    <div className="modalWindow" style={{top:`${point.top}px`,left:`${point.left}px`,zIndex:z,position:position}}>
-      <div className="modalHeader" onMouseDown={(moving)?mouseDown:null} onDragStart={()=>false}>
+    <div className={`modalWindow ${className}`} style={{top:`${point.top}px`,left:`${point.left}px`,zIndex:z,position:position}}>
+      <div className="modalHeader" style={{height: `${heightToolbar}px`}} onMouseDown={(moving)?mouseDown:null} onDragStart={()=>false}>
         <h4>{title}</h4>
-        {(hide)?<button onClick = {hide}>&times;</button>:null}
+        {(userBtn)?<button className = "userBtn" onClick = {userBtn}><i className="fas fa-list"></i></button>:null}
+        {(hide)?<button className = "hide" onClick = {hide}>&times;</button>:null}
       </div>
       <div className="modalContent" style={{width:(width!="auto")?`${width}px`:"",height:(height!="auto")?`${height}px`:""}}>
         {children}

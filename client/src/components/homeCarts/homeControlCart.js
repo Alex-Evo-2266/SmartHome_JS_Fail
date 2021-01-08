@@ -6,14 +6,19 @@ import {EditModeContext} from '../../context/EditMode'
 export const HomeControlCart = () =>{
   const {setMode} = useContext(EditModeContext)
   return(
-    <ModalWindow position = "absolute" z={3} top={10} left={65} width={"auto"} height={"auto"} title="controlPanel" moving={false}>
-      <ul className="elementConteiner" style={{width:"300px"}}>
+    <ModalWindow position = "relative" heightToolbar={20} z={3} top={0} left={0} width={"auto"} height={"auto"} title="controlPanel" moving={false}>
+      <ul className="elementConteiner">
         <li>
           <BtnElement onClick={(e)=>{
             setTimeout(()=>e.target.checked = "",250)
             setMode(true)
           }}>
             <i className="fas fa-cog"></i>
+          </BtnElement>
+        </li>
+        <li>
+          <BtnElement >
+            <i className="fas fa-cogs"></i>
           </BtnElement>
         </li>
       </ul>

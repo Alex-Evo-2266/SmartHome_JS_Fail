@@ -9,6 +9,8 @@
 }
 .conteiner.home{
   min-height: calc(100vh - 30px);
+  padding: 0 0 0 60px;
+  
 }
 body::-webkit-scrollbar{
   width: 0;
@@ -17,5 +19,8 @@ body::-webkit-scrollbar{
   .conteiner{
     padding: 70px 0 0 0;
     width: 100%;
+  }
+  .conteiner.home{
+    padding:0;
   }
 }

@@ -28,7 +28,7 @@ export const AuthPage = function (){
       const data = await request('/api/auth/login', 'POST', {...form})
       auth.login(data.token, data.userId, data.userLevel)
     } catch (e) {
-
+      console.error(e);
     }
   }
 

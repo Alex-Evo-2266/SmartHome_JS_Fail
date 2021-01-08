@@ -9,7 +9,6 @@ ul.elementConteiner{
   height: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  padding: 20px 0;
   background: linear-gradient(0deg, #000000, #111);
 }
 ul.elementConteiner.top{
