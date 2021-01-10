@@ -9,6 +9,7 @@ export const SocketContext = createContext()
 export const SocketState = ({children})=>{
   const {socket,userId} = useContext(AuthContext)
   const [newMessage, setNewMessage] = useState({})
+  // const [devices, setDevices] = useState([])
 
   function saveMessage(msg) {
     if(newMessage!==msg){
@@ -28,6 +29,10 @@ export const SocketState = ({children})=>{
   //   if(data&&data.message==="started"){
   //     window.location.reload();
   //   }
+  // })
+  // socket.on('new Data Devices',(data)=>{
+  //   // setDevices(data)
+  //   console.log(data);
   // })
   socket.on('terminal ret message',(data)=>{
     saveMessage(data)

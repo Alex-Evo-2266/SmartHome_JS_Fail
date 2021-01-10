@@ -48,16 +48,17 @@ const updataValueDevices = async(topic,mes)=>{
   await devices.desconnect();
   for(let item of elements) {
     console.log("!",item);
-    let value = 0;
-    if(item.key==="pover"){
-      if(mes==="0")
-        value='0'
-      else
-        value='1'
-    }
-    else {
-      value = mes
-    }
+    let value = "0";
+    // if(item.key==="pover"){
+    //   if(mes==="0")
+    //     value='0'
+    //   else
+    //     value='1'
+    // }
+    // else {
+    //   value = mes
+    // }
+    value = mes
     await devices.connect()
     await devices.setValue(item.deviceId,item.key,value)
     await devices.desconnect();

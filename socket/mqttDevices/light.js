@@ -2,12 +2,16 @@ const mqtt = require('../../mqtt/mqtt')
 
 module.exports = async function (device,action,atrebut,socket) {
   try {
-    console.log(device,action,atrebut);
-    if(action === "poverOn"||(action === "poverTogle"&&device.DeviceValue.pover===device.DeviceConfig.turnOffSignal)){
+    console.log(device.DeviceValue.pover,device.DeviceConfig.turnOffSignal);
+    if(action === "poverOn"||(action === "poverTogle"&&device.DeviceValue.pover==="0")){
       mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOnSignal)
       return true;
     }
-    if(action === "poverOff"||(action === "poverTogle"&&device.DeviceValue.pover===device.DeviceConfig.turnOnSignal)){
+    if(action === "poverOff"||(action === "poverTogle"&&device.DeviceValue.pover==="1")){
+      mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
+      return true;
+    }
+    if(action === "poverTogle"){
       mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
       return true;
     }

@@ -5,6 +5,7 @@ import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 import {Loader} from '../components/Loader'
 import {ImageInput} from '../components/moduls/imageInput'
+import {InputNumber} from '../components/moduls/inputNumber'
 
 export const OptionsPage = () => {
   const auth = useContext(AuthContext)
@@ -15,6 +16,7 @@ export const OptionsPage = () => {
   const [serverconf , setServerconf] = useState({
     auteStyle:false,
     staticBackground:false,
+    updateFrequency: "2",
     mqttBroker:'none',
     loginMqttBroker:'',
     passwordMqttBroker:''
@@ -45,6 +47,9 @@ export const OptionsPage = () => {
   const changeHandler = event => {
     setServerconf({ ...serverconf, [event.target.name]: event.target.value })
   }
+  const changeNumberHandler = (Number,key) => {
+    setServerconf({ ...serverconf, [key]: Number })
+  }
 
   const updataConf = useCallback(async()=>{
     const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
@@ -52,6 +57,7 @@ export const OptionsPage = () => {
     setServerconf({
       auteStyle:data.server.auteStyle,
       staticBackground:data.server.staticBackground,
+      updateFrequency:data.server.updateFrequency,
       mqttBroker:data.server.mqttBroker||"",
       loginMqttBroker:data.server.loginMqttBroker||"",
       passwordMqttBroker:data.server.passwordMqttBroker||""
@@ -96,6 +102,12 @@ export const OptionsPage = () => {
                   <input onChange={checkedHandler} name="staticBackground" type="checkbox" checked={serverconf.staticBackground}></input>
                   <span></span>
                   <i className="indicator"></i>
+                </label>
+              </div>
+              <div className="configElement">
+                <p className="switchText">update frequency (s)</p>
+                <label className="number">
+                  <InputNumber min={1} max={600} Xten={true} result={(v)=>changeNumberHandler(v,"updateFrequency")} Value={serverconf.updateFrequency}/>
                 </label>
               </div>
               <div className="configElement">

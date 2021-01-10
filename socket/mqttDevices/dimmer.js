@@ -11,6 +11,10 @@ module.exports = async function (device,action,atrebut,socket) {
       mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
       return true;
     }
+    if(device.DeviceConfig.pover&&action === "poverTogle"){
+      mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
+      return true;
+    }
     if(action === "dimmer"){
       let y = Number(atrebut)
       if(!y||!device.DeviceConfig.dimmer)

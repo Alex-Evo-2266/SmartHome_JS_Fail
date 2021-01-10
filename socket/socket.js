@@ -6,6 +6,12 @@ const ir = require('./mqttDevices/ir');
 const dimmer = require('./mqttDevices/dimmer');
 
  const socket = function (http, io,cb) {
+   // setInterval(function () {
+   //   await devices.connect()
+   //   const devicedata = await devices.Devices()
+   //   await devices.desconnect();
+   //   io.emit("new Data Devices",devicedata)
+   // }, 3000);
   io.on('connection', socket => {
     console.log("io connect");
     if(typeof(cb) === "function"){

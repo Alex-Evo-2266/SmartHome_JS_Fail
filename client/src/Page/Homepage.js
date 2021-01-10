@@ -10,6 +10,7 @@ import {CartEdit} from '../components/homeCarts/EditCarts/CartEdit'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/AuthContext.js'
+import {DeviceStatusContext} from '../context/DeviceStatusContext'
 
 export const HomePage = () => {
 
@@ -20,10 +21,9 @@ const [carts, setCarts] = useState([])
 const auth = useContext(AuthContext)
 const {message} = useMessage();
 const {request, error, clearError} = useHttp();
-
-useEffect(()=>{
-  console.log("carts",carts);
-},[carts])
+const [devices, setDevices] = useState({})
+const [interval, setInterval] = useState(2)
+const [cost, setCost] = useState(true)
 
 const addCart = async(type="base")=>{
   let newCart = {
@@ -47,7 +47,7 @@ const removeCart = async(index)=>{
 }
 
 const updataCart = async(index,cart)=>{
-  console.log("updata",cart);
+  console.log(index,cart,carts);
   await setCarts((prev)=>{
     let mas = prev.slice();
     mas[index] = cart
@@ -57,8 +57,7 @@ const updataCart = async(index,cart)=>{
 
 const saveCarts = async()=>{
   try {
-    const data = await request('/api/homeConfig/config/edit', 'POST', {carts},{Authorization: `Bearer ${auth.token}`})
-    console.log(data);
+    await request('/api/homeConfig/config/edit', 'POST', {carts},{Authorization: `Bearer ${auth.token}`})
   } catch (e) {
     console.error(e);
   }
@@ -67,12 +66,33 @@ const saveCarts = async()=>{
 const importCarts = useCallback(async()=>{
   try {
     const data = await request('/api/homeConfig/config', 'GET', null,{Authorization: `Bearer ${auth.token}`})
-    console.log(data.homePage);
     setCarts(data.homePage.carts)
+    const data2 = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
+    setInterval(data2.server.updateFrequency)
   } catch (e) {
     console.error(e);
   }
 },[request,auth.token])
+
+const updateDevice = useCallback(async()=>{
+  try {
+    const data = await request(`/api/devices/all`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
+    await setDevices(data);
+  } catch (e) {
+    console.error(e);
+  }
+},[request,auth.token])
+
+useEffect(() => {
+  const interval2 = setTimeout(() => {
+    updateDevice()
+    console.log("tick");
+    setCost((prev)=>!prev)
+  }, interval*1000);
+  return () => {
+    return clearTimeout(interval2);
+  }
+},[cost,interval,updateDevice]);
 
 useEffect(()=>{
   message(error,"error")
@@ -83,7 +103,12 @@ useEffect(()=>{
 
 useEffect(()=>{
   importCarts()
-},[importCarts])
+  updateDevice()
+},[importCarts,updateDevice])
+
+const elementPoz = ()=>{
+
+}
 
 useEffect(()=>{
   let elements = document.getElementsByClassName('gridElement')
@@ -98,6 +123,7 @@ useEffect(()=>{
 
   return(
     <EditModeContext.Provider value={{setMode:setEditMode, mode:editMode,add:addCart}}>
+    <DeviceStatusContext.Provider value={{devices:devices, updateDevice:updateDevice}}>
     <CartEditState>
     <AddControlState>
       <CartEdit/>
@@ -124,6 +150,7 @@ useEffect(()=>{
       </div>
     </AddControlState>
     </CartEditState>
+    </DeviceStatusContext.Provider>
     </EditModeContext.Provider>
   )
 }

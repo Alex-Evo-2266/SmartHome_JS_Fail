@@ -4,6 +4,7 @@ import {BackForm} from '../../moduls/backForm'
 import {ModalWindow} from '../../modalWindow/modalWindow'
 import {SwitchDevice} from './devicesControl/SwitchDevice'
 import {LightFunction} from './devicesFunction/lightFunction'
+import {SwitchFunction} from './devicesFunction/switchFunction'
 
 export const AddControl = ()=>{
   const {addControl, hide} = useContext(AddControlContext)
@@ -11,6 +12,7 @@ export const AddControl = ()=>{
   const [scriptsChild, setScriptsChild] = useState(false);
   const [sliderChild, setSliderChild] = useState(false);
   const [lightFunctionVisible,setLightFunctionVisible] = useState(false);
+  const [switchFunctionVisible,setSwitchFunctionVisible] = useState(false);
   const [device, setDevice] = useState({});
 
   const close = ()=>{
@@ -19,6 +21,7 @@ export const AddControl = ()=>{
     setScriptsChild(false)
     setSliderChild(false)
     setLightFunctionVisible(false)
+    setSwitchFunctionVisible(false)
   }
 
   const deviceFunction = (device)=>{
@@ -27,6 +30,8 @@ export const AddControl = ()=>{
     setSliderChild(false)
     if(device.DeviceType==="light")
       setLightFunctionVisible(true)
+    if(device.DeviceType==="switch")
+      setSwitchFunctionVisible(true)
     setDevice(device)
   }
 
@@ -66,6 +71,9 @@ export const AddControl = ()=>{
       </div>
       <div className={`editcart-conteiner childrenList ${(lightFunctionVisible)?"active":""}`}>
         <LightFunction device={device} result={addButton}/>
+      </div>
+      <div className={`editcart-conteiner childrenList ${(switchFunctionVisible)?"active":""}`}>
+        <SwitchFunction device={device} result={addButton}/>
       </div>
       </ModalWindow>
       </BackForm>

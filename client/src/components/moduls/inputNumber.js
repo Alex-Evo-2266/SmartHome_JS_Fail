@@ -1,8 +1,12 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
-export const InputNumber = ({min,max,step=1,Xten=false,result})=>{
+export const InputNumber = ({min,max,step=1,Xten=false,result,Value})=>{
   const [value, setValue] = useState(min)
 
+  useEffect(()=>{
+    if(Value)
+      setValue(Value)
+  },[Value])
   const focusdel=(e)=>{
     e.target.parentNode.focus()
   }

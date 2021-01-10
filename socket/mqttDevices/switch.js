@@ -11,6 +11,10 @@ module.exports = async function (device,action,atrebut,socket) {
       mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
       return true;
     }
+    if(action === "poverTogle"){
+      mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
+      return true;
+    }
   } catch (e) {
     console.error(e);
   }
