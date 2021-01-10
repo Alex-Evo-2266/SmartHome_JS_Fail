@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {InputNumber} from '../../../moduls/inputNumber'
 
 export const SwitchFunction = ({device,result})=>{

@@ -55,6 +55,8 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
                 <i className="fas fa-palette"></i>:
                 (item.type==="mode")?
                 <i>M {item.value}</i>:
+                (item.type==="ir")?
+                <i className="fas fa-tv"></i>:
                 <i>M</i>
               }
             </BtnElement>

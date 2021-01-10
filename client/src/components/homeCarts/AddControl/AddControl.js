@@ -5,6 +5,8 @@ import {ModalWindow} from '../../modalWindow/modalWindow'
 import {SwitchDevice} from './devicesControl/SwitchDevice'
 import {LightFunction} from './devicesFunction/lightFunction'
 import {SwitchFunction} from './devicesFunction/switchFunction'
+import {DimmerFunction} from './devicesFunction/dimmerFunction'
+import {IrFunction} from './devicesFunction/irFunction'
 
 export const AddControl = ()=>{
   const {addControl, hide} = useContext(AddControlContext)
@@ -13,6 +15,8 @@ export const AddControl = ()=>{
   const [sliderChild, setSliderChild] = useState(false);
   const [lightFunctionVisible,setLightFunctionVisible] = useState(false);
   const [switchFunctionVisible,setSwitchFunctionVisible] = useState(false);
+  const [dimmerFunctionVisible,setDimmerFunctionVisible] = useState(false);
+  const [irFunctionVisible,setIrFunctionVisible] = useState(false);
   const [device, setDevice] = useState({});
 
   const close = ()=>{
@@ -22,6 +26,8 @@ export const AddControl = ()=>{
     setSliderChild(false)
     setLightFunctionVisible(false)
     setSwitchFunctionVisible(false)
+    setDimmerFunctionVisible(false)
+    setIrFunctionVisible(false)
   }
 
   const deviceFunction = (device)=>{
@@ -32,6 +38,10 @@ export const AddControl = ()=>{
       setLightFunctionVisible(true)
     if(device.DeviceType==="switch")
       setSwitchFunctionVisible(true)
+    if(device.DeviceType==="dimmer")
+      setDimmerFunctionVisible(true)
+    if(device.DeviceType==="ir")
+      setIrFunctionVisible(true)
     setDevice(device)
   }
 
@@ -74,6 +84,12 @@ export const AddControl = ()=>{
       </div>
       <div className={`editcart-conteiner childrenList ${(switchFunctionVisible)?"active":""}`}>
         <SwitchFunction device={device} result={addButton}/>
+      </div>
+      <div className={`editcart-conteiner childrenList ${(dimmerFunctionVisible)?"active":""}`}>
+        <DimmerFunction device={device} result={addButton}/>
+      </div>
+      <div className={`editcart-conteiner childrenList ${(irFunctionVisible)?"active":""}`}>
+        <IrFunction device={device} result={addButton}/>
       </div>
       </ModalWindow>
       </BackForm>

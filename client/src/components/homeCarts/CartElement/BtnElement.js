@@ -24,9 +24,18 @@ export const BtnElement = ({data,className,index,children,name,onClick,disabled=
   useEffect(()=>{
     if(typeof(onClick)==="function")return
     if(device&&data&&data.type==="pover"&&device.DeviceValue&&device.DeviceValue.pover){
-      if(device.DeviceValue.pover==="0")
+      if(!/\D/.test(device.DeviceValue.pover)&&!/\D/.test(device.DeviceConfig.turnOffSignal)&&!/\D/.test(device.DeviceConfig.turnOnSignal)){
+        let poz = Number(device.DeviceValue.pover)
+        let min = Number(device.DeviceConfig.turnOffSignal)
+        let max = Number(device.DeviceConfig.turnOnSignal)
+        if(poz>min&&poz<=max)
+          setValue(true)
+        else
+          setValue(false)
+      }
+      if(device.DeviceValue.pover===device.DeviceConfig.turnOffSignal)
         setValue(false)
-      if(device.DeviceValue.pover==="1")
+      if(device.DeviceValue.pover===device.DeviceConfig.turnOnSignal)
         setValue(true)
     }
     if(device&&data&&data.type==="mode"&&device.DeviceValue&&device.DeviceValue.mode){
@@ -40,9 +49,6 @@ export const BtnElement = ({data,className,index,children,name,onClick,disabled=
   },[device,onClick,data])
 
 const changeHandler = (event)=>{
-  if(!device){
-    // updataDevice(data.IdDevice)
-  }
   setValue((prev)=>!prev)
   if(!switchMode){
     setTimeout(()=>setValue(false),250)
@@ -64,6 +70,8 @@ const changeHandler = (event)=>{
       socket.terminalMessage(`device ${device.DeviceSystemName} mode ${data.value}`)
   if(data.type==="switch mode")
       socket.terminalMessage(`device ${device.DeviceSystemName} mode`)
+  if(data.type==="ir")
+      socket.terminalMessage(`device ${device.DeviceSystemName} send ${data.value}`)
   // socket.terminalMessage()
   setTimeout(()=>updateDevice(),500)
 
