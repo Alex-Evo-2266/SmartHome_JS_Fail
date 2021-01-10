@@ -14,7 +14,11 @@ body {
 }
 * button{
   outline: none;
+  transition: 0.5s;
 }
 .App{
   overflow: hidden;
+}
+*::-webkit-scrollbar{
+  width: 0;
 }

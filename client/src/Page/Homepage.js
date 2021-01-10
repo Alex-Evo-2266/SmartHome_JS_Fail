@@ -1,9 +1,11 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState,useEffect,useContext,useCallback} from 'react'
 import {HomeControlCart} from '../components/homeCarts/homeControlCart'
 import {EditToolbar} from '../components/homeCarts/EditToolbar'
 import {HomebaseCart} from '../components/homeCarts/homeBaseCart'
 import {EditModeContext} from '../context/EditMode'
 import {CartEditState} from '../components/homeCarts/EditCarts/CartEditState'
+import {AddControlState} from '../components/homeCarts/AddControl/AddControlState'
+import {AddControl} from '../components/homeCarts/AddControl/AddControl'
 import {CartEdit} from '../components/homeCarts/EditCarts/CartEdit'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
@@ -17,7 +19,11 @@ const [editMode, setEditMode] = useState(false);
 const [carts, setCarts] = useState([])
 const auth = useContext(AuthContext)
 const {message} = useMessage();
-const {loading, request, error, clearError} = useHttp();
+const {request, error, clearError} = useHttp();
+
+useEffect(()=>{
+  console.log("carts",carts);
+},[carts])
 
 const addCart = async(type="base")=>{
   let newCart = {
@@ -41,6 +47,7 @@ const removeCart = async(index)=>{
 }
 
 const updataCart = async(index,cart)=>{
+  console.log("updata",cart);
   await setCarts((prev)=>{
     let mas = prev.slice();
     mas[index] = cart
@@ -57,7 +64,7 @@ const saveCarts = async()=>{
   }
 }
 
-const importCarts = async()=>{
+const importCarts = useCallback(async()=>{
   try {
     const data = await request('/api/homeConfig/config', 'GET', null,{Authorization: `Bearer ${auth.token}`})
     console.log(data.homePage);
@@ -65,7 +72,7 @@ const importCarts = async()=>{
   } catch (e) {
     console.error(e);
   }
-}
+},[request,auth.token])
 
 useEffect(()=>{
   message(error,"error")
@@ -76,10 +83,9 @@ useEffect(()=>{
 
 useEffect(()=>{
   importCarts()
-},[])
+},[importCarts])
 
 useEffect(()=>{
-  let el = document.getElementById('homeGrid')
   let elements = document.getElementsByClassName('gridElement')
   for (var item of elements) {
     if(item.firstChild.offsetHeight>heightElement){
@@ -93,7 +99,9 @@ useEffect(()=>{
   return(
     <EditModeContext.Provider value={{setMode:setEditMode, mode:editMode,add:addCart}}>
     <CartEditState>
+    <AddControlState>
       <CartEdit/>
+      <AddControl/>
       <EditToolbar show={editMode} save={saveCarts}/>
       <div className = {`conteiner home ${(editMode)?"editMode":""}`}>
         <div className = "conteinerHome HomeGrid" id="homeGrid">
@@ -105,7 +113,7 @@ useEffect(()=>{
                 if(item.type==="base"){
                   return(
                     <div className = "gridElement" key={index}>
-                      <HomebaseCart hide={(i)=>removeCart(i)} updata={updataCart} index={index} data = {item} name={item.name}/>
+                      <HomebaseCart edit={editMode} hide={(i)=>removeCart(i)} updata={updataCart} index={index} data = {item} name={item.name}/>
                     </div>
                   )
                 }
@@ -114,6 +122,7 @@ useEffect(()=>{
           }
         </div>
       </div>
+    </AddControlState>
     </CartEditState>
     </EditModeContext.Provider>
   )

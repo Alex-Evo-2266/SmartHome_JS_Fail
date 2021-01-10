@@ -9,18 +9,16 @@ export const EditToolbar = ({show=false,save=null}) => {
     <div className={`toolbar ${(show)?"active":""}`}>
       <ul className="elementConteiner top">
         <li>
-          <BtnElement onClick={(e)=>{
-            setTimeout(()=>e.target.checked = "",250)
+          <BtnElement switchMode={false} onClick={()=>{
             add()
           }}>
             <i className="far fa-window-restore"></i>
           </BtnElement>
         </li>
         <li>
-          <BtnElement onClick={(e)=>{
+          <BtnElement switchMode={false} onClick={()=>{
             if(typeof(save)==="function")
               save()
-            setTimeout(()=>e.target.checked = "",250)
             setMode(false)
           }}>
             <i className="fas fa-check"></i>

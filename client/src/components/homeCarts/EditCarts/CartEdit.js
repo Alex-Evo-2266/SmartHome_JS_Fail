@@ -1,7 +1,7 @@
 import React,{useContext,useState,useEffect} from 'react'
 import {ModalWindow} from '../../modalWindow/modalWindow'
-import {EditModeContext} from '../../../context/EditMode'
 import {CartEditContext} from './CartEditContext'
+import {BackForm} from '../../moduls/backForm'
 
 export const CartEdit = () =>{
   const {cartEdit, hide} = useContext(CartEditContext)
@@ -28,6 +28,7 @@ export const CartEdit = () =>{
     if(typeof(cartEdit.OK)!=="function")
       return;
     cartEdit.OK(cartEdit.cart.index,cart)
+    hide()
   }
 
   if(!cartEdit.visible){
@@ -35,15 +36,17 @@ export const CartEdit = () =>{
   }
 
   return(
-    <ModalWindow hide={hide} title="Edit Cart" moving={true} width="400" height="300">
-      <div className="editcatr-conteiner">
+    <BackForm onClick={hide}>
+    <ModalWindow hide={hide} title="Edit Cart" moving={false} backForm={true} style={{width:"400px",left:"50%",transform: "translateX(-50%)", top:"100px",maxHeight:"calc(100% - 200px)"}}>
+      <div className="editcart-conteiner">
         <p>сontainer ID: {cartEdit.cart.id}</p>
-        <div className="editcatr-element">
+        <div className="editcart-element">
           <p>сontainer name</p>
-          <input type="text" value={cart.name} name="name" onChange={changeHandler}/>
+          <input type="text" value={(cart)?cart.name:""} name="name" onChange={changeHandler}/>
         </div>
         <button onClick = {outHandler}>Ок</button>
       </div>
     </ModalWindow>
+    </BackForm>
   )
 }

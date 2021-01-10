@@ -33,6 +33,7 @@ const devices = async()=>{
     if(result&&result[0]){
       for (var item of result[0]) {
         item.DeviceConfig = JSON.parse(item.DeviceConfig)
+        item.DeviceValue = JSON.parse(item.DeviceValue)
       }
     }
     return result[0];

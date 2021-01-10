@@ -42,5 +42,6 @@
 }
 .modalContent{
   min-height: 20px;
+  position: relative;
   /* overflow: hidden; */
 }

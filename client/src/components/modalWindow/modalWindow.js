@@ -13,7 +13,9 @@ export const ModalWindow = ({
   title="window",
   moving = true,
   heightToolbar = 30,
-  className = ""
+  className = "",
+  style = {},
+  styleContent = {},
 })=>{
   const [point, setPoint] = useState({
     top:top,
@@ -71,13 +73,13 @@ export const ModalWindow = ({
   }
 
   return(
-    <div className={`modalWindow ${className}`} style={{top:`${point.top}px`,left:`${point.left}px`,zIndex:z,position:position}}>
+    <div className={`modalWindow ${className}`} style={{top:`${point.top}px`,left:`${point.left}px`,zIndex:z,position:position,...style}}>
       <div className="modalHeader" style={{height: `${heightToolbar}px`}} onMouseDown={(moving)?mouseDown:null} onDragStart={()=>false}>
         <h4>{title}</h4>
         {(userBtn)?<button className = "userBtn" onClick = {userBtn}><i className="fas fa-list"></i></button>:null}
         {(hide)?<button className = "hide" onClick = {hide}>&times;</button>:null}
       </div>
-      <div className="modalContent" style={{width:(width!="auto")?`${width}px`:"",height:(height!="auto")?`${height}px`:""}}>
+      <div className="modalContent" style={{width:(width!=="auto")?`${width}px`:"",height:(height!=="auto")?`${height}px`:"",...styleContent}}>
         {children}
       </div>
     </div>

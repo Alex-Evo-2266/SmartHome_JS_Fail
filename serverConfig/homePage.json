@@ -1,1 +1,1 @@
-{"carts":[]}
+{"carts":[{"name":"Alexf","type":"base","children":[{"type":"pover","address":"mqtt-light-lamp1","IdDevice":1,"On":"255","Off":"0"}]},{"id":1,"name":"","type":"base","children":[{"type":"dimmer","address":"mqtt-light-lamp1","IdDevice":1,"value":"50"}]}]}
