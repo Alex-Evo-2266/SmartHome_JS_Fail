@@ -2,7 +2,6 @@ import React,{useContext} from 'react'
 import {ModalWindow} from '../modalWindow/modalWindow'
 import {BtnElement} from './CartElement/BtnElement'
 import {EditModeContext} from '../../context/EditMode'
-import {SliderElement} from './CartElement/SliderElement'
 
 export const HomeControlCart = () =>{
   const {setMode} = useContext(EditModeContext)

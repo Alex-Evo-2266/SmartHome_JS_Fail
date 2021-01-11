@@ -35,6 +35,13 @@ export const AddControl = ()=>{
       setDimmerFunctionVisible(true)
     if(device.DeviceType==="ir")
       setIrFunctionVisible(true)
+    if(device.DeviceType==="sensor"||device.DeviceType==="binarySensor")
+      addButton({
+        item:typeChild,
+        type:"sensor",
+        order:"0",
+        IdDevice:device.DeviceId
+      })
     setDevice(device)
   }
 
@@ -66,7 +73,7 @@ export const AddControl = ()=>{
           <button onClick={()=>setTypeChild("button")}>button activate</button>
           <button>activate scripts</button>
           <button onClick={()=>setTypeChild("slider")}>slider</button>
-          <button>button</button>
+          <button onClick={()=>setTypeChild("sensor")}>sensor</button>
         </div>
       </div>
       {

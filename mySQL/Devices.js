@@ -156,7 +156,7 @@ module.exports.lookForDeviceByTopic = async function (topic) {
       mqttDevices[i].DeviceValue = JSON.parse(mqttDevices[i].DeviceValue)
       for (let key in mqttDevices[i].DeviceConfig) {
         if(mqttDevices[i].DeviceConfig[key]===topic){
-          let obj = {deviceId:mqttDevices[i].DeviceId,device:mqttDevices[i].DeviceSystemName,key,topic,value:mqttDevices[i].DeviceValue}
+          let obj = {deviceId:mqttDevices[i].DeviceId,device:mqttDevices[i].DeviceSystemName,key,topic,value:mqttDevices[i].DeviceValue,type:mqttDevices[i].DeviceType}
           ret.push(obj)
         }
       }

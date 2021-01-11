@@ -51,20 +51,15 @@ const updataValueDevices = async(topic,mes)=>{
     console.log("!",item);
     if(item.key==="status"){
       mes = JSON.parse(mes)
-      mes = mes.data
+      if(item.type==="binarySensor"){
+        if(!mes.value||mes.value==="false"||mes.value==="0"||mes.value==="off"||mes.value==="Off"||mes.value==="OFF")
+          mes.value = "0"
+        else
+          mes.value = "1"
+      }
       console.log(mes);
     }
-    let value = "0";
-    // if(item.key==="pover"){
-    //   if(mes==="0")
-    //     value='0'
-    //   else
-    //     value='1'
-    // }
-    // else {
-    //   value = mes
-    // }
-    value = mes
+    let value = mes||"0"
     await devices.connect()
     await devices.setValue(item.deviceId,item.key,value)
     await devices.desconnect();

@@ -16,6 +16,8 @@ export const SwitchDevice = ({type,result})=>{
       setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='switch')||(item.DeviceType==='dimmer')||(item.DeviceType==='ir')));
     if(type==="slider")
       setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='dimmer')));
+    if(type==="sensor")
+      setDevices(data.filter((item)=>(item.DeviceType==='sensor')||(item.DeviceType==='binarySensor')));
   },[request,auth.token])
 
   useEffect(()=>{

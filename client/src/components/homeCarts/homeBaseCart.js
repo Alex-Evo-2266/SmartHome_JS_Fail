@@ -5,6 +5,7 @@ import {EditModeContext} from '../../context/EditMode'
 import {CartEditContext} from './EditCarts/CartEditContext'
 import {SliderElement} from './CartElement/SliderElement'
 import {AddControlContext} from './AddControl/AddControlContext'
+import {SensorElement} from './CartElement/SensorElement'
 
 export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
   const {mode} = useContext(EditModeContext)
@@ -95,6 +96,25 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
                 }:null
               }
               />:
+              (item.item==="sensor")?
+              <SensorElement index={indexbtn}
+              data={item}
+              deleteBtn={
+                (edit)?async(index1)=>{
+                  let mas = data.children.slice();
+                  let newBtns = mas.filter((item, index2)=>index2!==index1)
+                  updata(index,{...data,children:newBtns})
+                }:null
+              }
+              editBtn={
+                (edit)?async(index1,data1)=>{
+                  if(!data1||!data1.order)
+                    return
+                  let mas = data.children.slice();
+                  mas[index1].order=data1.order
+                  updata(index,{...data,children:mas})
+                }:null
+              }/>:
               null
             }
             </li>

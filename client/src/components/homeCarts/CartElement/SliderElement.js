@@ -86,6 +86,7 @@ export const SliderElement = ({index,data,min=0,max=100,firstValue=0,deleteBtn,e
 
 return(
   <div className="slider-box">
+    <div className="name">{device.DeviceName}.{data.type}.</div>
     <div className="slider">
       <input
       type="range"
