@@ -17,7 +17,7 @@ module.exports = async function (device,action,atrebut,socket) {
     }
     if(action === "dimmer"){
       let y = Number(atrebut)
-      if(!y||!device.DeviceConfig.dimmer)
+      if(y===null||y===undefined||!device.DeviceConfig.dimmer)
         return false
       if(y > Number(device.DeviceConfig.maxDimmer)||y < Number(device.DeviceConfig.minDimmer))
         return false

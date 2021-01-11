@@ -3,7 +3,7 @@ import {AuthContext} from '../../../../context/AuthContext.js'
 import {useHttp} from '../../../../hooks/http.hook'
 import {useMessage} from '../../../../hooks/message.hook'
 
-export const SwitchDevice = ({result})=>{
+export const SwitchDevice = ({type,result})=>{
   const [devices, setDevices] = useState([]);
   const {message} = useMessage();
   const auth = useContext(AuthContext)
@@ -11,8 +11,11 @@ export const SwitchDevice = ({result})=>{
 
   const updataDevice = useCallback(async()=>{
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
-    console.log(data);
-    setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='switch')||(item.DeviceType==='dimmer')||(item.DeviceType==='ir')));
+    console.log(data,type);
+    if(type==="button")
+      setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='switch')||(item.DeviceType==='dimmer')||(item.DeviceType==='ir')));
+    if(type==="slider")
+      setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='dimmer')));
   },[request,auth.token])
 
   useEffect(()=>{

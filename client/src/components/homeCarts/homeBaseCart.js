@@ -3,6 +3,7 @@ import {ModalWindow} from '../modalWindow/modalWindow'
 import {BtnElement} from './CartElement/BtnElement'
 import {EditModeContext} from '../../context/EditMode'
 import {CartEditContext} from './EditCarts/CartEditContext'
+import {SliderElement} from './CartElement/SliderElement'
 import {AddControlContext} from './AddControl/AddControlContext'
 
 export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
@@ -35,31 +36,46 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
         data.children.map((item,indexbtn)=>{
           return (
             <li key={indexbtn}>
-            <BtnElement
-            index={indexbtn}
-            data={item}
-            switchMode={item.type==="pover"}
-            deleteBtn={
-              (edit)?async(index1)=>{
-                let mas = data.children.slice();
-                let newBtns = mas.filter((item, index2)=>index2!==index1)
-                updata(index,{...data,children:newBtns})
-              }:null
-            }>
-              {
-                (item.type==="pover")?
-                <i className="fas fa-power-off"></i>:
-                (item.type==="dimmer")?
-                <i className="fas fa-sun"></i>:
-                (item.type==="color")?
-                <i className="fas fa-palette"></i>:
-                (item.type==="mode")?
-                <i>M {item.value}</i>:
-                (item.type==="ir")?
-                <i className="fas fa-tv"></i>:
-                <i>M</i>
-              }
-            </BtnElement>
+            {
+              (item.item==="button")?
+              <BtnElement
+              index={indexbtn}
+              data={item}
+              switchMode={item.type==="pover"}
+              deleteBtn={
+                (edit)?async(index1)=>{
+                  let mas = data.children.slice();
+                  let newBtns = mas.filter((item, index2)=>index2!==index1)
+                  updata(index,{...data,children:newBtns})
+                }:null
+              }>
+                {
+                  (item.type==="pover")?
+                  <i className="fas fa-power-off"></i>:
+                  (item.type==="dimmer")?
+                  <i className="fas fa-sun"></i>:
+                  (item.type==="color")?
+                  <i className="fas fa-palette"></i>:
+                  (item.type==="mode")?
+                  <i>M {item.value}</i>:
+                  (item.type==="ir")?
+                  <i className="fas fa-tv"></i>:
+                  <i>M</i>
+                }
+              </BtnElement>:
+              (item.item==="slider")?
+              <SliderElement
+              index={indexbtn}
+              data={item}
+              deleteBtn={
+                (edit)?async(index1)=>{
+                  let mas = data.children.slice();
+                  let newBtns = mas.filter((item, index2)=>index2!==index1)
+                  updata(index,{...data,children:newBtns})
+                }:null
+              }/>:
+              null
+            }
             </li>
           )
         }):null

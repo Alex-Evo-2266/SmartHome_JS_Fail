@@ -10,9 +10,7 @@ import {IrFunction} from './devicesFunction/irFunction'
 
 export const AddControl = ()=>{
   const {addControl, hide} = useContext(AddControlContext)
-  const [buttonChild, setButtonChild] = useState(false);
-  const [scriptsChild, setScriptsChild] = useState(false);
-  const [sliderChild, setSliderChild] = useState(false);
+  const [typeChild, setTypeChild] = useState("");
   const [lightFunctionVisible,setLightFunctionVisible] = useState(false);
   const [switchFunctionVisible,setSwitchFunctionVisible] = useState(false);
   const [dimmerFunctionVisible,setDimmerFunctionVisible] = useState(false);
@@ -21,9 +19,7 @@ export const AddControl = ()=>{
 
   const close = ()=>{
     hide()
-    setButtonChild(false)
-    setScriptsChild(false)
-    setSliderChild(false)
+    setTypeChild("")
     setLightFunctionVisible(false)
     setSwitchFunctionVisible(false)
     setDimmerFunctionVisible(false)
@@ -31,9 +27,6 @@ export const AddControl = ()=>{
   }
 
   const deviceFunction = (device)=>{
-    setButtonChild(false);
-    setScriptsChild(false);
-    setSliderChild(false)
     if(device.DeviceType==="light")
       setLightFunctionVisible(true)
     if(device.DeviceType==="switch")
@@ -70,27 +63,33 @@ export const AddControl = ()=>{
       <div className="editcart-conteiner childrenList active">
         <p>сontainer children</p>
         <div className="buttonGrid">
-          <button onClick={()=>setButtonChild(true)}>button activate</button>
+          <button onClick={()=>setTypeChild("button")}>button activate</button>
           <button>activate scripts</button>
-          <button>slider</button>
+          <button onClick={()=>setTypeChild("slider")}>slider</button>
           <button>button</button>
         </div>
       </div>
-      <div className={`editcart-conteiner childrenList ${(buttonChild)?"active":""}`}>
-        <SwitchDevice result={deviceFunction}/>
-      </div>
-      <div className={`editcart-conteiner childrenList ${(lightFunctionVisible)?"active":""}`}>
-        <LightFunction device={device} result={addButton}/>
-      </div>
-      <div className={`editcart-conteiner childrenList ${(switchFunctionVisible)?"active":""}`}>
-        <SwitchFunction device={device} result={addButton}/>
-      </div>
-      <div className={`editcart-conteiner childrenList ${(dimmerFunctionVisible)?"active":""}`}>
-        <DimmerFunction device={device} result={addButton}/>
-      </div>
-      <div className={`editcart-conteiner childrenList ${(irFunctionVisible)?"active":""}`}>
-        <IrFunction device={device} result={addButton}/>
-      </div>
+      {
+        (typeChild!=="")?
+        <>
+        <div className={`editcart-conteiner childrenList ${(typeChild!=="")?"active":""}`}>
+          <SwitchDevice type={typeChild} result={deviceFunction}/>
+        </div>
+        <div className={`editcart-conteiner childrenList ${(lightFunctionVisible)?"active":""}`}>
+          <LightFunction type={typeChild} device={device} result={addButton}/>
+        </div>
+        <div className={`editcart-conteiner childrenList ${(switchFunctionVisible)?"active":""}`}>
+          <SwitchFunction type={typeChild} device={device} result={addButton}/>
+        </div>
+        <div className={`editcart-conteiner childrenList ${(dimmerFunctionVisible)?"active":""}`}>
+          <DimmerFunction type={typeChild} device={device} result={addButton}/>
+        </div>
+        <div className={`editcart-conteiner childrenList ${(irFunctionVisible)?"active":""}`}>
+          <IrFunction type={typeChild} device={device} result={addButton}/>
+        </div>
+        </>
+        :null
+      }
       </ModalWindow>
       </BackForm>
     )

@@ -2,6 +2,7 @@ import React,{useContext} from 'react'
 import {ModalWindow} from '../modalWindow/modalWindow'
 import {BtnElement} from './CartElement/BtnElement'
 import {EditModeContext} from '../../context/EditMode'
+import {SliderElement} from './CartElement/SliderElement'
 
 export const HomeControlCart = () =>{
   const {setMode} = useContext(EditModeContext)
@@ -13,11 +14,6 @@ export const HomeControlCart = () =>{
             setMode(true)
           }}>
             <i className="fas fa-cog"></i>
-          </BtnElement>
-        </li>
-        <li>
-          <BtnElement >
-            <i className="fas fa-cogs"></i>
           </BtnElement>
         </li>
       </ul>

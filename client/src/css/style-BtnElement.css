@@ -80,6 +80,7 @@ ul.elementConteiner li label input[type="checkbox"]:checked ~ .icon-box i{
   background: red;
   border: none;
   text-align: center;
+  border-radius: 5px;
   font-size: 18px;
   color: #fff;
 }
