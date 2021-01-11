@@ -46,8 +46,14 @@ const updataValueDevices = async(topic,mes)=>{
   await devices.connect()
   const elements = await devices.lookForDeviceByTopic(topic)
   await devices.desconnect();
+  console.log("elements",elements);
   for(let item of elements) {
     console.log("!",item);
+    if(item.key==="status"){
+      mes = JSON.parse(mes)
+      mes = mes.data
+      console.log(mes);
+    }
     let value = "0";
     // if(item.key==="pover"){
     //   if(mes==="0")

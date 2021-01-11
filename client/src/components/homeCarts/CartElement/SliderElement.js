@@ -72,10 +72,18 @@ export const SliderElement = ({index,data,min=0,max=100,firstValue=0,deleteBtn,e
     setTimeout(()=>updateDevice(),500)
   }
 
-  // let step = (maxstate-minstate)*0.25
-  // style={{
-  //   boxShadow:`inset 0 0 4px rgba(0, 0, 0, 0.2)${(value>minstate)?",0 0 10px #3498db":""}${(value>minstate+step)?",0 0 15px #3498db":""}${(value>minstate+step*2)?",0 0 20px #3498db":""}${(value>minstate+step*3)?",0 0 25px #3498db":""}${(value==maxstate)?",0 0 30px #3498db":""}`
-  // }}
+  const deletebtn = ()=>{
+    if(typeof(deleteBtn)==="function"){
+      deleteBtn(index)
+    }
+  }
+
+  const editbtn = ()=>{
+    if(typeof(editBtn)==="function"){
+      target("button",{...data,index},editBtn)
+    }
+  }
+
 return(
   <div className="slider-box">
     <div className="slider">
@@ -91,18 +99,16 @@ return(
     <div className="value">{value}</div>
     <div className="delete-box">
     {
-      (deleteBtn)?<button className="deleteBtn" onClick={()=>{
-        if(typeof(deleteBtn)==="function"){
-          deleteBtn(index)
-        }
-      }}>&times;</button>:null
+      (deleteBtn)?
+      <button className="deleteBtn" onClick={deletebtn}>&times;</button>:
+      null
     }
     {
-      (editBtn)?<button className="editBtn" onClick={()=>{
-        if(typeof(editBtn)==="function"){
-          target("button",{...data,index},editBtn)
-        }
-      }}><i className="fas fa-list i-cost"></i></button>:null
+      (editBtn)?
+      <button className="editBtn" onClick={editbtn}>
+        <i className="fas fa-list i-cost"></i>
+      </button>:
+      null
     }
     </div>
   </div>

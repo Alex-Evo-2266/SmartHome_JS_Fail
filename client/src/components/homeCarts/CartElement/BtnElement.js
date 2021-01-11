@@ -61,7 +61,6 @@ const changeHandler = (event)=>{
 
   if(!data||!device)
     return
-  console.log(data.type);
   if(data.type==="pover")
       socket.terminalMessage(`device ${device.DeviceSystemName} poverTogle`)
   if(data.type==="dimmer")
@@ -76,8 +75,19 @@ const changeHandler = (event)=>{
       socket.terminalMessage(`device ${device.DeviceSystemName} send ${data.value}`)
   // socket.terminalMessage()
   setTimeout(()=>updateDevice(),500)
-
 }
+
+  const deletebtn = ()=>{
+    if(typeof(deleteBtn)==="function"){
+      deleteBtn(index)
+    }
+  }
+
+  const editbtn = ()=>{
+    if(typeof(editBtn)==="function"){
+      target("button",{...data,index},editBtn)
+    }
+  }
 
   return(
     <label className={`BtnElement ${className}`}>
@@ -85,18 +95,16 @@ const changeHandler = (event)=>{
       <div className="icon-box">
         <div>
         {
-          (deleteBtn)?<button className="deleteBtn" onClick={()=>{
-            if(typeof(deleteBtn)==="function"){
-              deleteBtn(index)
-            }
-          }}>&times;</button>:null
+          (deleteBtn)?
+          <button className="deleteBtn" onClick={deletebtn}>&times;</button>:
+          null
         }
         {
-          (editBtn)?<button className="editBtn" onClick={()=>{
-            if(typeof(editBtn)==="function"){
-              target("button",{...data,index},editBtn)
-            }
-          }}><i className="fas fa-list i-cost"></i></button>:null
+          (editBtn)?
+          <button className="editBtn" onClick={editbtn}>
+            <i className="fas fa-list i-cost"></i>
+          </button>:
+          null
         }
         </div>
         {children}

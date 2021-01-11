@@ -7,6 +7,52 @@ export const LightFunction = ({type, device,result})=>{
   const [colorValue, setColorValue] = useState("0");
   const [modeValue, setModeValue] = useState("0");
 
+  const out = (t)=>{
+    let base = {
+      item:type,
+      type:t,
+      order:"0",
+      IdDevice:device.DeviceId
+    }
+    if(t==="pover"){
+      return result({
+        ...base,
+        address:device.DeviceConfig.pover,
+        On:device.DeviceConfig.turnOnSignal,
+        Off:device.DeviceConfig.turnOffSignal
+      })
+    }
+    if(t==="dimmer"){
+      return result({
+        ...base,
+        address:device.DeviceConfig.dimmer,
+        value:(type!=="slider")?dimmerValue:null
+      })
+    }
+    if(t==="mode"){
+      return result({
+        ...base,
+        address:device.DeviceConfig.mode,
+        value:modeValue
+      })
+    }
+    if(t==="switch mode"){
+      return result({
+        ...base,
+        address:device.DeviceConfig.mode,
+        value:device.DeviceConfig.countMode
+      })
+    }
+    if(t==="color"){
+      return result({
+        ...base,
+        address:device.DeviceConfig.color,
+        value:(type!=="slider")?colorValue:null
+      })
+    }
+
+  }
+
 
     return(
       <div className="deviceFunctionConteiner">
@@ -14,7 +60,7 @@ export const LightFunction = ({type, device,result})=>{
           (device.DeviceConfig&&device.DeviceConfig.pover&&type==="button")?
           <div className="deviceFunctionItem">
             <p>Pover</p>
-            <input type="button" value="Ok" onClick={()=>result({item:type,type:"pover",order:"0",address:device.DeviceConfig.pover,IdDevice:device.DeviceId,On:device.DeviceConfig.turnOnSignal,Off:device.DeviceConfig.turnOffSignal})}/>
+            <input type="button" value="Ok" onClick={()=>out("pover")}/>
           </div>:
           null
         }
@@ -27,7 +73,7 @@ export const LightFunction = ({type, device,result})=>{
               <InputNumber Xten={true} result={(v)=>setDimmerValue(v)} min={device.DeviceConfig.minDimmer} max={device.DeviceConfig.maxDimmer}/>
               :null
             }
-            <input type="button" value="Ok" onClick={()=>result({item:type,type:"dimmer",order:"0",address:device.DeviceConfig.dimmer,IdDevice:device.DeviceId,value:(type!=="slider")?dimmerValue:null})}/>
+            <input type="button" value="Ok" onClick={()=>out("dimmer")}/>
           </div>:null
         }
         {
@@ -39,7 +85,7 @@ export const LightFunction = ({type, device,result})=>{
               <InputNumber Xten={true} result={(v)=>setDimmerValue(v)} min={device.DeviceConfig.minColor} max={device.DeviceConfig.maxColor}/>
               :null
             }
-            <input type="button" value="Ok" onClick={()=>result({item:type,type:"color",order:"0",address:device.DeviceConfig.color,IdDevice:device.DeviceId,value:(type!=="slider")?colorValue:null})}/>
+            <input type="button" value="Ok" onClick={()=>out("color")}/>
           </div>:null
         }
         {
@@ -48,9 +94,9 @@ export const LightFunction = ({type, device,result})=>{
             <p>Mode</p>
             <p>on mode</p>
             <InputNumber Xten={true} result={(v)=>setModeValue(v)} min={0} max={device.DeviceConfig.countMode-1}/>
-            <input type="button" value="Ok" onClick={()=>result({item:type,type:"mode",order:"0",address:device.DeviceConfig.mode,IdDevice:device.DeviceId,value:modeValue})}/>
+            <input type="button" value="Ok" onClick={()=>out("mode")}/>
             <p>to switch mode</p>
-            <input type="button" value="Ok" onClick={()=>result({item:type,type:"switch mode",order:"0",address:device.DeviceConfig.mode,IdDevice:device.DeviceId,value:device.DeviceConfig.countMode})}/>
+            <input type="button" value="Ok" onClick={()=>out("switch mode")}/>
           </div>:null
         }
       </div>

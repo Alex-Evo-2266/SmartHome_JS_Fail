@@ -10,7 +10,13 @@ export const IrFunction = ({type,device,result})=>{
       el.style="background:red;"
       return
     }
-    result({item:type,type:"ir",order:"0",address:device.DeviceConfig.command,IdDevice:device.DeviceId,value:value})
+    result({
+      item:type,
+      type:"ir",
+      order:"0",
+      address:device.DeviceConfig.command,
+      IdDevice:device.DeviceId,
+      value:value})
   }
 
     return(
