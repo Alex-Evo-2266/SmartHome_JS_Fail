@@ -11,7 +11,6 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
   const {target} = useContext(CartEditContext)
   const {show} = useContext(AddControlContext)
 
-
   return(
     <ModalWindow
      position="relative"
@@ -22,7 +21,7 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
      }
      userBtn={
        (mode)?
-       ()=>target("d",{...data,index},updata):null
+       ()=>target("base",{...data,index},updata):null
      }
      z={3}
      top={0}
@@ -32,14 +31,16 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
      heightToolbar={20}>
       <ul className="elementConteiner">
       {
+
         (data&&data.children)?
         data.children.map((item,indexbtn)=>{
           return (
-            <li key={indexbtn}>
+            <li key={indexbtn} style={{order:`${item.order||"0"}`}}>
             {
               (item.item==="button")?
               <BtnElement
               index={indexbtn}
+              disabled={edit}
               data={item}
               switchMode={item.type==="pover"}
               deleteBtn={
@@ -48,7 +49,17 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
                   let newBtns = mas.filter((item, index2)=>index2!==index1)
                   updata(index,{...data,children:newBtns})
                 }:null
-              }>
+              }
+              editBtn={
+                (edit)?async(index1,data1)=>{
+                  if(!data1||!data1.order)
+                    return
+                  let mas = data.children.slice();
+                  mas[index1].order=data1.order
+                  updata(index,{...data,children:mas})
+                }:null
+              }
+              >
                 {
                   (item.type==="pover")?
                   <i className="fas fa-power-off"></i>:
@@ -73,7 +84,17 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
                   let newBtns = mas.filter((item, index2)=>index2!==index1)
                   updata(index,{...data,children:newBtns})
                 }:null
-              }/>:
+              }
+              editBtn={
+                (edit)?async(index1,data1)=>{
+                  if(!data1||!data1.order)
+                    return
+                  let mas = data.children.slice();
+                  mas[index1].order=data1.order
+                  updata(index,{...data,children:mas})
+                }:null
+              }
+              />:
               null
             }
             </li>
@@ -82,7 +103,7 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
       }
       {
         (edit)?
-        <li>
+        <li style={{order:`501`}}>
           <BtnElement switchMode={false} onClick={()=>show("AddButton",async(btn)=>{
               let mas = data.children.slice();
               mas.push(btn)

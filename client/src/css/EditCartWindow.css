@@ -27,6 +27,16 @@
   border-radius: 5px;
   box-shadow: inset 0 0 5px #000;
 }
+.editcart-conteiner button{
+  border: none;
+  background: #555;
+  color: #fff;
+  height: 30px;
+  margin: 10px;
+  width: calc(100% - 20px);
+  border-radius: 4px;
+  transition: 0.5s;
+}
 .buttonGrid{
   display: grid;
   grid-gap: 5px;
@@ -40,7 +50,8 @@
   border-radius: 4px;
   transition: 0.5s;
 }
-.buttonGrid button:hover{
+.buttonGrid button:hover,
+.editcart-conteiner button:hover{
   box-shadow: inset 0 0 5px #000;
 }
 .childrenList{

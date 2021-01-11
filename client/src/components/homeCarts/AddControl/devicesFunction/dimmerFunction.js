@@ -11,7 +11,7 @@ export const DimmerFunction = ({type,device,result})=>{
           (device.DeviceConfig&&device.DeviceConfig.pover&&type==="button")?
           <div className="deviceFunctionItem">
             <p>Pover</p>
-            <input type="button" value="Ok" onClick={()=>result({item:type,type:"pover",address:device.DeviceConfig.pover,IdDevice:device.DeviceId,On:device.DeviceConfig.turnOnSignal,Off:device.DeviceConfig.turnOffSignal})}/>
+            <input type="button" value="Ok" onClick={()=>result({item:type,type:"pover",order:"0",address:device.DeviceConfig.pover,IdDevice:device.DeviceId,On:device.DeviceConfig.turnOnSignal,Off:device.DeviceConfig.turnOffSignal})}/>
           </div>:
           null
         }
@@ -24,7 +24,7 @@ export const DimmerFunction = ({type,device,result})=>{
               <InputNumber Xten={true} result={(v)=>setDimmerValue(v)} min={device.DeviceConfig.minDimmer} max={device.DeviceConfig.maxDimmer}/>
               :null
             }
-            <input type="button" value="Ok" onClick={()=>result({item:type,type:"dimmer",address:device.DeviceConfig.dimmer,IdDevice:device.DeviceId,value:(type!=="slider")?dimmerValue:null})}/>
+            <input type="button" value="Ok" onClick={()=>result({item:type,type:"dimmer",order:"0",address:device.DeviceConfig.dimmer,IdDevice:device.DeviceId,value:(type!=="slider")?dimmerValue:null})}/>
           </div>:null
         }
       </div>

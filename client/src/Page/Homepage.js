@@ -29,6 +29,7 @@ const addCart = async(type="base")=>{
   let newCart = {
     id:carts.length,
     name:"",
+    order:"0",
     type:type,
     children:[]
   }
@@ -110,16 +111,16 @@ const elementPoz = ()=>{
 
 }
 
-useEffect(()=>{
-  let elements = document.getElementsByClassName('gridElement')
-  for (var item of elements) {
-    if(item.firstChild.offsetHeight>heightElement){
-      let poz = Math.floor(item.firstChild.offsetTop/heightElement)+1
-      let size = Math.floor(item.firstChild.offsetHeight/heightElement)+1
-      item.style = `grid-row-start:${poz}; grid-row-end:${poz+size};`
-    }
-  }
-})
+// useEffect(()=>{
+//   let elements = document.getElementsByClassName('gridElement')
+//   for (var item of elements) {
+//     if(item.firstChild.offsetHeight>heightElement){
+//       let poz = Math.floor(item.firstChild.offsetTop/heightElement)+1
+//       let size = Math.floor(item.firstChild.offsetHeight/heightElement)+1
+//       item.style = `grid-row-start:${poz}; grid-row-end:${poz+size};`
+//     }
+//   }
+// })
 
   return(
     <EditModeContext.Provider value={{setMode:setEditMode, mode:editMode,add:addCart}}>
@@ -136,14 +137,15 @@ useEffect(()=>{
           </div>
           {
             carts.map((item,index)=>{
-                if(item.type==="base"){
-                  return(
-                    <div className = "gridElement" key={index}>
-                      <HomebaseCart edit={editMode} hide={(i)=>removeCart(i)} updata={updataCart} index={index} data = {item} name={item.name}/>
-                    </div>
-                  )
+              return(
+                <div className = "gridElement" key={index} style={{order:item.order}}>
+                {
+                  (item.type==="base")?
+                  <HomebaseCart edit={editMode} hide={(i)=>removeCart(i)} updata={updataCart} index={index} data = {item} name={item.name}/>
+                  :null
                 }
-                return null
+                </div>
+              )
             })
           }
         </div>

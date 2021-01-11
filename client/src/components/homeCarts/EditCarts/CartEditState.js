@@ -6,7 +6,7 @@ import {SHOW_EDITCART, HIDE_EDITCART} from '../../types'
 export const CartEditState = ({children}) =>{
   const [state, dispatch] = useReducer(cartEditReducer,{visible:false})
 
-  const show = (type = "404", cart = null ,OK = null) =>{
+  const show = (type = "base", cart = null ,OK = null) =>{
     dispatch({
       type:SHOW_EDITCART,
       payload: {type,OK,cart}
@@ -18,7 +18,7 @@ export const CartEditState = ({children}) =>{
       type:HIDE_EDITCART,
     })
   }
-  const target = (type = "404", cart = null ,OK = null) =>{
+  const target = (type = "base", cart = null ,OK = null) =>{
     if(state.visible){
       hide()
     }

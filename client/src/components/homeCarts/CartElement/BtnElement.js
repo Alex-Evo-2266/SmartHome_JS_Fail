@@ -1,12 +1,14 @@
 import React,{useState,useContext,useEffect,useCallback} from 'react'
 import {SocketContext} from '../../../hooks/socket.hook'
 import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
+import {CartEditContext} from '../EditCarts/CartEditContext'
 
-export const BtnElement = ({data,className,index,children,name,onClick,disabled=false,firstValue=false,switchMode=true,deleteBtn}) =>{
+export const BtnElement = ({data,className,index,children,name,onClick,disabled=false,editBtn,firstValue=false,switchMode=true,deleteBtn}) =>{
   const socket = useContext(SocketContext)
   const {devices, updateDevice} = useContext(DeviceStatusContext)
   const [value, setValue]=useState(firstValue)
   const [device, setDevice] = useState({})
+  const {target} = useContext(CartEditContext)
 
   const lookForDeviceById = useCallback((id)=>{
     if(!devices||!devices[0])
@@ -88,6 +90,13 @@ const changeHandler = (event)=>{
               deleteBtn(index)
             }
           }}>&times;</button>:null
+        }
+        {
+          (editBtn)?<button className="editBtn" onClick={()=>{
+            if(typeof(editBtn)==="function"){
+              target("button",{...data,index},editBtn)
+            }
+          }}><i className="fas fa-list i-cost"></i></button>:null
         }
         </div>
         {children}

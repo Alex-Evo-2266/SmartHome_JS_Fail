@@ -1,14 +1,16 @@
 import React,{useState,useContext,useEffect,useCallback} from 'react'
 import {SocketContext} from '../../../hooks/socket.hook'
 import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
+import {CartEditContext} from '../EditCarts/CartEditContext'
 
-export const SliderElement = ({index,data,min=0,max=100,firstValue=0,deleteBtn=false,onClick}) =>{
+export const SliderElement = ({index,data,min=0,max=100,firstValue=0,deleteBtn,editBtn,onClick}) =>{
   const socket = useContext(SocketContext)
   const {devices, updateDevice} = useContext(DeviceStatusContext)
   const [value , setValue] = useState(firstValue)
   const [device, setDevice] = useState({})
   const [minstate, setMin] = useState(0)
   const [maxstate, setMax] = useState(100)
+  const {target} = useContext(CartEditContext)
 
   const lookForDeviceById = useCallback((id)=>{
     if(!devices||!devices[0]||!data)
@@ -94,6 +96,13 @@ return(
           deleteBtn(index)
         }
       }}>&times;</button>:null
+    }
+    {
+      (editBtn)?<button className="editBtn" onClick={()=>{
+        if(typeof(editBtn)==="function"){
+          target("button",{...data,index},editBtn)
+        }
+      }}><i className="fas fa-list i-cost"></i></button>:null
     }
     </div>
   </div>
