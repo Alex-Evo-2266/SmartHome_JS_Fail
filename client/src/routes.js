@@ -1,11 +1,12 @@
 import React from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
-import {HomePage} from './Page/Homepage'
-import {AuthPage} from './Page/Authpage'
-import {DevicesPage} from './Page/Devicespage'
+import {HomePage} from './Page/HomePage'
+import {AuthPage} from './Page/AuthPage'
+import {DevicesPage} from './Page/DevicesPage'
 import {ProfilePage} from './Page/ProfilePage'
 import {OptionsPage} from './Page/OptionsPage'
-import {ScriptsPage} from './Page/Scriptspage'
+import {ScriptsPage} from './Page/ScriptsPage'
+import {NewScriptsPage} from './Page/NewScriptsPage'
 
 export const useRoutes = isAuthenticated=>{
   if(isAuthenticated){
@@ -19,6 +20,9 @@ export const useRoutes = isAuthenticated=>{
         </Route>
         <Route path="/scripts" exact>
           <ScriptsPage/>
+        </Route>
+        <Route path="/scripts/add" exact>
+          <NewScriptsPage/>
         </Route>
         <Route path="/profile">
           <ProfilePage/>

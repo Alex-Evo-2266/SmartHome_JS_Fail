@@ -1,0 +1,7 @@
+.light .NewScripPage,
+.light .NewScripPage .If,
+.light .deviceElement,
+.light .stateElement
+{
+  border: 2px solid #fff;
+}

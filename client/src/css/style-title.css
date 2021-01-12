@@ -40,7 +40,12 @@
   font-size: 30px;
   border-radius: 50%;
 }
-
+a.titleButtonAdd .fas{
+  color: #000;
+  position: absolute;
+  top:5px;
+  left: 6px;
+}
 @media (max-width: 700px){
   .titleTop{
     margin-left: 60px;

@@ -35,7 +35,7 @@ export const Menu = ()=>{
             </NavLink>
           </li>
           <li>
-            <NavLink to = "/scripts" exact>
+            <NavLink to = "/scripts">
               <span className = "icon"><i className="fas fa-code-branch"></i></span>
               <span className = "title">Scripts</span>
             </NavLink>

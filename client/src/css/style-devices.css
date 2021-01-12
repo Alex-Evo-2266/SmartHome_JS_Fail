@@ -131,7 +131,6 @@ header h1{
   page-break-after: 20px;
   text-align: center;
   padding: 10px;
-  border-bottom: 2px solid #333;
 }
 .CardConteiner .CardElement .CardBody p{
   color: #fff;

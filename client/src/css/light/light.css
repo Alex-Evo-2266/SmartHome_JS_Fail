@@ -1,3 +1,6 @@
+@import "./light-script.css";
+@import "./light-border.css";
+
 .light .choiceElem{
   background: #E0FFFF;
   color: black;

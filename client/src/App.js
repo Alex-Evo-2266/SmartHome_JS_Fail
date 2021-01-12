@@ -8,6 +8,7 @@ import {MenuState} from './components/verticalMenu/menuState'
 import {FormState} from './components/Form/formState'
 import {SocketState} from './hooks/socket.hook'
 import {TerminalState} from './components/terminal/terminalState'
+import {AddScriptState} from './components/addScript/addScriptState'
 import {useRoutes} from './routes.js'
 import {useAuth} from './hooks/auth.hook.js'
 import {useBackground} from './hooks/background.hook.js'
@@ -44,7 +45,8 @@ function App() {
     <MenuState>
     <FormState>
     <TerminalState>
-
+    <AddScriptState>
+    
     <BrowserRouter>
       <div className="App">
         <Alert/>
@@ -55,6 +57,7 @@ function App() {
       </div>
     </BrowserRouter>
 
+    </AddScriptState>
     </TerminalState>
     </FormState>
     </MenuState>

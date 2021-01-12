@@ -1,0 +1,9 @@
+.night .NewScripPage,
+.night .NewScripPage .If
+{
+  border: 2px solid #333;
+}
+.night .deviceElement,
+.night .stateElement{
+  border: 2px solid #fff;
+}

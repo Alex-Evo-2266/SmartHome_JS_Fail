@@ -1,0 +1,25 @@
+.night .NewScripConteiner{
+  background: rgba(100,100,100,.6);
+}
+.night .NewScripConteiner h2,
+.night .NewScripConteiner h3{
+  color: #fff;
+}
+.night .NewScripPage{
+  background: rgba(100,100,100,.6);
+}
+.night .deviceElement,
+.night .stateElement{
+  background: #333;
+  box-shadow: 0 0 10px rgba(33,156,243,.5),
+  0 0 20px rgba(33,156,243,.5),
+  0 0 30px rgba(33,156,243,.5),
+  inset 0 0 10px rgba(33,156,243,1);
+}
+.night .deviceElement p,
+.night .stateElement p{
+  color: #fff;
+}
+.night .IfdeviceList{
+  background: #333;
+}

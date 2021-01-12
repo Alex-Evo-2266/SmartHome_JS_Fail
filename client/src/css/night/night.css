@@ -1,3 +1,6 @@
+@import "./night-script.css";
+@import "./night-border.css";
+
 .night .navigation nav ul li:hover > a,
 .night .navigation nav ul li a.active,
 .night .menuTogle:hover

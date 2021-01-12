@@ -1,0 +1,22 @@
+.light .NewScripConteiner{
+  background: rgba(255,255,255,.5);
+}
+.light .NewScripConteiner h2,
+.light .NewScripConteiner h3{
+  color: #000;
+}
+.light .NewScripPage{
+  background: rgba(255,255,255,.5);
+}
+.light .deviceElement,
+.light .stateElement{
+  background: #76d7ff;
+  box-shadow: 0 0 10px #000;
+}
+.light .deviceElement p,
+.light .stateElement p{
+  color: #000;
+}
+.light .IfdeviceList{
+  background: #76d7ff;
+}

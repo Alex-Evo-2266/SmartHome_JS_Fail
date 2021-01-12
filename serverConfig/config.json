@@ -1,1 +1,1 @@
-{"auteStyle":true,"staticBackground":false,"updateFrequency":"10","mqttBroker":"127.0.0.1:1883","loginMqttBroker":"root","passwordMqttBroker":"root"}
+{"auteStyle":false,"staticBackground":false,"updateFrequency":"10","mqttBroker":"127.0.0.1:1883","loginMqttBroker":"root","passwordMqttBroker":"root"}
