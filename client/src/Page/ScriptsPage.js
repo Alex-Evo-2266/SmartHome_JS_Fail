@@ -10,9 +10,6 @@ export const ScriptsPage = () => {
   const searchHandler = event => {
     setSearch(event.target.value)
   }
-  const updataDevice =()=>{
-
-  }
 
   return(
     <>

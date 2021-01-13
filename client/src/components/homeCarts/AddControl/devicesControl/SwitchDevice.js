@@ -11,14 +11,13 @@ export const SwitchDevice = ({type,result})=>{
 
   const updataDevice = useCallback(async()=>{
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
-    console.log(data,type);
     if(type==="button")
       setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='switch')||(item.DeviceType==='dimmer')||(item.DeviceType==='ir')));
     if(type==="slider")
       setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='dimmer')));
     if(type==="sensor")
       setDevices(data.filter((item)=>(item.DeviceType==='sensor')||(item.DeviceType==='binarySensor')));
-  },[request,auth.token])
+  },[request,auth.token,type])
 
   useEffect(()=>{
     updataDevice()

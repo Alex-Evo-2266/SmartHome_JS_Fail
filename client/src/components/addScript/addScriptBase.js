@@ -1,41 +1,36 @@
 import React, {useContext,useState} from 'react'
 import {AddScriptContext} from './addScriptContext'
 import {AddScriptDevices} from './addScript/addScriptDevices'
-import {AddScriptState} from './addScript/addScriptState'
 import {CenterWindow} from '../modalWindow/centerWindow'
 import {ActBlock} from '../moduls/programmBlock/actBlock'
-
+import {GroupBlock} from '../moduls/programmBlock/groupBlock'
 
 export const AddScriptBase = ()=>{
   const {addScript, hide} = useContext(AddScriptContext)
-  const [page, setPage] = useState(0)
-  const [device , setDevice] = useState({})
-  const [status , setStatus] = useState({})
-  const [oper , setOper] = useState({})
-
-  const giveDevice = (dev)=>{
-    setPage(1);
-    setDevice(dev)
-    console.log(dev);
-  }
-  const giveState = (item)=>{
-    if(item==="power")
-      setPage(3);
-    else
-      setPage(2);
-    setStatus(item)
-    console.log(item);
-  }
-  const giveOper = (item)=>{
-    setPage(3);
-    setOper(item)
-    console.log(item);
-  }
-
+  const [device, setDevice]=useState()
+  const [deviceBlock, setDeviceBlock]=useState(false)
 
   const close = ()=>{
-    setPage(0)
     hide()
+    setDeviceBlock(false)
+  }
+
+  const shoseDevice=(item)=>{
+    console.log(item);
+    if(typeof(addScript.OK)==="function")
+      addScript.OK("deviceBlock",item)
+    close()
+  }
+
+  const shoseBlock = async(t)=>{
+    if(t==="deviceBlock"){
+      setDeviceBlock(true)
+      return
+    }
+    // await setBlock(t)
+    if(typeof(addScript.OK)==="function")
+      addScript.OK(t)
+    close()
   }
 
   if(!addScript.visible){
@@ -45,65 +40,23 @@ export const AddScriptBase = ()=>{
   if(addScript.type==="typeBlock"){
     return (
       <CenterWindow hide={close}>
+      {
+        (!deviceBlock)?
         <ul className="shoseBlock">
-          <li>
-            <div className="groupBlock">
-              <div className="groupBlockTop">
-                <p className="textBlock">start of block and</p>
-              </div>
-              <div className="groupBlockBottom">
-                <p className="textBlock">end block</p>
-              </div>
-            </div>
+          <li onClick={()=>shoseBlock("groupBlockAnd")}>
+            <GroupBlock type={"and"}>
+            </GroupBlock>
           </li>
-          <li>
-            <div className="groupBlock">
-              <div className="groupBlockTop">
-                <p className="textBlock">start of block or</p>
-              </div>
-              <div className="groupBlockBottom">
-                <p className="textBlock">end block</p>
-              </div>
-            </div>
+          <li onClick={()=>shoseBlock("groupBlockOr")}>
+            <GroupBlock type={"or"}>>
+            </GroupBlock>
           </li>
-          <li>
+          <li onClick={()=>shoseBlock("deviceBlock")} style={{gridColumnStart:"1", gridColumnEnd:"3"}}>
             <ActBlock/>
           </li>
         </ul>
-      </CenterWindow>
-    )
-  }
-
-  if(addScript.type==="devices"){
-    return(
-      <CenterWindow hide={close}>
-      {
-        (page===0)?
-          <AddScriptDevices result={giveDevice}/>:
-        (page===1)?
-          <AddScriptState device={device} result={giveState}/>:
-        (page===2)?
-          <ul className="IfdeviceList">
-            <li className = "stateElement" onClick={()=>giveOper("==")}>
-              <p>{"=="}</p>
-            </li>
-            <li className = "stateElement" onClick={()=>giveOper(">=")}>
-              <p>{">="}</p>
-            </li>
-            <li className = "stateElement" onClick={()=>giveOper("<=")}>
-              <p>{"<="}</p>
-            </li>
-            <li className = "stateElement" onClick={()=>giveOper("!=")}>
-              <p>{"!="}</p>
-            </li>
-            <li className = "stateElement" onClick={()=>giveOper("<")}>
-              <p>{"<"}</p>
-            </li>
-            <li className = "stateElement" onClick={()=>giveOper(">")}>
-              <p>{">"}</p>
-            </li>
-          </ul>:
-        null
+        :
+        <AddScriptDevices result={shoseDevice} type={"if"}/>
       }
       </CenterWindow>
     )

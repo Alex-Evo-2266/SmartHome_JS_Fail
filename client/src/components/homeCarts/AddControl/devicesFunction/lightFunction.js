@@ -82,7 +82,7 @@ export const LightFunction = ({type, device,result})=>{
             <p>Color</p>
             {
               (type!=="slider")?
-              <InputNumber Xten={true} result={(v)=>setDimmerValue(v)} min={device.DeviceConfig.minColor} max={device.DeviceConfig.maxColor}/>
+              <InputNumber Xten={true} result={(v)=>setColorValue(v)} min={device.DeviceConfig.minColor} max={device.DeviceConfig.maxColor}/>
               :null
             }
             <input type="button" value="Ok" onClick={()=>out("color")}/>

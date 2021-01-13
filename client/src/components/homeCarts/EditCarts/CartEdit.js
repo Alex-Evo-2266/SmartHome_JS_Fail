@@ -1,10 +1,10 @@
-import React,{useContext,useState,useEffect} from 'react'
+import React,{useContext} from 'react'
 import {CartEditContext} from './CartEditContext'
 import {BaseCartEdit} from './CartEditType/BaseCart'
 import {ButtonEdit} from './CartEditType/Button'
 
 export const CartEdit = () =>{
-  const {cartEdit, hide} = useContext(CartEditContext)
+  const {cartEdit} = useContext(CartEditContext)
 
 
   if(!cartEdit.visible||!cartEdit.type){

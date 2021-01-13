@@ -3,110 +3,66 @@ import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/AuthContext.js'
 import {AddScriptBase} from '../components/addScript/addScriptBase'
-import {AddScriptContext} from '../components/addScript/addScriptContext'
-
-class ifClass {
-  constructor(deviceId,property,oper,value) {
-    this.deviceId=deviceId;
-    this.property=property
-    this.oper=oper
-    this.value=value
-  }
-}
-
-class groupIfClass {
-  constructor(oper) {
-    if(oper!=="&"&&oper!=="|"&&oper!=="||")
-      oper="&"
-    if(oper!=="||")
-      oper="|"
-    this.oper=oper
-    this.ifElement=[]
-  }
-  addif(subif){
-    if(subif instanceof ifClass){
-      this.ifElement.push({subif,type:"ifClass"})
-      return
-    }
-    if(subif instanceof groupIfClass){
-      this.ifElement.push({subif,type:"groupIfClass"})
-      return
-    }
-    return
-  }
-}
+import {GroupBlock} from '../components/moduls/programmBlock/groupBlock'
+import {DeviceStatusContext} from '../context/DeviceStatusContext'
+import {groupIfClass} from '../myClass.js'
 
 export const NewScriptsPage = () => {
-  const {show} = useContext(AddScriptContext)
   const auth = useContext(AuthContext)
   const {message} = useMessage();
-  const {loading, request, error, clearError} = useHttp();
-  const[page, setPage]=useState(0)
+  const {request, error, clearError} = useHttp();
   const[devices, setDevices]=useState([])
   const[script, setScript]=useState({
-    if:new groupIfClass("&"),
+    if:new groupIfClass("and"),
     act:[]
   })
 
-  // useEffect(()=>{
-  //   message(error,"error")
-  //   return ()=>{
-  //     clearError();
-  //   }
-  // },[error,message, clearError])
-  //
-  // const updataDevice = useCallback(async()=>{
-  //   const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
-  //   setDevices(data);
-  // },[request,auth.token])
-  //
-  // useEffect(()=>{
-  //   updataDevice()
-  // },[updataDevice])
+  useEffect(()=>{
+    message(error,"error")
+    return ()=>{
+      clearError();
+    }
+  },[error,message, clearError])
 
-  // useEffect(()=>{
-  //   let grup1 = new groupIfClass("|")
-  //   let grup2 = new groupIfClass("&")
-  //   let el1 = new ifClass("2","dimmer",">=","50")
-  //   let el2 = new ifClass("2","power","==","1")
-  //   let el3 = new ifClass("3","value",">=","10")
-  //   grup1.addif(el1)
-  //   grup1.addif(grup2)
-  //   grup2.addif(el2)
-  //   grup2.addif(el3)
-  //   console.log("grup1",grup1);
-  // },[])
+  const updata = (data)=>{
+    setScript({...script,if:data})
+  }
+
+  const updataDevice = useCallback(async()=>{
+    const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
+    setDevices(data);
+  },[request,auth.token])
 
   useEffect(()=>{
-    console.log(script);
+    updataDevice()
+  },[updataDevice])
+
+  useEffect(()=>{
   },[script])
 
   return(
-    <>
+    <DeviceStatusContext.Provider value={{devices:devices, updateDevice:updataDevice}}>
       <AddScriptBase/>
       <div className = "NewScripConteiner">
       <h2>Create new script</h2>
-      {
-        (page===0)?
         <div className="NewScripPage">
           <h3>If</h3>
           <div className="progammzon">
+          <button onClick={()=>console.log("script",script)}>test</button>
+
             <div className="baseBlock">
             <div className="textBlock">
               <p>if</p>
             </div>
-              <div className="addBlock" onClick={()=>show("typeBlock")}>
-                <i className="fas fa-plus"></i>
-              </div>
             </div>
-          </div>
-          <div className = "If">
-
+            {
+              (script.if.ifElement)?
+                <GroupBlock index = "1" type={script.if.oper} requpdata={updata} elements={script.if}/>
+              :null
+            }
           </div>
         </div>
-        :null
-      }
       </div>
-    </>
+    </DeviceStatusContext.Provider>
   )
 }

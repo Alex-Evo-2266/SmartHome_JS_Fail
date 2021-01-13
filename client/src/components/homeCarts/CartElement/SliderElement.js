@@ -26,7 +26,7 @@ export const SliderElement = ({index,data,min=0,max=100,firstValue=0,deleteBtn,e
       setMax(condidat[0].DeviceConfig.maxColor)
     }
     return condidat[0]
-  },[devices])
+  },[devices,data])
 
   useEffect(()=>{
     if(!data||!data.IdDevice||typeof(onClick)==="function"){
@@ -35,7 +35,7 @@ export const SliderElement = ({index,data,min=0,max=100,firstValue=0,deleteBtn,e
       return
     }
     setDevice(lookForDeviceById(data.IdDevice))
-  },[devices,data,onClick,lookForDeviceById])
+  },[devices,data,onClick,lookForDeviceById,min,max])
 
   useEffect(()=>{
     if(typeof(onClick)==="function")return

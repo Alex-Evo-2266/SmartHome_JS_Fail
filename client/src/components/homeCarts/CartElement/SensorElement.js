@@ -3,13 +3,12 @@ import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
 import {CartEditContext} from '../EditCarts/CartEditContext'
 
 export const SensorElement = ({index,data,deleteBtn,editBtn,onClick}) =>{
-  const {devices, updateDevice} = useContext(DeviceStatusContext)
+  const {devices} = useContext(DeviceStatusContext)
   const {target} = useContext(CartEditContext)
-  const [value , setValue] = useState({})
   const [device, setDevice] = useState({})
 
   const lookForDeviceById = useCallback((id)=>{
-    if(!devices||!devices[0]||!data)
+    if(!devices||!devices[0])
       return false
     console.log(devices);
     let condidat = devices.filter((item)=>item.DeviceId===id)

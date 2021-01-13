@@ -14,7 +14,7 @@ import {DeviceStatusContext} from '../context/DeviceStatusContext'
 
 export const HomePage = () => {
 
-const heightElement = 80
+// const heightElement = 80
 
 const [editMode, setEditMode] = useState(false);
 const [carts, setCarts] = useState([])
@@ -106,10 +106,6 @@ useEffect(()=>{
   importCarts()
   updateDevice()
 },[importCarts,updateDevice])
-
-const elementPoz = ()=>{
-
-}
 
 // useEffect(()=>{
 //   let elements = document.getElementsByClassName('gridElement')
