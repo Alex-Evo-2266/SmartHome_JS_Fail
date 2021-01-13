@@ -18,9 +18,9 @@ export const DeviceElement = (props) =>{
         <p>{`Name in system - ${props.DeviceSystemName||"none"}`}</p>
         {
           (props.DeviceTypeConnect==="mqtt"&&(props.DeviceType==="light"||props.DeviceType==="switch"))?
-          <p>{`Pover topic - ${props.PoverTopic||""}`}</p>:
+          <p>{`power topic - ${props.powerTopic||""}`}</p>:
           (props.DeviceTypeConnect==="mqtt"&&(props.DeviceType==="sensor"||props.DeviceType==="binarySensor"))?
-          <p>{`Status topic - ${props.PoverTopic||""}`}</p>:
+          <p>{`Status topic - ${props.powerTopic||""}`}</p>:
           null
         }
         <p>{`Information - ${props.DeviceInformation||""}`}</p>

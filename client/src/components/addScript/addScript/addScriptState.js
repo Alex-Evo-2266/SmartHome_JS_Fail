@@ -14,8 +14,8 @@ export const AddScriptState = ({device,result})=>{
   if(device&&device.DeviceType==="light"){
     return(
       <ul className="IfdeviceList">
-        <li className = "stateElement" onClick={()=>out("pover")}>
-          <p>Pover</p>
+        <li className = "stateElement" onClick={()=>out("power")}>
+          <p>power</p>
         </li>
       </ul>
     )
@@ -27,7 +27,7 @@ export const AddScriptState = ({device,result})=>{
           <p>Dimmer</p>
         </li>
         {
-          (device.DeviceConfig.pover)?
+          (device.DeviceConfig.power)?
           <li className = "stateElement" onClick={()=>out("dimmer")}>
             <p>Dimmer</p>
           </li>:

@@ -27,7 +27,7 @@ export const LightMqttEdit = ({deviceData,hide})=>{
     DeviceType:deviceData.DeviceType,
     DeviceTypeConnect:deviceData.DeviceTypeConnect,
     RoomId:deviceData.RoomId,
-    pover:deviceData.DeviceConfig.pover,
+    power:deviceData.DeviceConfig.power,
     status:deviceData.DeviceConfig.status,
     turnOnSignal:deviceData.DeviceConfig.turnOnSignal,
     turnOffSignal:deviceData.DeviceConfig.turnOffSignal,
@@ -102,10 +102,10 @@ export const LightMqttEdit = ({deviceData,hide})=>{
           <input className = "textInput" placeholder="status" id="status" type="text" name="status" value={device.status} onChange={changeHandler} required/>
         </label>
       </li>
-      <HidingLi title = "Pover config">
+      <HidingLi title = "power config">
         <label>
-          <h5>pover topic</h5>
-          <input className = "textInput" placeholder="pover" id="pover" type="text" name="pover" value={device.pover} onChange={changeHandler} required/>
+          <h5>power topic</h5>
+          <input className = "textInput" placeholder="power" id="power" type="text" name="power" value={device.power} onChange={changeHandler} required/>
         </label>
         <label>
           <h5>turn on signal</h5>

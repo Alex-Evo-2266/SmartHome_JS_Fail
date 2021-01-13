@@ -68,7 +68,7 @@ export const NewScriptsPage = () => {
   //   let grup1 = new groupIfClass("|")
   //   let grup2 = new groupIfClass("&")
   //   let el1 = new ifClass("2","dimmer",">=","50")
-  //   let el2 = new ifClass("2","pover","==","1")
+  //   let el2 = new ifClass("2","power","==","1")
   //   let el3 = new ifClass("3","value",">=","10")
   //   grup1.addif(el1)
   //   grup1.addif(grup2)
@@ -95,7 +95,7 @@ export const NewScriptsPage = () => {
             <div className="textBlock">
               <p>if</p>
             </div>
-              <div className="addBlock" onClick={()=>show("devices")}>
+              <div className="addBlock" onClick={()=>show("typeBlock")}>
                 <i className="fas fa-plus"></i>
               </div>
             </div>

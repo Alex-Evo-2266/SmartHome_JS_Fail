@@ -3,6 +3,7 @@ import {AddScriptContext} from './addScriptContext'
 import {AddScriptDevices} from './addScript/addScriptDevices'
 import {AddScriptState} from './addScript/addScriptState'
 import {CenterWindow} from '../modalWindow/centerWindow'
+import {ActBlock} from '../moduls/programmBlock/actBlock'
 
 
 export const AddScriptBase = ()=>{
@@ -18,7 +19,7 @@ export const AddScriptBase = ()=>{
     console.log(dev);
   }
   const giveState = (item)=>{
-    if(item==="pover")
+    if(item==="power")
       setPage(3);
     else
       setPage(2);
@@ -39,6 +40,38 @@ export const AddScriptBase = ()=>{
 
   if(!addScript.visible){
     return null;
+  }
+
+  if(addScript.type==="typeBlock"){
+    return (
+      <CenterWindow hide={close}>
+        <ul className="shoseBlock">
+          <li>
+            <div className="groupBlock">
+              <div className="groupBlockTop">
+                <p className="textBlock">start of block and</p>
+              </div>
+              <div className="groupBlockBottom">
+                <p className="textBlock">end block</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div className="groupBlock">
+              <div className="groupBlockTop">
+                <p className="textBlock">start of block or</p>
+              </div>
+              <div className="groupBlockBottom">
+                <p className="textBlock">end block</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <ActBlock/>
+          </li>
+        </ul>
+      </CenterWindow>
+    )
   }
 
   if(addScript.type==="devices"){

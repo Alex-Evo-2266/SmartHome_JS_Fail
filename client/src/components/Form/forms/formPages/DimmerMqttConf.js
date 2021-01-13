@@ -4,7 +4,7 @@ import {HidingLi} from '../../../hidingLi.js'
 export const DimmerMqttConf = ({next,back})=>{
 
   const [form, setForm] = useState({
-    pover: '',
+    power: '',
     status:'',
     turnOnSignal:'1',
     turnOffSignal:'0',
@@ -33,11 +33,11 @@ export const DimmerMqttConf = ({next,back})=>{
         <ul>
           <HidingLi title = "power" show = {true}>
           <label>
-            <h5>Enter the topic by pover</h5>
-            <input className = "textInput" placeholder="topic pover" id="pover" type="text" name="pover" value={form.pover} onChange={changeHandler} required/>
+            <h5>Enter the topic by power</h5>
+            <input className = "textInput" placeholder="topic power" id="power" type="text" name="power" value={form.power} onChange={changeHandler} required/>
           </label>
           <label>
-            <h5>Enter the topic by pover status</h5>
+            <h5>Enter the topic by power status</h5>
             <input className = "textInput" placeholder="topic status" id="status" type="text" name="status" value={form.status} onChange={changeHandler} required/>
           </label>
           <label>

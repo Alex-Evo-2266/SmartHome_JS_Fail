@@ -46,7 +46,7 @@ const dimmer = require('./mqttDevices/dimmer');
           if(device[0].DeviceType==="light"){
             if(!action){
               socket.emit('terminal ret message',{
-                message:"light action: poverOn, poverOff, poverTogle,modeTogle, mode [number],dimmer number, color number"
+                message:"light action: powerOn, powerOff, powerTogle,modeTogle, mode [number],dimmer number, color number"
               })
               return
             }else{
@@ -61,7 +61,7 @@ const dimmer = require('./mqttDevices/dimmer');
           if(device[0].DeviceType==="switch"){
             if(!action){
               socket.emit('terminal ret message',{
-                message:"switch action: poverOn, poverOff, poverTogle"
+                message:"switch action: powerOn, powerOff, powerTogle"
               })
               return
             }else{
@@ -91,7 +91,7 @@ const dimmer = require('./mqttDevices/dimmer');
           if(device[0].DeviceType==="dimmer"){
             if(!action){
               socket.emit('terminal ret message',{
-                message:"switch action: poverOn, poverOff, poverTogle, dimmer number"
+                message:"switch action: powerOn, powerOff, powerTogle, dimmer number"
               })
               return
             }else{

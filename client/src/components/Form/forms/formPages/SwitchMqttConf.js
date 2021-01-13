@@ -4,7 +4,7 @@ import {HidingLi} from '../../../hidingLi.js'
 export const SwitchMqttConf = ({next,back})=>{
 
   const [form, setForm] = useState({
-    pover: '',
+    power: '',
     status:'',
     turnOnSignal:'1',
     turnOffSignal:'0',
@@ -19,7 +19,7 @@ export const SwitchMqttConf = ({next,back})=>{
   }
 
   const errorbtn = ()=>{
-    let input = document.getElementById("pover");
+    let input = document.getElementById("power");
     input.style.background="red"
     input.style.boxShadow="inset 0 0 10px #000"
   }
@@ -30,11 +30,11 @@ export const SwitchMqttConf = ({next,back})=>{
         <ul>
           <HidingLi title = "power" show = {true}>
           <label>
-            <h5>Enter the topic by pover</h5>
-            <input className = "textInput" placeholder="topic pover" id="pover" type="text" name="pover" value={form.pover} onChange={changeHandler} required/>
+            <h5>Enter the topic by power</h5>
+            <input className = "textInput" placeholder="topic power" id="power" type="text" name="power" value={form.power} onChange={changeHandler} required/>
           </label>
           <label>
-            <h5>Enter the topic by pover status</h5>
+            <h5>Enter the topic by power status</h5>
             <input className = "textInput" placeholder="topic status" id="status" type="text" name="status" value={form.status} onChange={changeHandler} required/>
           </label>
           <label>
@@ -50,10 +50,10 @@ export const SwitchMqttConf = ({next,back})=>{
       </div>
       <div className="formFooter">
       {
-        (!form.pover)?
+        (!form.power)?
         <button onClick={errorbtn} className ='FormControlBtn right disabled'>Next <i className="fas fa-arrow-right"></i></button>
         :
-        <button onClick={nextpage} className ='FormControlBtn right' disabled = {!form.pover}>Next <i className="fas fa-arrow-right"></i></button>
+        <button onClick={nextpage} className ='FormControlBtn right' disabled = {!form.power}>Next <i className="fas fa-arrow-right"></i></button>
       }
         <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
       </div>

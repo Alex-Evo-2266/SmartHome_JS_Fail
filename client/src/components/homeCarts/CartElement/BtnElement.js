@@ -25,9 +25,9 @@ export const BtnElement = ({data,className,index,children,name,onClick,disabled=
 
   useEffect(()=>{
     if(typeof(onClick)==="function")return
-    if(device&&data&&data.type==="pover"&&device.DeviceValue&&device.DeviceValue.pover){
-      if(!/\D/.test(device.DeviceValue.pover)&&!/\D/.test(device.DeviceConfig.turnOffSignal)&&!/\D/.test(device.DeviceConfig.turnOnSignal)){
-        let poz = Number(device.DeviceValue.pover)
+    if(device&&data&&data.type==="power"&&device.DeviceValue&&device.DeviceValue.power){
+      if(!/\D/.test(device.DeviceValue.power)&&!/\D/.test(device.DeviceConfig.turnOffSignal)&&!/\D/.test(device.DeviceConfig.turnOnSignal)){
+        let poz = Number(device.DeviceValue.power)
         let min = Number(device.DeviceConfig.turnOffSignal)
         let max = Number(device.DeviceConfig.turnOnSignal)
         if(poz>min&&poz<=max)
@@ -35,9 +35,9 @@ export const BtnElement = ({data,className,index,children,name,onClick,disabled=
         else
           setValue(false)
       }
-      if(device.DeviceValue.pover===device.DeviceConfig.turnOffSignal)
+      if(device.DeviceValue.power===device.DeviceConfig.turnOffSignal)
         setValue(false)
-      if(device.DeviceValue.pover===device.DeviceConfig.turnOnSignal)
+      if(device.DeviceValue.power===device.DeviceConfig.turnOnSignal)
         setValue(true)
     }
     if(device&&data&&data.type==="mode"&&device.DeviceValue&&device.DeviceValue.mode){
@@ -61,8 +61,8 @@ const changeHandler = (event)=>{
 
   if(!data||!device)
     return
-  if(data.type==="pover")
-      socket.terminalMessage(`device ${device.DeviceSystemName} poverTogle`)
+  if(data.type==="power")
+      socket.terminalMessage(`device ${device.DeviceSystemName} powerTogle`)
   if(data.type==="dimmer")
       socket.terminalMessage(`device ${device.DeviceSystemName} dimmer ${data.value}`)
   if(data.type==="color")

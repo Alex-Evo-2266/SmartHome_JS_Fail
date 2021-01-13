@@ -2,17 +2,17 @@ const mqtt = require('../../mqtt/mqtt')
 
 module.exports = async function (device,action,atrebut,socket) {
   try {
-    console.log(device.DeviceValue.pover,device.DeviceConfig.turnOffSignal);
-    if(action === "poverOn"||(action === "poverTogle"&&device.DeviceValue.pover===device.DeviceConfig.turnOffSignal)){
-      mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOnSignal)
+    console.log(device.DeviceValue.power,device.DeviceConfig.turnOffSignal);
+    if(action === "powerOn"||(action === "powerTogle"&&device.DeviceValue.power===device.DeviceConfig.turnOffSignal)){
+      mqtt.public(device.DeviceConfig.power,device.DeviceConfig.turnOnSignal)
       return true;
     }
-    if(action === "poverOff"||(action === "poverTogle"&&device.DeviceValue.pover===device.DeviceConfig.turnOnSignal)){
-      mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
+    if(action === "powerOff"||(action === "powerTogle"&&device.DeviceValue.power===device.DeviceConfig.turnOnSignal)){
+      mqtt.public(device.DeviceConfig.power,device.DeviceConfig.turnOffSignal)
       return true;
     }
-    if(action === "poverTogle"){
-      mqtt.public(device.DeviceConfig.pover,device.DeviceConfig.turnOffSignal)
+    if(action === "powerTogle"){
+      mqtt.public(device.DeviceConfig.power,device.DeviceConfig.turnOffSignal)
       return true;
     }
     if(action === "dimmer"){

@@ -76,7 +76,7 @@ export const DevicesPage = () => {
                       DeviceName = {item.DeviceName}
                       DeviceSystemName = {item.DeviceSystemName}
                       DeviceType = {item.DeviceType}
-                      PoverTopic = {item.DeviceConfig.pover||item.DeviceConfig.status||""}
+                      powerTopic = {item.DeviceConfig.power||item.DeviceConfig.status||""}
                       DeviceTypeConnect = {item.DeviceTypeConnect}
                       DeviceInformation={item.DeviceInformation}
                       updataDevice={updataDevice}

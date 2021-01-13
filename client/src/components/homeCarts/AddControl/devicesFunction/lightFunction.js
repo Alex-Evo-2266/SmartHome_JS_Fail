@@ -14,10 +14,10 @@ export const LightFunction = ({type, device,result})=>{
       order:"0",
       IdDevice:device.DeviceId
     }
-    if(t==="pover"){
+    if(t==="power"){
       return result({
         ...base,
-        address:device.DeviceConfig.pover,
+        address:device.DeviceConfig.power,
         On:device.DeviceConfig.turnOnSignal,
         Off:device.DeviceConfig.turnOffSignal
       })
@@ -57,10 +57,10 @@ export const LightFunction = ({type, device,result})=>{
     return(
       <div className="deviceFunctionConteiner">
         {
-          (device.DeviceConfig&&device.DeviceConfig.pover&&type==="button")?
+          (device.DeviceConfig&&device.DeviceConfig.power&&type==="button")?
           <div className="deviceFunctionItem">
-            <p>Pover</p>
-            <input type="button" value="Ok" onClick={()=>out("pover")}/>
+            <p>power</p>
+            <input type="button" value="Ok" onClick={()=>out("power")}/>
           </div>:
           null
         }

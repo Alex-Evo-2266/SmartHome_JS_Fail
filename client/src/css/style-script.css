@@ -65,7 +65,7 @@
   border: 2px solid #333;
   border-radius: 10px;
   position: relative;
-  background: #000;
+  background: #222;
 }
 .baseBlock{
   position: absolute;
@@ -103,4 +103,63 @@
 .IfdeviceList{
   padding: 10px 0;
   border-radius: 10px;
+}
+.shoseBlock{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #222;
+}
+.shoseBlock li{
+  margin: 10px;
+  flex: 0 1 50%;
+  transition: 0.5s;
+}
+.shoseBlock li *{
+  transition: 0.5s;
+}
+.shoseBlock li:hover{
+  background: rgba(150,150,150,.5);
+}
+.shoseBlock li:hover *{
+  opacity: 0.8;
+}
+.groupBlock{
+  position: relative;
+  min-height: 200px;
+  width: 100%;
+
+}
+.groupBlock .groupBlockBottom{
+  position: absolute;
+  bottom: 0;
+  content: "";
+  height: 30px;
+  width: 100%;
+  background: Purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.groupBlock .groupBlockTop{
+  position: absolute;
+  top: 0;
+  content: "";
+  height: 30px;
+  width: 100%;
+  background: Purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.groupBlock .textBlock{
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+}
+.actBlock{
+  display: flex;
+}
+.actBlock .deviceBlock{
+  display: flex;
 }

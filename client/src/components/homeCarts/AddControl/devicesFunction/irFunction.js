@@ -22,9 +22,9 @@ export const IrFunction = ({type,device,result})=>{
     return(
       <div className="deviceFunctionConteiner">
       {
-        (device.DeviceConfig&&device.DeviceConfig.pover&&type==="button")?
+        (device.DeviceConfig&&device.DeviceConfig.power&&type==="button")?
         <div className="deviceFunctionItem">
-          <p>Pover</p>
+          <p>power</p>
           <input id="command" type="text" className="command" value={value} onChange={(event)=>setValue(event.target.value)}/>
           <input type="button" value="Ok" onClick={out}/>
         </div>

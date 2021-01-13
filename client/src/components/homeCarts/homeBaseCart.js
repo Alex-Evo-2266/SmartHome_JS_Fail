@@ -43,7 +43,7 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
               index={indexbtn}
               disabled={edit}
               data={item}
-              switchMode={item.type==="pover"}
+              switchMode={item.type==="power"}
               deleteBtn={
                 (edit)?async(index1)=>{
                   let mas = data.children.slice();
@@ -62,7 +62,7 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
               }
               >
                 {
-                  (item.type==="pover")?
+                  (item.type==="power")?
                   <i className="fas fa-power-off"></i>:
                   (item.type==="dimmer")?
                   <i className="fas fa-sun"></i>:
