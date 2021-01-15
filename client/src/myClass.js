@@ -6,6 +6,7 @@ export class ifClass {
     this.value=value
   }
   changeHandler(key,value){
+    console.log(key,value,this);
     this[key] = value
   }
 }
@@ -34,5 +35,26 @@ export class groupIfClass {
       return
     }
     return
+  }
+  updata(othergroup){
+    console.log(othergroup);
+    if(othergroup instanceof groupIfClass){
+      this.oper=othergroup.oper
+      this.ifElement=othergroup.ifElement
+    }
+  }
+  delif(index){
+    this.ifElement = this.ifElement.filter((item,index1)=>index1!==index)
+  }
+}
+
+export class actClass {
+  constructor(deviceId,property,value) {
+    this.DeviseId=deviceId;
+    this.property=property
+    this.value=value
+  }
+  changeHandler(key,value){
+    this[key] = value
   }
 }

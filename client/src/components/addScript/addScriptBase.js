@@ -2,7 +2,7 @@ import React, {useContext,useState} from 'react'
 import {AddScriptContext} from './addScriptContext'
 import {AddScriptDevices} from './addScript/addScriptDevices'
 import {CenterWindow} from '../modalWindow/centerWindow'
-import {ActBlock} from '../moduls/programmBlock/actBlock'
+import {IfBlock} from '../moduls/programmBlock/ifBlock'
 import {GroupBlock} from '../moduls/programmBlock/groupBlock'
 
 export const AddScriptBase = ()=>{
@@ -16,7 +16,6 @@ export const AddScriptBase = ()=>{
   }
 
   const shoseDevice=(item)=>{
-    console.log(item);
     if(typeof(addScript.OK)==="function")
       addScript.OK("deviceBlock",item)
     close()
@@ -37,6 +36,14 @@ export const AddScriptBase = ()=>{
     return null;
   }
 
+  if(addScript.type==="deviceBlock"){
+    return (
+      <CenterWindow hide={close}>
+        <AddScriptDevices result={shoseDevice} type={"act"}/>
+      </CenterWindow>
+    )
+  }
+
   if(addScript.type==="typeBlock"){
     return (
       <CenterWindow hide={close}>
@@ -48,11 +55,11 @@ export const AddScriptBase = ()=>{
             </GroupBlock>
           </li>
           <li onClick={()=>shoseBlock("groupBlockOr")}>
-            <GroupBlock type={"or"}>>
+            <GroupBlock type={"or"}>
             </GroupBlock>
           </li>
           <li onClick={()=>shoseBlock("deviceBlock")} style={{gridColumnStart:"1", gridColumnEnd:"3"}}>
-            <ActBlock/>
+            <IfBlock/>
           </li>
         </ul>
         :

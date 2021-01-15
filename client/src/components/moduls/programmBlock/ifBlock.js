@@ -1,18 +1,13 @@
 import React,{useState,useEffect,useContext,useCallback} from 'react'
 import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
-import {actClass} from '../../../myClass.js'
+import {ifClass} from '../../../myClass.js'
 
-export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
+export const IfBlock = ({deviceId,updata,index,el,deleteEl})=>{
   const [status, setStatus]=useState(["power"])
   const [device, setDevice]=useState({})
   const {devices} = useContext(DeviceStatusContext)
-  const [result, setResult]=useState(el)
-  // {
-  //   DeviseId:deviceId,
-  //   property:"",
-  //   oper:"==",
-  //   value:""
-  // }
+  const [read, setRead] = useState(false)
+  const [result, setResult]=useState(el||new ifClass("0","","==","4"))
 
   const lookForDeviceById = useCallback((id)=>{
     let condidat = devices.filter((item)=>item.DeviceId===id)
@@ -25,51 +20,67 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
     let el2 = result
     el2.changeHandler(key,value)
     setResult(el2)
-    updata(el2,index,block)
+    console.log("u1");
+    updata(el2,index)
   }
 
   const changeHandler = event => {
     changeResult(event.target.name,event.target.value)
   }
 
-  useEffect(()=>{
-    console.log(el);
-  },[])
+  const devEl = ()=>{
+    deleteEl(index)
+  }
 
-  useEffect(()=>{
-    setDevice(lookForDeviceById(result.DeviseId))
-  },[lookForDeviceById,result])
-
-  useEffect(()=>{
-    if(!device)return;
+  const f = async ()=>{
+    if(!device||!device.DeviceType)return;
     if(device.DeviceType==="light"){
-      changeResult("property","power")
+      await changeResult("property","power")
       let mas = ["power"];
       if(device.DeviceConfig.dimmer)
         mas.push("dimmer")
       if(device.DeviceConfig.color)
         mas.push("color")
       if(device.DeviceConfig.mode)
-        mas.push("mode","togleMode")
+        mas.push("mode")
       setStatus(mas)
     }
     if(device.DeviceType==="dimmer"){
-      changeResult("property","dimmer")
+      await changeResult("property","dimmer")
       let mas = ["dimmer"];
-      if(device.DeviceConfig.power)
+      if(device.DeviceConfig.power){
         mas.push("power")
+      }
+      // else{
+      //   if(result.propert==="power")
+      //     changeResult("property","dimmer")
+      // }
       setStatus(mas)
     }
     if(device.DeviceType==="switch"){
-      changeResult("property","power")
+      await changeResult("property","power")
       let mas = ["power"];
       setStatus(mas)
     }
-    if(device.DeviceType==="ir"){
-      changeResult("property","command")
-      let mas = ["command"];
-      setStatus(mas)
+    if(device.DeviceType==="binarySensor"){
+      // if(result.propert==="power")
+        changeResult("property","value")
+      setStatus(["value","battery"])
     }
+    if(device.DeviceType==="sensor"){
+      // if(result.propert==="power")
+       changeResult("property","value")
+      setStatus(["value","battery"])
+    }
+    setRead(true)
+  }
+
+  useEffect(()=>{
+    setDevice(lookForDeviceById(result.DeviseId))
+  },[deviceId,lookForDeviceById,result])
+
+  useEffect(()=>{
+    f()
   },[device])
 
   return(
@@ -90,29 +101,49 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
           </select>
         </div>
       </div>
+      <div className="operBlock">
+        <select value={result.oper} name="oper" onChange={changeHandler}>
+          <option value={"=="}>{"=="}</option>
+          <option value={"!="}>!=</option>
+          {
+            (result.property!=="power")?
+            <>
+              <option value={">="}>{">="}</option>
+              <option value={"<="}>{"<="}</option>
+              <option value={">"}>{">"}</option>
+              <option value={"<"}>{"<"}</option>
+            </>
+            :null
+          }
+        </select>
+      </div>
       <div className="valueBlock">
         <div className="typeBlock">
-          {"Set in: "}
+        {
+          (result.property==="power")?
+          "status: ":"value: "
+        }
         </div>
         <div className="inputValueBlock">
         {
           (result.property==="power")?
           <select value={result.value} name="value" onChange={changeHandler}>
-            <option value={"powerOn"}>On</option>
-            <option value={"powerOff"}>Off</option>
-            <option value={"powerTogle"}>Togle</option>
+            <option value={"1"}>On</option>
+            <option value={"0"}>Off</option>
           </select>:
-          (result.property==="command")?
+          (result.oper==="=="||result.oper==="!=")?
           <input type="text" value={result.value} name="value" onChange={changeHandler}/>:
-          (result.property==="togleMode")?
-          <p> following</p>:
           <input type="number" value={Number(result.value)} name="value" onChange={changeHandler}/>
         }
         </div>
       </div>
-      <div className="deleteBlock" onClick={()=>{deleteEl(index,block)}}>
-        <i className="fas fa-trash"></i>
-      </div>
+      {
+        (el)?
+        <div className="deleteBlock" onClick={devEl}>
+          <i className="fas fa-trash"></i>
+        </div>:
+        null
+      }
     </div>
   )
 }

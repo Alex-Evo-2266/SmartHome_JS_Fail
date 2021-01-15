@@ -19,14 +19,20 @@ export const AddScriptDevices = ({result,type})=>{
       result(item)
   }
 
-  const filtered = useCallback(()=>{
-    let condidat = devices.filter((item)=>item.DeviceType!=="ir")
+  const filtered = useCallback((typeDev)=>{
+    let condidat
+    if(typeDev==="statusDev")
+      condidat = devices.filter((item)=>item.DeviceType!=="ir")
+    if(typeDev==="actDev")
+      condidat = devices.filter((item)=>(item.DeviceType!=="sensor"&&item.DeviceType!=="binarySensor"))
     return condidat;
   },[])
 
   useEffect(()=>{
     if(type==="if")
-      return setFilteredDevices(filtered())
+      return setFilteredDevices(filtered("statusDev"))
+    if(type==="act")
+      return setFilteredDevices(filtered("actDev"))
     return setFilteredDevices(devices);
   },[])
 

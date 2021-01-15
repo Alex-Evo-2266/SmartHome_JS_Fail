@@ -19,8 +19,14 @@ module.exports = async function (device,action,atrebut,socket) {
       let y = Number(atrebut)
       if(y===null||y===undefined||!device.DeviceConfig.dimmer)
         return false
-      if(y > Number(device.DeviceConfig.maxDimmer)||y < Number(device.DeviceConfig.minDimmer))
-        return false
+      if(y > device.DeviceConfig.maxDimmer){
+        mqtt.public(device.DeviceConfig.dimmer,String(device.DeviceConfig.maxDimmer))
+        return true
+      }
+      if(y < device.DeviceConfig.minDimmer){
+        mqtt.public(device.DeviceConfig.dimmer,String(device.DeviceConfig.minDimmer))
+        return true
+      }
       mqtt.public(device.DeviceConfig.dimmer,String(y))
       return true;
     }

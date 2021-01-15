@@ -19,8 +19,14 @@ module.exports = async function (device,action,atrebut,socket) {
       let y = Number(atrebut)
       if(y===null||y===undefined||!device.DeviceConfig.dimmer)
         return false
-      if(y > Number(device.DeviceConfig.maxDimmer)||y < Number(device.DeviceConfig.minDimmer))
-        return false
+      if(y > device.DeviceConfig.maxDimmer){
+        mqtt.public(device.DeviceConfig.dimmer,String(device.DeviceConfig.maxDimmer))
+        return true
+      }
+      if(y < device.DeviceConfig.minDimmer){
+        mqtt.public(device.DeviceConfig.dimmer,String(device.DeviceConfig.minDimmer))
+        return true
+      }
       mqtt.public(device.DeviceConfig.dimmer,String(y))
       return true;
     }
@@ -28,8 +34,14 @@ module.exports = async function (device,action,atrebut,socket) {
       let y = Number(atrebut)
       if(y===null||y===undefined||!device.DeviceConfig.color)
         return false
-      if(y > device.DeviceConfig.maxcolor||y < device.DeviceConfig.mincolor)
-        return false
+      if(y > device.DeviceConfig.maxcolor){
+        mqtt.public(device.DeviceConfig.color,String(device.DeviceConfig.maxcolor))
+        return true
+      }
+      if(y < device.DeviceConfig.mincolor){
+        mqtt.public(device.DeviceConfig.color,String(device.DeviceConfig.mincolor))
+        return true
+      }
       mqtt.public(device.DeviceConfig.color,String(y))
       return true;
     }
@@ -38,8 +50,14 @@ module.exports = async function (device,action,atrebut,socket) {
       if(!device.DeviceConfig.mode)
         return false
       if(atrebut){
-        if(atrebut > device.DeviceConfig.countMode-1||atrebut < 0)
-          return false
+        if(atrebut > device.DeviceConfig.countMode-1){
+          mqtt.public(device.DeviceConfig.color,String(device.DeviceConfig.countMode-1))
+          return true
+        }
+        if(atrebut < 0){
+          mqtt.public(device.DeviceConfig.color,String(0))
+          return true
+        }
         mqtt.public(device.DeviceConfig.mode,atrebut)
         return true;
       }

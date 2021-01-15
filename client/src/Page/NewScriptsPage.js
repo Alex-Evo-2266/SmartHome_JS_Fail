@@ -4,17 +4,22 @@ import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/AuthContext.js'
 import {AddScriptBase} from '../components/addScript/addScriptBase'
 import {GroupBlock} from '../components/moduls/programmBlock/groupBlock'
+import {ActBlock} from '../components/moduls/programmBlock/actBlock'
 import {DeviceStatusContext} from '../context/DeviceStatusContext'
-import {groupIfClass} from '../myClass.js'
+import {AddScriptContext} from '../components/addScript/addScriptContext'
+import {groupIfClass,actClass} from '../myClass.js'
 
 export const NewScriptsPage = () => {
   const auth = useContext(AuthContext)
+  const {show} = useContext(AddScriptContext)
   const {message} = useMessage();
   const {request, error, clearError} = useHttp();
   const[devices, setDevices]=useState([])
+  const[cost, setCost]=useState(true)
   const[script, setScript]=useState({
     if:new groupIfClass("and"),
-    act:[]
+    then:[],
+    else:[]
   })
 
   useEffect(()=>{
@@ -24,8 +29,14 @@ export const NewScriptsPage = () => {
     }
   },[error,message, clearError])
 
-  const updata = (data)=>{
-    setScript({...script,if:data})
+  const updata = async(data,index,reboot)=>{
+    console.log("9",data);
+    if(reboot)
+      await setCost(false)
+    let e = new groupIfClass("and")
+    e.updata(data)
+    await setScript({...script,if:e})
+    await setCost(true)
   }
 
   const updataDevice = useCallback(async()=>{
@@ -33,11 +44,38 @@ export const NewScriptsPage = () => {
     setDevices(data);
   },[request,auth.token])
 
+  const updataDev = async(item,index1,block1)=>{
+    console.log(item,index1,block1);
+    let s = script[block1];
+    s[index1]=item
+    console.log("s",s);
+    setScript({...script,[block1]:s})
+  }
+
+  const addEl = (block="then")=>{
+    show("deviceBlock",(none,dataDev)=>{
+      if(!dataDev||!dataDev.DeviceId)
+        return
+      let mas = script;
+      mas[block].push(new actClass(dataDev.DeviceId,"","1"))
+      setScript(mas)
+    })
+  }
+
+  const deleteEl = async(index1,block1)=>{
+    let ar = script[block1];
+    let newar = ar.filter((item, index2)=>index2!==index1)
+    await setCost(false)
+    await setScript({...script,[block1]:newar})
+    await setCost(true)
+  }
+
   useEffect(()=>{
     updataDevice()
   },[updataDevice])
 
   useEffect(()=>{
+    console.log("script",script);
   },[script])
 
   return(
@@ -48,18 +86,51 @@ export const NewScriptsPage = () => {
         <div className="NewScripPage">
           <h3>If</h3>
           <div className="progammzon">
-          <button onClick={()=>console.log("script",script)}>test</button>
+          <button onClick={()=>console.log("script2",script)}>test</button>
 
             <div className="baseBlock">
-            <div className="textBlock">
-              <p>if</p>
-            </div>
+              <div className="textBlock">
+                <p>if</p>
+              </div>
             </div>
             {
-              (script.if.ifElement)?
-                <GroupBlock index = "1" type={script.if.oper} requpdata={updata} elements={script.if}/>
+              (script.if.ifElement&&cost)?
+                <GroupBlock index = {"1"} type={script.if.oper} requpdata={updata} elements={script.if}/>
               :null
             }
+            <div className="baseBlock">
+              <div className="textBlock">
+                <p>then</p>
+              </div>
+              <div className="addBlock" onClick={()=>addEl("then")}>
+                <i className="fas fa-plus"></i>
+              </div>
+            </div>
+            <div className="groupBlockConteiner">
+            {
+              (cost)?
+              script.then.map((item,index)=>{
+                return <ActBlock deleteEl={deleteEl} key={index} el={item} index={index} updata={updataDev} block="then" deviceId={item.deviceId}/>
+              }):null
+            }
+            </div>
+            <div className="baseBlock">
+              <div className="textBlock">
+                <p>else</p>
+              </div>
+              <div className="addBlock" onClick={()=>addEl("else")}>
+                <i className="fas fa-plus"></i>
+              </div>
+            </div>
+            <div className="groupBlockConteiner">
+            {
+              (cost)?
+              script.else.map((item,index)=>{
+                return <ActBlock deleteEl={deleteEl} key={index} el={item} index={index} updata={updataDev} block="else" deviceId={item.deviceId}/>
+              }):
+              null
+            }
+            </div>
           </div>
         </div>
       </div>

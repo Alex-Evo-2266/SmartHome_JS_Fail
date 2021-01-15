@@ -1,9 +1,9 @@
 import React,{useContext,useState,useEffect} from 'react'
-import {ActBlock} from './actBlock'
+import {IfBlock} from './ifBlock'
 import {AddScriptContext} from '../../addScript/addScriptContext'
 import {ifClass,groupIfClass} from '../../../myClass.js'
 
-export const GroupBlock = ({index,type,children,elements,requpdata})=>{
+export const GroupBlock = ({index,type,children,elements,requpdata,deleteEl})=>{
 const {show} = useContext(AddScriptContext)
 const [data, setData] = useState(elements)
 
@@ -18,17 +18,29 @@ const addEl = ()=>{
     if(type==="groupBlockOr")
       newEl = new groupIfClass("or")
     if(type==="deviceBlock"&&device)
-      newEl = new ifClass(device.DeviceId,"","==","1")
+      newEl = new ifClass(device.DeviceId,"power","==","1")
     el.addif(newEl)
     setData(el)
+    requpdata(el,index)
     // let obj = script
     // obj.if.addif(newEl)
     // setScript(obj)
   })
 }
 
+const devEl = (index1)=>{
+  if(typeof(data.updataif)!=="function")
+    return
+  let el = data;
+  el.delif(index1)
+  setData(el)
+  if(typeof(requpdata)!=="function")
+    return
+  requpdata(el,index,true)
+}
 
-const reqUpdata = (data1,index1)=>{
+
+const reqUpdata = (data1,index1,reboot)=>{
   if(typeof(data.updataif)!=="function")
     return
   let el = data;
@@ -36,14 +48,8 @@ const reqUpdata = (data1,index1)=>{
   setData(el)
   if(typeof(requpdata)!=="function")
     return
-  requpdata(el,index)
+  requpdata(el,index,reboot)
 }
-
-// useEffect(()=>{
-//   if(typeof(requpdata)!=="function")
-//     return
-//   requpdata(data,index)
-// },[data])
 
   return(
     <div className="groupBlock">
@@ -52,15 +58,22 @@ const reqUpdata = (data1,index1)=>{
         <div className="addBlock" onClick={addEl}>
           <i className="fas fa-plus"></i>
         </div>
+        {
+          (typeof(deleteEl)==="function")?
+          <div className="deleteBlock" onClick={()=>{deleteEl(index)}}>
+            <i className="fas fa-trash"></i>
+          </div>:
+          null
+        }
       </div>
       <div className="groupBlockConteiner">
       {
         (data)?
           data.ifElement.map((item,index1)=>{
             if(typeof(item.subif.addif)==="function"){
-              return <GroupBlock index={index1} requpdata={reqUpdata} key={index1} type={item.subif.oper} elements={item.subif}/>
+              return <GroupBlock index={index1} deleteEl={devEl} requpdata={reqUpdata} key={index1} type={item.subif.oper} elements={item.subif}/>
             }
-            return <ActBlock key={index1} el={item.subif} index={index1} updata={reqUpdata} deviceId={item.subif.deviceId}/>
+            return <IfBlock key={index1} deleteEl={devEl} el={item.subif} index={index1} updata={reqUpdata} deviceId={item.subif.deviceId}/>
           })
         :null
       }
