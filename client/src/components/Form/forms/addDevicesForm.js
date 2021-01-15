@@ -10,6 +10,13 @@ import {DimmerMqttConf} from './formPages/DimmerMqttConf.js'
 import {BinarySensorMqttConf} from './formPages/BinarySensorMqttConf.js'
 import {HidingLi} from '../../hidingLi.js'
 import {useChecked} from '../../../hooks/checked.hook'
+import imgLight from '../../../img/lightDevices.jpg';
+import imgDimmer from '../../../img/dimmerDevices.jpg';
+import imgIr from '../../../img/IR.jpg';
+import imgSensor from '../../../img/sensorDevices.jpg';
+import imgSwitch from '../../../img/switchDevices.jpg';
+import imgBinarySensor from '../../../img/binarySensorDevices.jpg';
+import imgUndefined from '../../../img/icon-sensor.png';
 
 
 export const AddDevicesForm = (props)=>{
@@ -62,6 +69,10 @@ export const AddDevicesForm = (props)=>{
   },[error,message, clearError])
 
   const changeHandler = event => {
+    if(event.target.name==="typeDevice"&&event.target.value==="variable"){
+      setForm({ ...form,typeDevice:"variable", typeConnect: "system"})
+      return
+    }
     setForm({ ...form, [event.target.name]: event.target.value })
   }
   const changeHandlerTest = event=>{
@@ -131,7 +142,9 @@ export const AddDevicesForm = (props)=>{
             <ul className="devicesList">
               <li id="typeLight" className={(form.typeDevice==="light")?"active":""}>
                 <label>
-                  <div className="img"></div>
+                  <div className="imageConteiner">
+                    <img alt={"type icon"} src={imgLight}/>
+                  </div>
                   <p>Light</p>
                   <input type="button" name="typeDevice" value="light" onClick={changeHandler} />
                   <span className="indecator"/>
@@ -139,7 +152,9 @@ export const AddDevicesForm = (props)=>{
               </li>
               <li id="typeSwitch" className={(form.typeDevice==="switch")?"active":""}>
                 <label>
-                  <div className="img"></div>
+                  <div className="imageConteiner">
+                    <img alt={"type icon"} src={imgSwitch}/>
+                  </div>
                   <p>Switch</p>
                   <input type="button" name="typeDevice" value="switch" onClick={changeHandler} />
                   <span className="indecator"/>
@@ -147,7 +162,9 @@ export const AddDevicesForm = (props)=>{
               </li>
               <li id="typeSensor" className={(form.typeDevice==="sensor")?"active":""}>
                 <label>
-                  <div className="img"></div>
+                  <div className="imageConteiner">
+                    <img alt={"type icon"} src={imgSensor}/>
+                  </div>
                   <p>Sensor</p>
                   <input type="button" name="typeDevice" value="sensor" onClick={changeHandler} />
                   <span className="indecator"/>
@@ -155,7 +172,9 @@ export const AddDevicesForm = (props)=>{
               </li>
               <li id="typeBinarySensor" className={(form.typeDevice==="binarySensor")?"active":""}>
                 <label>
-                  <div className="img"></div>
+                  <div className="imageConteiner">
+                    <img alt={"type icon"} src={imgBinarySensor}/>
+                  </div>
                   <p>BinarySensor</p>
                   <input type="button" name="typeDevice" value="binarySensor" onClick={changeHandler} />
                   <span className="indecator"/>
@@ -163,7 +182,9 @@ export const AddDevicesForm = (props)=>{
               </li>
               <li id="typeIR" className={(form.typeDevice==="ir")?"active":""}>
                 <label>
-                  <div className="img"></div>
+                  <div className="imageConteiner">
+                    <img alt={"type icon"} src={imgIr}/>
+                  </div>
                   <p>IR port</p>
                   <input type="button" name="typeDevice" value="ir" onClick={changeHandler} />
                   <span className="indecator"/>
@@ -171,9 +192,21 @@ export const AddDevicesForm = (props)=>{
               </li>
               <li id="typeDimmer" className={(form.typeDevice==="dimmer")?"active":""}>
                 <label>
-                  <div className="img"></div>
+                  <div className="imageConteiner">
+                    <img alt={"type icon"} src={imgDimmer}/>
+                  </div>
                   <p>Dimmer</p>
                   <input type="button" name="typeDevice" value="dimmer" onClick={changeHandler} />
+                  <span className="indecator"/>
+                </label>
+              </li>
+              <li id="typeDimmer" className={(form.typeDevice==="variable")?"active":""}>
+                <label>
+                  <div className="imageConteiner">
+                    <div className="iconImage"><p>#</p></div>
+                  </div>
+                  <p>System variable</p>
+                  <input type="button" name="typeDevice" value="variable" onClick={changeHandler} />
                   <span className="indecator"/>
                 </label>
               </li>
@@ -184,20 +217,24 @@ export const AddDevicesForm = (props)=>{
               <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
             </div>
           </div>
-        <div className = "pageForm hide">
-          <div className = "formContent">
-            <h2>Select communication protocol</h2>
-            <div className = "choice flex">
-              <input type="button" content = "miio" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="miio")?"active":""}`} value = "Miio" onClick = {()=>setForm({ ...form, typeConnect: "miio" })}/>
-              <input type="button" content = "mqtt" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="mqtt")?"active":""}`} value = "Mqtt" onClick = {()=>setForm({ ...form, typeConnect: "mqtt" })}/>
-              <input type="button" content = "other" name="typeConnect" className={`choiceElem circle ${(form&&form.typeConnect!=="miio"&&form.typeConnect!=="mqtt"&&form.typeConnect!=="")?"active":""}`} value = "Other" onClick = {()=>setForm({ ...form, typeConnect: "other" })}/>
+          {
+            (form.typeDevice!=="variable")?
+            <div className = "pageForm hide">
+              <div className = "formContent">
+                <h2>Select communication protocol</h2>
+                <div className = "choice flex">
+                  <input type="button" content = "miio" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="miio")?"active":""}`} value = "Miio" onClick = {()=>setForm({ ...form, typeConnect: "miio" })}/>
+                  <input type="button" content = "mqtt" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="mqtt")?"active":""}`} value = "Mqtt" onClick = {()=>setForm({ ...form, typeConnect: "mqtt" })}/>
+                  <input type="button" content = "other" name="typeConnect" className={`choiceElem circle ${(form&&form.typeConnect!=="miio"&&form.typeConnect!=="mqtt"&&form.typeConnect!=="")?"active":""}`} value = "Other" onClick = {()=>setForm({ ...form, typeConnect: "other" })}/>
+                </div>
+              </div>
+              <div className="formFooter">
+                <button onClick={next} className ="FormControlBtn right" disabled = {!form.typeConnect}>Next <i className="fas fa-arrow-right"></i></button>
+                <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
+              </div>
             </div>
-          </div>
-          <div className="formFooter">
-            <button onClick={next} className ="FormControlBtn right" disabled = {!form.typeConnect}>Next <i className="fas fa-arrow-right"></i></button>
-            <button onClick={back} className ="FormControlBtn left"><i className="fas fa-arrow-left"></i> Previous</button>
-          </div>
-        </div>
+            :null
+          }
         <div className = "pageForm hide">
           <div className = "formContent moreInput">
             <ul>
@@ -241,10 +278,10 @@ export const AddDevicesForm = (props)=>{
           <div className = "pageForm hide">
             <p>404</p>
           </div>
-          :
+          :(form.typeDevice !== "variable")?
           <div className = "pageForm hide">
             <p>404</p>
-          </div>
+          </div>:null
 
         }
         <div className = "pageForm hide">

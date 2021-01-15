@@ -16,6 +16,7 @@ router.post('/add',
   auth,
   async (req, res)=> {
    try {
+     console.log(req.body);
      //---------------------validation--------------------//
            const errors = validationResult(req);
            if(!errors.isEmpty()){
@@ -26,7 +27,6 @@ router.post('/add',
            }
      //---------------------------------------------------//
      const {name, typeConnect, typeDevice,systemName, config} = req.body;
-     console.log(req.body);
      await devices.connect();
      const condidate = await devices.lookForDeviceByName(name)
      if(condidate.length !== 0){
@@ -78,27 +78,35 @@ router.post('/add',
  })
 
  router.post('/edit',auth,async (req, res)=>{
+   console.log(req.body);
    try {
+     console.log("1");
      await devices.connect();
      const condidate = await devices.lookForDeviceByName(req.body.DeviceName)
      if(condidate&&condidate[0]&&condidate[0].DeviceId!==req.body.DeviceId){
        throw new Error("device with the same name already exists.")
      }
+     console.log("2");
      const condidate2 = await devices.lookForDeviceBySystemName(req.body.DeviceSystemName)
      if(condidate2&&condidate2[0]&&condidate2[0].DeviceId!==req.body.DeviceId){
        throw new Error("device with the same system name already exists.")
      }
-     res.status(201).json(await devices.updataDevice({
+     console.log("3");
+     await devices.updataDevice({
        id:req.body.DeviceId,
        name:req.body.DeviceName,
        systemName:req.body.DeviceSystemName,
        info:req.body.DeviceInformation,
-       idRoom:req.body.RoomId,
+       idRoom:req.body.RoomId||0,
        typeConnect:req.body.DeviceTypeConnect,
        typeDevice:req.body.DeviceType,
-       config:req.body.DeviceConfig
-     }))
+       config:req.body.DeviceConfig||{}
+     })
+     if(req.body.DeviceValue){
+       await devices.setValue(req.body.DeviceId,"value",req.body.DeviceValue)
+     }
      await devices.desconnect();
+     res.status(201).json({message:"ok"})
      mqtt.desconnect()
      mqtt.connect()
      return

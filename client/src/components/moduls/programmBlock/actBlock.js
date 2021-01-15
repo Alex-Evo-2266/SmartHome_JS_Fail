@@ -67,8 +67,12 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
     }
     if(device.DeviceType==="ir"){
       changeResult("property","command")
-      let mas = ["command"];
-      setStatus(mas)
+      setStatus(["command"])
+    }
+    if(device.DeviceType==="variable"){
+      // if(result.propert==="power")
+       changeResult("property","value")
+      setStatus(["value"])
     }
   },[device])
 
@@ -102,7 +106,7 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
             <option value={"powerOff"}>Off</option>
             <option value={"powerTogle"}>Togle</option>
           </select>:
-          (result.property==="command")?
+          (result.property==="command"||device.DeviceType==="variable")?
           <input type="text" value={result.value} name="value" onChange={changeHandler}/>:
           (result.property==="togleMode")?
           <p> following</p>:

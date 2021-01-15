@@ -8,6 +8,7 @@ const userRouter = require('./routers/userRouter')
 const configRouter = require('./routers/configRouter')
 const homeConfig = require('./routers/homeRouter')
 const terminalRouter = require('./routers/terminalRouter')
+const scriptRouter = require('./routers/scriptsRouter')
 const socket = require('./socket/socket')
 const mqtt = require('./mqtt/mqtt')
 // const fon = require('./multerConfig/fon.js')
@@ -31,6 +32,7 @@ app.use('/api/user',userRouter);
 app.use('/api/server',configRouter);
 app.use('/api/homeConfig',homeConfig);
 app.use('/api/terminal',terminalRouter);
+app.use('/api/script',scriptRouter);
 ///api/base/fonImage/:type
 
 try {

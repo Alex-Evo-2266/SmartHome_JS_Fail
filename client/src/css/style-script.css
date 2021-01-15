@@ -41,16 +41,32 @@
 .stateElement{
   padding: 10px;
 }
-.deviceElement .imageConteiner{
-  height: 70px;
-  width: 80px;
+.imageConteiner{
+  height: 80px;
+  width: 90px;
   border-radius: 7px 0 0 7px;
   overflow: hidden;
 }
-.deviceElement img{
+.imageConteiner img{
   object-fit:cover;
   height: 100%;
   width: 100%;
+}
+.imageConteiner div.iconImage{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color:#000;
+}
+.imageConteiner div.iconImage p{
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  transform: translateY(3px);
+  font-size: 30px;
 }
 .deviceElement p,
 .stateElement p{

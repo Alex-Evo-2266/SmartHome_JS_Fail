@@ -72,6 +72,11 @@ export const IfBlock = ({deviceId,updata,index,el,deleteEl})=>{
        changeResult("property","value")
       setStatus(["value","battery"])
     }
+    if(device.DeviceType==="variable"){
+      // if(result.propert==="power")
+       changeResult("property","value")
+      setStatus(["value"])
+    }
     setRead(true)
   }
 
@@ -106,7 +111,7 @@ export const IfBlock = ({deviceId,updata,index,el,deleteEl})=>{
           <option value={"=="}>{"=="}</option>
           <option value={"!="}>!=</option>
           {
-            (result.property!=="power")?
+            (result.property!=="power"&&device&&device.DeviceType!=="binarySensor")?
             <>
               <option value={">="}>{">="}</option>
               <option value={"<="}>{"<="}</option>
