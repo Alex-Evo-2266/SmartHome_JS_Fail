@@ -17,10 +17,24 @@ export const NewScriptsPage = () => {
   const[devices, setDevices]=useState([])
   const[cost, setCost]=useState(true)
   const[script, setScript]=useState({
+    name:"",
     if:new groupIfClass("and"),
     then:[],
     else:[]
   })
+
+  const changeHandler = (event)=>{
+    setScript({...script,[event.target.name]:event.target.value})
+  }
+
+  const outHandler = async()=>{
+    try {
+      const data = await request('/api/script/add', 'POST', {...script},{Authorization: `Bearer ${auth.token}`})
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   useEffect(()=>{
     message(error,"error")
@@ -84,10 +98,13 @@ export const NewScriptsPage = () => {
       <div className = "NewScripConteiner">
       <h2>Create new script</h2>
         <div className="NewScripPage">
+          <div className="scriptOut">
+            <p>Script name</p>
+            <input type="text" name="name" value={script.name} onChange={changeHandler}/>
+            <button onClick={outHandler}>Send</button>
+          </div>
           <h3>If</h3>
           <div className="progammzon">
-          <button onClick={()=>console.log("script2",script)}>test</button>
-
             <div className="baseBlock">
               <div className="textBlock">
                 <p>if</p>

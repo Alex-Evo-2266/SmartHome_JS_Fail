@@ -78,7 +78,7 @@ module.exports.addScript = async function(data){
     if(!data.else)data.else = [];
     console.log(data);
     await conection.execute(
-      "INSERT INTO `smarthome_scripts`(`ScriptId`, ScriptName`,`ScriptStatus`, `ScriptIf`, `ScriptThen`, `ScriptElse`) VALUES (?,?,?,?,?,?)",
+      "INSERT INTO `smarthome_scripts`(`ScriptId`, `ScriptName`, `ScriptStatus`, `ScriptIf`, `ScriptThen`, `ScriptElse`) VALUES (?,?,?,?,?,?)",
       [data.id, data.name,data.status, data.if, data.then, data.else]
     )
 
@@ -89,7 +89,7 @@ module.exports.addScript = async function(data){
     return
   }
 }
-module.exports.lookForDeviceByName = async function (name) {
+module.exports.lookForScriptByName = async function (name) {
   try {
     const result = await conection.execute(`SELECT * FROM smarthome_scripts WHERE ScriptName = '${name}'`)
     return result[0];
