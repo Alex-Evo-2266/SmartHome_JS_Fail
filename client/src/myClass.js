@@ -49,12 +49,29 @@ export class groupIfClass {
 }
 
 export class actClass {
-  constructor(deviceId,property,value) {
+  constructor(deviceId,property) {
     this.DeviseId=deviceId;
     this.property=property
-    this.value=value
+    this.value=null
   }
   changeHandler(key,value){
     this[key] = value
+  }
+}
+
+/*
+* valueType{
+* addition
+* subtraction
+* multiplication
+* division
+* status
+* value
+*}
+*/
+
+export class valueClass {
+  constructor(type) {
+    this.type=type
   }
 }

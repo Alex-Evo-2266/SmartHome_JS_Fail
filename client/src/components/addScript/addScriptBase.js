@@ -4,10 +4,10 @@ import {AddScriptDevices} from './addScript/addScriptDevices'
 import {CenterWindow} from '../modalWindow/centerWindow'
 import {IfBlock} from '../moduls/programmBlock/ifBlock'
 import {GroupBlock} from '../moduls/programmBlock/groupBlock'
+import {AddScriptStatus} from './addScript/addScriptStatus'
 
 export const AddScriptBase = ()=>{
   const {addScript, hide} = useContext(AddScriptContext)
-  const [device, setDevice]=useState()
   const [deviceBlock, setDeviceBlock]=useState(false)
 
   const close = ()=>{
@@ -21,8 +21,14 @@ export const AddScriptBase = ()=>{
     close()
   }
 
+  const shoseValueDevice=(item)=>{
+    if(typeof(addScript.OK)==="function")
+      addScript.OK("DeviseValue",item)
+    close()
+  }
+
   const shoseBlock = async(t)=>{
-    if(t==="deviceBlock"){
+    if(t==="deviceBlock"||t==="DeviseValue"){
       setDeviceBlock(true)
       return
     }
@@ -34,6 +40,18 @@ export const AddScriptBase = ()=>{
 
   if(!addScript.visible){
     return null;
+  }
+
+  if(addScript.type==="statusBlock"){
+    return (
+      <CenterWindow hide={close}>
+      {
+        (!deviceBlock)?
+        <AddScriptStatus result={shoseBlock} data={addScript.data}/>:
+        <AddScriptDevices result={shoseValueDevice} type={"if"}/>
+      }
+      </CenterWindow>
+    )
   }
 
   if(addScript.type==="deviceBlock"){

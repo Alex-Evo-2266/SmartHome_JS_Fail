@@ -1,4 +1,4 @@
-import React,{useContext,useState,useEffect} from 'react'
+import React,{useContext,useState,useCallback} from 'react'
 import {IfBlock} from './ifBlock'
 import {AddScriptContext} from '../../addScript/addScriptContext'
 import {ifClass,groupIfClass} from '../../../myClass.js'
@@ -40,7 +40,7 @@ const devEl = (index1)=>{
 }
 
 
-const reqUpdata = (data1,index1,reboot)=>{
+const reqUpdata = useCallback((data1,index1,reboot)=>{
   if(typeof(data.updataif)!=="function")
     return
   let el = data;
@@ -49,7 +49,7 @@ const reqUpdata = (data1,index1,reboot)=>{
   if(typeof(requpdata)!=="function")
     return
   requpdata(el,index,reboot)
-}
+},[data,requpdata,index])
 
   return(
     <div className="groupBlock">

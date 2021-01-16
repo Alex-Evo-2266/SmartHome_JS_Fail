@@ -9,7 +9,14 @@ export const AddScriptState = ({children}) =>{
   const show = (type = "Devices", OK = null) =>{
     dispatch({
       type:SHOW_ADDSCRIPT,
-      payload: {type,OK}
+      payload: {type,OK,data:null}
+    })
+  }
+
+  const showData = (type = "Devices",data={}, OK = null) =>{
+    dispatch({
+      type:SHOW_ADDSCRIPT,
+      payload: {type,OK,data}
     })
   }
 
@@ -21,7 +28,7 @@ export const AddScriptState = ({children}) =>{
 
   return(
     <AddScriptContext.Provider
-    value={{show, hide, addScript: state}}>
+    value={{show, hide,showData, addScript: state}}>
       {children}
     </AddScriptContext.Provider>
   )

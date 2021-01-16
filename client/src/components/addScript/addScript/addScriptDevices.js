@@ -1,5 +1,4 @@
 import React, {useContext,useState,useEffect,useCallback} from 'react'
-import {AuthContext} from '../../../context/AuthContext.js'
 import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
 import imgLight from '../../../img/lightDevices.jpg';
 import imgDimmer from '../../../img/dimmerDevices.jpg';
@@ -10,7 +9,6 @@ import imgBinarySensor from '../../../img/binarySensorDevices.jpg';
 import imgUndefined from '../../../img/icon-sensor.png';
 
 export const AddScriptDevices = ({result,type})=>{
-  const auth = useContext(AuthContext)
   const {devices} = useContext(DeviceStatusContext)
   const [filteredDevices,setFilteredDevices] = useState([])
 
@@ -26,7 +24,7 @@ export const AddScriptDevices = ({result,type})=>{
     if(typeDev==="actDev")
       condidat = devices.filter((item)=>(item.DeviceType!=="sensor"&&item.DeviceType!=="binarySensor"))
     return condidat;
-  },[])
+  },[devices])
 
   useEffect(()=>{
     if(type==="if")
@@ -34,7 +32,7 @@ export const AddScriptDevices = ({result,type})=>{
     if(type==="act")
       return setFilteredDevices(filtered("actDev"))
     return setFilteredDevices(devices);
-  },[])
+  },[devices,type,filtered])
 
   return(
     <ul className="IfdeviceList">

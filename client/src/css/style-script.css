@@ -104,6 +104,7 @@
   width: 100%;
   background: Purple;
 }
+
 .baseBlock .addBlock{
   text-align: center;
   position: relative;
@@ -193,6 +194,7 @@
 }
 .actBlock{
   display: flex;
+  position: relative;
 }
 .actBlock *{
   color: #fff;
@@ -235,7 +237,7 @@
   padding: 0 5px;
   min-width: 80px;
 }
-.actBlock .valueBlock{
+.valueBlock{
   display: flex;
   height: 30px;
   background: #444;
@@ -253,6 +255,16 @@
   display: flex;
   justify-content: center;
   align-items: center
+}
+.actBlock .addBlock{
+  text-align: center;
+  position: relative;
+  right: 0;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
 }
 .groupBlock > .groupBlockTop .deleteBlock{
   position: absolute;

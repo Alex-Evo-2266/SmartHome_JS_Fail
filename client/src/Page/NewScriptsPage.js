@@ -29,7 +29,7 @@ export const NewScriptsPage = () => {
     }
   },[error,message, clearError])
 
-  const updata = async(data,index,reboot)=>{
+  const updata = useCallback(async(data,index,reboot)=>{
     console.log("9",data);
     if(reboot)
       await setCost(false)
@@ -37,27 +37,27 @@ export const NewScriptsPage = () => {
     e.updata(data)
     await setScript({...script,if:e})
     await setCost(true)
-  }
+  },[script])
 
   const updataDevice = useCallback(async()=>{
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
     setDevices(data);
   },[request,auth.token])
 
-  const updataDev = async(item,index1,block1)=>{
+  const updataDev = useCallback(async(item,index1,block1)=>{
     console.log(item,index1,block1);
     let s = script[block1];
     s[index1]=item
     console.log("s",s);
     setScript({...script,[block1]:s})
-  }
+  },[script])
 
   const addEl = (block="then")=>{
     show("deviceBlock",(none,dataDev)=>{
       if(!dataDev||!dataDev.DeviceId)
         return
       let mas = script;
-      mas[block].push(new actClass(dataDev.DeviceId,"","1"))
+      mas[block].push(new actClass(dataDev.DeviceId,"",null))
       setScript(mas)
     })
   }

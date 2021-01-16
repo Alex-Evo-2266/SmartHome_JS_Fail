@@ -16,7 +16,6 @@ import imgIr from '../../../img/IR.jpg';
 import imgSensor from '../../../img/sensorDevices.jpg';
 import imgSwitch from '../../../img/switchDevices.jpg';
 import imgBinarySensor from '../../../img/binarySensorDevices.jpg';
-import imgUndefined from '../../../img/icon-sensor.png';
 
 
 export const AddDevicesForm = (props)=>{

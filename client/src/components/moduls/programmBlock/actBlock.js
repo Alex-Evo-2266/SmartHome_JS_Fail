@@ -1,40 +1,60 @@
 import React,{useState,useEffect,useContext,useCallback} from 'react'
 import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
-import {actClass} from '../../../myClass.js'
+import {AddScriptContext} from '../../addScript/addScriptContext'
+import {StatusValue} from './actBlockElement/statusValue'
+import {DeviceValue} from './actBlockElement/DeviseValue'
+import {TextValue} from './actBlockElement/TextValue'
+import {valueClass} from '../../../myClass.js'
 
 export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
   const [status, setStatus]=useState(["power"])
   const [device, setDevice]=useState({})
+  const {showData} = useContext(AddScriptContext)
   const {devices} = useContext(DeviceStatusContext)
   const [result, setResult]=useState(el)
-  // {
-  //   DeviseId:deviceId,
-  //   property:"",
-  //   oper:"==",
-  //   value:""
-  // }
+  const [velueDevice,setValueDevice]=useState({})
+
 
   const lookForDeviceById = useCallback((id)=>{
     let condidat = devices.filter((item)=>item.DeviceId===id)
     return condidat[0];
-  },[])
+  },[devices])
 
-  const changeResult = (key,value)=>{
+  const changeResult = useCallback((key,value)=>{
     if(typeof(result.changeHandler)!=="function")
       return
     let el2 = result
     el2.changeHandler(key,value)
     setResult(el2)
+    return el2
+  },[result])
+
+  const changeHandler = async event => {
+    let el2 = await changeResult(event.target.name,event.target.value)
     updata(el2,index,block)
   }
 
-  const changeHandler = event => {
-    changeResult(event.target.name,event.target.value)
+  const addStatus = ()=>{
+    showData("statusBlock",{DeviceType:device.DeviceType},(type,deviceitem1)=>{
+      let el2 = result
+      el2.changeHandler("value",new valueClass(type))
+      if(deviceitem1){
+        setValueDevice(deviceitem1)
+      }
+      setResult(el2)
+      updata(el2,index,block)
+    })
   }
 
+  const deletStatus = ()=>{
+    let el2 = result
+    el2.changeHandler("value",null)
+    setResult(el2)
+    updata(el2,index,block)
+  }
   useEffect(()=>{
-    console.log(el);
-  },[])
+    console.log("7");
+  })
 
   useEffect(()=>{
     setDevice(lookForDeviceById(result.DeviseId))
@@ -74,7 +94,7 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
        changeResult("property","value")
       setStatus(["value"])
     }
-  },[device])
+  },[device,changeResult])
 
   return(
     <div className="actBlock">
@@ -94,29 +114,49 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
           </select>
         </div>
       </div>
-      <div className="valueBlock">
-        <div className="typeBlock">
-          {"Set in: "}
-        </div>
-        <div className="inputValueBlock">
-        {
-          (result.property==="power")?
-          <select value={result.value} name="value" onChange={changeHandler}>
-            <option value={"powerOn"}>On</option>
-            <option value={"powerOff"}>Off</option>
-            <option value={"powerTogle"}>Togle</option>
-          </select>:
-          (result.property==="command"||device.DeviceType==="variable")?
-          <input type="text" value={result.value} name="value" onChange={changeHandler}/>:
-          (result.property==="togleMode")?
-          <p> following</p>:
-          <input type="number" value={Number(result.value)} name="value" onChange={changeHandler}/>
-        }
-        </div>
-      </div>
       <div className="deleteBlock" onClick={()=>{deleteEl(index,block)}}>
         <i className="fas fa-trash"></i>
       </div>
+      {
+        (result.property!=="togleMode")?
+        (!result.value)?
+        <div className="addBlock" onClick={addStatus}>
+          <i className="fas fa-plus"></i>
+        </div>
+        :<div className="addBlock">
+          <i>{">"}</i>
+        </div>
+        :null
+      }
+      {
+        (result.value&&result.value.type==="status")?
+          <StatusValue deleteEl={deletStatus}/>:
+        (result.value&&result.value.type==="DeviseValue")?
+          <DeviceValue device={velueDevice} deleteEl={deletStatus}/>:
+        (result.value&&result.value.type==="value")?
+          <TextValue deleteEl={deletStatus} number={!(result.property==="power"||result.property==="command"||result.property==="value")}/>:
+        null
+      }
     </div>
   )
 }
+// <div className="valueBlock">
+//   <div className="typeBlock">
+//     {"Set in: "}
+//   </div>
+//   <div className="inputValueBlock">
+//   {
+//     (result.property==="power")?
+//     <select value={result.value} name="value" onChange={changeHandler}>
+//       <option value={"powerOn"}>On</option>
+//       <option value={"powerOff"}>Off</option>
+//       <option value={"powerTogle"}>Togle</option>
+//     </select>:
+//     (result.property==="command"||device.DeviceType==="variable")?
+//     <input type="text" value={result.value} name="value" onChange={changeHandler}/>:
+//     (result.property==="togleMode")?
+//     <p> following</p>:
+//     <input type="number" value={Number(result.value)} name="value" onChange={changeHandler}/>
+//   }
+//   </div>
+// </div>

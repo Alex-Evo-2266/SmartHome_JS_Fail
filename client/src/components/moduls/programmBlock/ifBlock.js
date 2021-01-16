@@ -6,33 +6,33 @@ export const IfBlock = ({deviceId,updata,index,el,deleteEl})=>{
   const [status, setStatus]=useState(["power"])
   const [device, setDevice]=useState({})
   const {devices} = useContext(DeviceStatusContext)
-  const [read, setRead] = useState(false)
   const [result, setResult]=useState(el||new ifClass("0","","==","4"))
 
   const lookForDeviceById = useCallback((id)=>{
     let condidat = devices.filter((item)=>item.DeviceId===id)
     return condidat[0];
-  },[])
+  },[devices])
 
-  const changeResult = (key,value)=>{
+  const changeResult = useCallback((key,value)=>{
     if(typeof(result.changeHandler)!=="function")
       return
     let el2 = result
     el2.changeHandler(key,value)
     setResult(el2)
     console.log("u1");
-    updata(el2,index)
-  }
+    return el2
+  },[result])
 
-  const changeHandler = event => {
-    changeResult(event.target.name,event.target.value)
+  const changeHandler = async event => {
+    let el2 = await changeResult(event.target.name,event.target.value)
+    updata(el2,index)
   }
 
   const devEl = ()=>{
     deleteEl(index)
   }
 
-  const f = async ()=>{
+  const statusDevice = useCallback(async ()=>{
     if(!device||!device.DeviceType)return;
     if(device.DeviceType==="light"){
       await changeResult("property","power")
@@ -77,16 +77,15 @@ export const IfBlock = ({deviceId,updata,index,el,deleteEl})=>{
        changeResult("property","value")
       setStatus(["value"])
     }
-    setRead(true)
-  }
+  },[changeResult,device])
 
   useEffect(()=>{
     setDevice(lookForDeviceById(result.DeviseId))
   },[deviceId,lookForDeviceById,result])
 
   useEffect(()=>{
-    f()
-  },[device])
+    statusDevice()
+  },[device,statusDevice])
 
   return(
     <div className="actBlock">
