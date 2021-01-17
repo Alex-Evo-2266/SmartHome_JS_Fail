@@ -5,11 +5,14 @@ import {AuthContext} from '../context/AuthContext.js'
 import {AddScriptBase} from '../components/addScript/addScriptBase'
 import {GroupBlock} from '../components/moduls/programmBlock/groupBlock'
 import {ActBlock} from '../components/moduls/programmBlock/actBlock'
+import {TriggerBlock} from '../components/moduls/programmBlock/triggerBlock'
 import {DeviceStatusContext} from '../context/DeviceStatusContext'
 import {AddScriptContext} from '../components/addScript/addScriptContext'
-import {groupIfClass,actClass} from '../myClass.js'
+import {useHistory} from 'react-router-dom'
+import {groupIfClass,actClass,triggerClass} from '../myClass.js'
 
 export const NewScriptsPage = () => {
+  const history = useHistory()
   const auth = useContext(AuthContext)
   const {show} = useContext(AddScriptContext)
   const {message} = useMessage();
@@ -18,10 +21,22 @@ export const NewScriptsPage = () => {
   const[cost, setCost]=useState(true)
   const[script, setScript]=useState({
     name:"",
+    trigger:[],
     if:new groupIfClass("and"),
     then:[],
     else:[]
   })
+
+  const addTrigger = ()=>{
+    show("triggerBlock",(none,dataDev)=>{
+      console.log(dataDev);
+      if(!dataDev||!dataDev.DeviceId)
+        return
+      let mas = script;
+      mas.trigger.push(new triggerClass("device",dataDev.DeviceId))
+      setScript(mas)
+    })
+  }
 
   const changeHandler = (event)=>{
     setScript({...script,[event.target.name]:event.target.value})
@@ -30,7 +45,9 @@ export const NewScriptsPage = () => {
   const outHandler = async()=>{
     try {
       const data = await request('/api/script/add', 'POST', {...script},{Authorization: `Bearer ${auth.token}`})
-      console.log(data);
+      if(data){
+        history.push('/scripts')
+      }
     } catch (e) {
       console.error(e);
     }
@@ -71,7 +88,7 @@ export const NewScriptsPage = () => {
       if(!dataDev||!dataDev.DeviceId)
         return
       let mas = script;
-      mas[block].push(new actClass(dataDev.DeviceId,"",null))
+      mas[block].push(new actClass("device",dataDev.DeviceId,"",null))
       setScript(mas)
     })
   }
@@ -105,6 +122,22 @@ export const NewScriptsPage = () => {
           </div>
           <h3>If</h3>
           <div className="progammzon">
+            <div className="triggerBlock">
+              <div className="baseBlock">
+                <div className="textBlock">
+                  <p>Trigger</p>
+                </div>
+                <div className="addBlock" onClick={addTrigger}>
+                  <i className="fas fa-plus"></i>
+                </div>
+              </div>
+              {
+                (cost)?
+                script.trigger.map((item,index)=>{
+                  return <TriggerBlock key={index} deleteEl={deleteEl} index={index} updata={updataDev} block="trigger" deviceId={item.DeviseId}/>
+                }):null
+              }
+            </div>
             <div className="baseBlock">
               <div className="textBlock">
                 <p>if</p>

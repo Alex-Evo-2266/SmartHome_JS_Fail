@@ -70,7 +70,9 @@ module.exports.addScript = async function(data){
       data.id = idEmpty(await scripts());
     }
     if(!data.name||!data.then) return;
-    if(!data.status)data.status = "automatic"
+
+    if(!data.status)data.status = "trigger"
+    if(!data.trigger)data.status = "manual"
     if(!data.if){
       data.status = "manual"
       data.if = {}
@@ -78,8 +80,8 @@ module.exports.addScript = async function(data){
     if(!data.else)data.else = [];
     console.log(data);
     await conection.execute(
-      "INSERT INTO `smarthome_scripts`(`ScriptId`, `ScriptName`, `ScriptStatus`, `ScriptIf`, `ScriptThen`, `ScriptElse`) VALUES (?,?,?,?,?,?)",
-      [data.id, data.name,data.status, data.if, data.then, data.else]
+      "INSERT INTO `smarthome_scripts`(`ScriptId`, `ScriptName`, `ScriptStatus`, `ScriptTrigger`, `ScriptIf`, `ScriptThen`, `ScriptElse`) VALUES (?,?,?,?,?,?,?)",
+      [data.id, data.name,data.status,data.trigger, data.if, data.then, data.else]
     )
 
     return true;
@@ -92,6 +94,16 @@ module.exports.addScript = async function(data){
 module.exports.lookForScriptByName = async function (name) {
   try {
     const result = await conection.execute(`SELECT * FROM smarthome_scripts WHERE ScriptName = '${name}'`)
+    return result[0];
+  } catch (e) {
+    console.log("Error",e);
+    return
+  }
+}
+
+module.exports.lookForScriptByStatus = async function (status) {
+  try {
+    const result = await conection.execute(`SELECT * FROM smarthome_scripts WHERE ScriptStatus = '${status}'`)
     return result[0];
   } catch (e) {
     console.log("Error",e);

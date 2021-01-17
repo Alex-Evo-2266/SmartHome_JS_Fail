@@ -1,5 +1,6 @@
 export class ifClass {
-  constructor(deviceId,property,oper,value) {
+  constructor(type,deviceId,property,oper,value) {
+    this.type = type
     this.DeviseId=deviceId;
     this.property=property
     this.oper=oper
@@ -49,13 +50,21 @@ export class groupIfClass {
 }
 
 export class actClass {
-  constructor(deviceId,property) {
+  constructor(type,deviceId,property) {
+    this.type = type
     this.DeviseId=deviceId;
     this.property=property
     this.value=null
   }
   changeHandler(key,value){
     this[key] = value
+  }
+}
+
+export class triggerClass {
+  constructor(type,deviceId) {
+    this.type = type
+    this.DeviseId=deviceId;
   }
 }
 

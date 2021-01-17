@@ -33,6 +33,7 @@ router.post('/add',
      }
      await scripts.addScript({
        name:data.name,
+       trigger:data.trigger,
        if:data.if,
        then:data.then,
        else:data.else
@@ -44,6 +45,18 @@ router.post('/add',
    }
    catch(e){
      console.log("Error AddScript",e);
+     return res.status(500).json({message: e.message})
+   }
+ })
+
+ router.get('/all',auth,async (req, res)=>{
+   try {
+     await scripts.connect();
+     res.status(201).json(await scripts.Scripts())
+     await scripts.desconnect();
+     return
+   } catch (e) {
+     console.log("Error AddDevices",e);
      return res.status(500).json({message: e.message})
    }
  })

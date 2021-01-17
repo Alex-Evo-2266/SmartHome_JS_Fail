@@ -54,6 +54,14 @@ export const AddScriptBase = ()=>{
     )
   }
 
+  if(addScript.type==="triggerBlock"){
+    return (
+      <CenterWindow hide={close}>
+        <AddScriptDevices result={shoseDevice} type={"if"}/>
+      </CenterWindow>
+    )
+  }
+
   if(addScript.type==="deviceBlock"){
     return (
       <CenterWindow hide={close}>

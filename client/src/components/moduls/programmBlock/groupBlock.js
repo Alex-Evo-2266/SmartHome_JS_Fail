@@ -17,8 +17,10 @@ const addEl = ()=>{
       newEl = new groupIfClass("and")
     if(type==="groupBlockOr")
       newEl = new groupIfClass("or")
-    if(type==="deviceBlock"&&device)
-      newEl = new ifClass(device.DeviceId,"power","==","1")
+    if(type==="deviceBlock"&&device){
+      if(device.DeviceId)
+        newEl = new ifClass("device",device.DeviceId,"power","==","1")
+    }
     el.addif(newEl)
     setData(el)
     requpdata(el,index)
