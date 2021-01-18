@@ -57,7 +57,7 @@ router.post('/add',
    try {
      await devices.connect();
      res.status(201).json(await devices.Devices())
-     await devices.desconnect();
+     // await devices.desconnect();
      return
    } catch (e) {
      console.log("Error AddDevices",e);

@@ -4,7 +4,15 @@ const triggerScript = require('../scriptsImplementation/triggerScripts');
 
 let conection;
 module.exports.connect = ()=>{
-  conection = mysql.createPool(config.get('sqlConfDef')).promise();
+  try {
+    conection = mysql.createPool(config.get('sqlConfDef')).promise();
+  } catch (e) {
+    conection.end((err)=>{
+      console.error('errr2',err.message);
+      conection = mysql.createPool(config.get('sqlConfDef')).promise();
+    })
+  }
+
 }
 module.exports.desconnect = async function(){
   await conection.end((err)=>{

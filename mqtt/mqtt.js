@@ -48,7 +48,7 @@ const input = (ret)=>{
 const updataValueDevices = async(topic,mes)=>{
   await devices.connect()
   const elements = await devices.lookForDeviceByTopic(topic)
-  await devices.desconnect();
+  // await devices.desconnect();
   console.log(elements);
   for(let item of elements) {
     if(item.key==="status"){

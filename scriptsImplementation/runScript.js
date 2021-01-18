@@ -4,20 +4,21 @@ const devices = require('../mySQL/Devices');
 const universalMqtt = require("../mqtt/mqttDevices/universal")
 
 const run = async(script)=>{
+  await devices.connect()
   let IfScript = await groupIf(script.ScriptIf)
-  console.log(IfScript);
   if(IfScript)
     await actDev(script.ScriptThen)
   else
     await actDev(script.ScriptElse)
+  await devices.desconnect();
 }
 
 const actDev = async(act)=>{
   for (var item of act) {
     if(item.type==="device"){
-      await devices.connect()
+
       const device = await devices.Device(item.DeviseId)
-      await devices.desconnect();
+
         if((device.DeviceType==="light"||device.DeviceType==="switch"||device.DeviceType==="dimmer")&&item.property==="power"&&item.value&&item.value.type==="status"){
           if(item.value.value==="on") universalMqtt(device,"powerOn")
           if(item.value.value==="off") universalMqtt(device,"powerOff")
@@ -26,6 +27,13 @@ const actDev = async(act)=>{
         if((device.DeviceType==="light"||device.DeviceType==="switch"||device.DeviceType==="dimmer")&&item.property==="power"&&item.value&&item.value.type==="value"){
           if(item.value.value==="false"||item.value.value==="0"||item.value.value==="null"||item.value.value==="off"||item.value.value==="Off"||item.value.value==="OFF") universalMqtt(device,"powerOff")
           else universalMqtt(device,"powerOn")
+        }
+        if((device.DeviceType==="light"||device.DeviceType==="switch"||device.DeviceType==="dimmer")&&item.property==="power"&&item.value&&item.value.type==="DeviseValue"){
+          if(item.value.value&&item.value.value.DeviceId&&item.value.value.property){
+            let ret = await giveValueDevise(item.value.value.DeviceId,item.value.value.property)
+            if(ret==="false"||ret==="0"||ret==="null"||ret==="off"||ret==="Off"||ret==="OFF") universalMqtt(device,"powerOff")
+            else universalMqtt(device,"powerOn")
+          }
         }
         if((device.DeviceType==="light"||device.DeviceType==="dimmer")&&item.property==="dimmer"&&item.value&&item.value.type==="status"){
           if(item.value.value==="on") universalMqtt(device,"dimmer",device.DeviceConfig.maxDimmer)
@@ -40,6 +48,12 @@ const actDev = async(act)=>{
             universalMqtt(device,"dimmer",String(n))
           } catch (e) {
             console.error(e);
+          }
+        }
+        if((device.DeviceType==="light"||device.DeviceType==="dimmer")&&item.property==="dimmer"&&item.value&&item.value.type==="DeviseValue"){
+          if(item.value.value&&item.value.value.DeviceId&&item.value.value.property){
+            let ret = await giveValueDevise(item.value.value.DeviceId,item.value.value.property)
+            universalMqtt(device,"dimmer",ret)
           }
         }
         if(device.DeviceType==="light"&&item.property==="color"&&item.value&&item.value.type==="status"){
@@ -57,6 +71,12 @@ const actDev = async(act)=>{
             console.error(e);
           }
         }
+        if(device.DeviceType==="light"&&item.property==="color"&&item.value&&item.value.type==="DeviseValue"){
+          if(item.value.value&&item.value.value.DeviceId&&item.value.value.property){
+            let ret = await giveValueDevise(item.value.value.DeviceId,item.value.value.property)
+            universalMqtt(device,"color",ret)
+          }
+        }
         if(device.DeviceType==="light"&&item.property==="mode"&&item.value&&item.value.type==="status"){
           if(item.value.value==="on") universalMqtt(device,"mode",device.DeviceConfig.countMode-1)
           if(item.value.value==="off") universalMqtt(device,"mode","0")
@@ -67,14 +87,44 @@ const actDev = async(act)=>{
             universalMqtt(device,"mode",item.value.value)
           }
         }
+        if(device.DeviceType==="light"&&item.property==="mode"&&item.value&&item.value.type==="DeviseValue"){
+          if(item.value.value&&item.value.value.DeviceId&&item.value.value.property){
+            let ret = await giveValueDevise(item.value.value.DeviceId,item.value.value.property)
+            universalMqtt(device,"mode",ret)
+          }
+        }
         if(device.DeviceType==="ir"&&item.property==="command"&&item.value&&(item.value.type==="value"||item.value.type==="status")){
           universalMqtt(device,"send",item.value.value)
         }
+        if(device.DeviceType==="ir"&&item.property==="command"&&item.value&&item.value.type==="DeviseValue"){
+          if(item.value.value&&item.value.value.DeviceId&&item.value.value.property){
+            let ret = await giveValueDevise(item.value.value.DeviceId,item.value.value.property)
+            universalMqtt(device,"send",ret)
+          }
+        }
         if(device.DeviceType==="variable"&&item.value&&(item.value.type==="value"||item.value.type==="status")){
-          // universalMqtt(device,"send",item.value.value)
+          await devices.setValue(device.DeviceId,"value",item.value.value)
+        }
+        if(device.DeviceType==="variable"&&item.value&&item.value.type==="DeviseValue"){
+          if(item.value.value&&item.value.value.DeviceId&&item.value.value.property){
+            let ret = await giveValueDevise(item.value.value.DeviceId,item.value.value.property)
+            await devices.setValue(device.DeviceId,"value",ret)
+          }
         }
     }
   }
+}
+
+const giveValueDevise=async(id,param)=>{
+  const device = await devices.Device(id)
+  let value
+  if((param==="value"||param==="battery")&&device.DeviceType!=="variable"){
+    value = device.DeviceValue.status[param]
+  }
+  else {
+    value = device.DeviceValue[param]
+  }
+  return value
 }
 
 const groupIf = async(group)=>{
@@ -89,7 +139,6 @@ const groupIf = async(group)=>{
       returns.push(ret)
     }
   }
-  console.log(returns);
   if(group.oper === "and"&& returns.indexOf(false) !== -1)
     return false
   else if (group.oper === "or"&& returns.indexOf(true) === -1)
@@ -99,9 +148,9 @@ const groupIf = async(group)=>{
 
 const element = async(item)=>{
   if(item.type==="device"&&item.DeviseId){
-    await devices.connect()
+    // await devices.connect()
     const device = await devices.Device(item.DeviseId)
-    await devices.desconnect();
+    // await devices.desconnect();
     let deviceValue = device.DeviceValue
     if((item.property==="value"||item.property==="battery")&&device.DeviceType!=="variable"){
       deviceValue = deviceValue.status
