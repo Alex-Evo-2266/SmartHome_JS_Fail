@@ -37,28 +37,31 @@ module.exports.public = public
 const input = (ret)=>{
   client.on('message', function (topic, message) {
     // message is Buffer
-    console.log(message.toString(),topic)
     updataValueDevices(topic,message.toString())
   })
 }
+
+/*
+  {"value":"true","battary":"50"}
+*/
 
 const updataValueDevices = async(topic,mes)=>{
   await devices.connect()
   const elements = await devices.lookForDeviceByTopic(topic)
   await devices.desconnect();
-  console.log("elements",elements);
+  console.log(elements);
   for(let item of elements) {
-    console.log("!",item);
     if(item.key==="status"){
       mes = JSON.parse(mes)
+      // console.log(mes);
       if(item.type==="binarySensor"){
         if(!mes.value||mes.value==="false"||mes.value==="0"||mes.value==="off"||mes.value==="Off"||mes.value==="OFF")
           mes.value = "0"
         else
           mes.value = "1"
       }
-      console.log(mes);
     }
+    console.log(mes);
     let value = mes||"0"
     await devices.connect()
     await devices.setValue(item.deviceId,item.key,value)

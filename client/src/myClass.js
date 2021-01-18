@@ -82,5 +82,11 @@ export class triggerClass {
 export class valueClass {
   constructor(type) {
     this.type=type
+    if(type==="status"){
+      this.value="on"
+    }
+    if(type==="value"){
+      this.value="0"
+    }
   }
 }

@@ -34,13 +34,23 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
     updata(el2,index,block)
   }
 
+  const updataValue = (value)=>{
+    let el2 = result
+    el2.value.value = value
+    console.log(el2.value);
+    setResult(el2)
+    updata(el2,index,block)
+  }
+
   const addStatus = ()=>{
     showData("statusBlock",{DeviceType:device.DeviceType},(type,deviceitem1)=>{
       let el2 = result
-      el2.changeHandler("value",new valueClass(type))
-      if(deviceitem1){
+      let value1 = new valueClass(type)
+      if(deviceitem1&&type==="DeviseValue"){
         setValueDevice(deviceitem1)
+        value1.value = {DeviceId:deviceitem1.DeviceId,property:"power"}
       }
+      el2.changeHandler("value",value1)
       setResult(el2)
       updata(el2,index,block)
     })
@@ -130,11 +140,11 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
       }
       {
         (result.value&&result.value.type==="status")?
-          <StatusValue deleteEl={deletStatus}/>:
+          <StatusValue deleteEl={deletStatus} updata={updataValue} data={result.value}/>:
         (result.value&&result.value.type==="DeviseValue")?
-          <DeviceValue device={velueDevice} deleteEl={deletStatus}/>:
+          <DeviceValue device={velueDevice} updata={updataValue} deleteEl={deletStatus} data={result.value}/>:
         (result.value&&result.value.type==="value")?
-          <TextValue deleteEl={deletStatus} number={!(result.property==="power"||result.property==="command"||result.property==="value")}/>:
+          <TextValue deleteEl={deletStatus} updata={updataValue} data={result.value} number={!(result.property==="power"||result.property==="command"||result.property==="value")}/>:
         null
       }
     </div>

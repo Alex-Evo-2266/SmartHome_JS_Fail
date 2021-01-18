@@ -1,11 +1,12 @@
 import React,{useState} from 'react'
 // import {actClass} from '../../../../myClass.js'
 
-export const StatusValue = ({disabled=false,deleteEl})=>{
-  const [value,setValue]=useState("on")
+export const StatusValue = ({disabled=false,deleteEl,updata,data})=>{
+  const [value,setValue]=useState((data&&data.value)?data.value:"on")
 
-  const changeHandler = (event)=>{
-    setValue(event.target.value)
+  const changeHandler = async(event)=>{
+    await setValue(event.target.value)
+    updata(event.target.value)
   }
 
   const deleteElement= ()=>{

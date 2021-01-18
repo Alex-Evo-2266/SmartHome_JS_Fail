@@ -1,9 +1,9 @@
 const mqtt = require('../mqtt/mqtt')
 const devices = require('../mySQL/Devices');
-const lightMqtt = require("./mqttDevices/light")
-const switchMqtt = require('./mqttDevices/switch');
-const ir = require('./mqttDevices/ir');
-const dimmer = require('./mqttDevices/dimmer');
+const lightMqtt = require("../mqtt/mqttDevices/light")
+const switchMqtt = require('../mqtt/mqttDevices/switch');
+const ir = require('../mqtt/mqttDevices/ir');
+const dimmer = require('../mqtt/mqttDevices/dimmer');
 
  const socket = function (http, io,cb) {
    // setInterval(function () {
@@ -50,7 +50,7 @@ const dimmer = require('./mqttDevices/dimmer');
               })
               return
             }else{
-              if(await lightMqtt(device[0] , action, mes, socket)){
+              if(await lightMqtt(device[0] , action, mes)){
                 socket.emit('terminal ret message',{
                   message:"ok",
                 })
@@ -65,7 +65,7 @@ const dimmer = require('./mqttDevices/dimmer');
               })
               return
             }else{
-              if(await switchMqtt(device[0] , action, mes, socket)){
+              if(await switchMqtt(device[0] , action, mes)){
                 socket.emit('terminal ret message',{
                   message:"ok",
                 })
@@ -80,7 +80,7 @@ const dimmer = require('./mqttDevices/dimmer');
               })
               return
             }else{
-              if(await ir(device[0] , action, mes, socket)){
+              if(await ir(device[0] , action, mes)){
                 socket.emit('terminal ret message',{
                   message:"ok",
                 })
@@ -95,7 +95,7 @@ const dimmer = require('./mqttDevices/dimmer');
               })
               return
             }else{
-              if(await dimmer(device[0] , action, mes, socket)){
+              if(await dimmer(device[0] , action, mes)){
                 socket.emit('terminal ret message',{
                   message:"ok",
                 })

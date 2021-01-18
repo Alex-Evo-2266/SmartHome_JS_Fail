@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react'
 
-export const TextValue = ({disabled=false,number=false,deleteEl})=>{
+export const TextValue = ({disabled=false,number=false,deleteEl,updata})=>{
   const [value,setValue]=useState("0")
 
   const changeHandler = (event)=>{
     setValue(String(event.target.value))
+    updata(String(event.target.value))
   }
 
   const deleteElement= ()=>{

@@ -1,9 +1,9 @@
 const mqtt = require('../../mqtt/mqtt')
 
-module.exports = async function (device,action,atrebut,socket) {
+module.exports = async function (device,action,atrebut) {
   try {
     console.log(device,action,atrebut);
-    if(action === "send"){
+    if(action === "send"&&device.DeviceConfig.command){
       mqtt.public(device.DeviceConfig.command,atrebut)
       return true;
     }

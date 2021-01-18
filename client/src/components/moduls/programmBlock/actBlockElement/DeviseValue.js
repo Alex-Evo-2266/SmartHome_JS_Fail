@@ -1,9 +1,10 @@
 import React,{useState,useEffect,useCallback} from 'react'
 
-export const DeviceValue = ({device,disabled,deleteEl})=>{
+export const DeviceValue = ({device,disabled,deleteEl,updata,data})=>{
   const [status, setStatus]=useState(["power"])
+  console.log("device",device);
   const [result, setResult]=useState({
-    DeviceId:"0",
+    DeviceId:(device&&device.DeviceId)?device.DeviceId:"0",
     property:""
   })
 
@@ -11,10 +12,16 @@ export const DeviceValue = ({device,disabled,deleteEl})=>{
     let el2 = result
     el2[key]=value
     setResult(el2)
+    if(data.value.property!==el2.property&&typeof(updata)==="function"){
+      updata(el2)
+    }
+    console.log("data",data.value.property,el2.property);
+    return el2;
   },[result])
 
   const changeHandler=(event)=>{
-    changeResult(event.target.name,event.target.value)
+    let el2 = changeResult(event.target.name,event.target.value)
+    updata(el2)
   }
 
   const deleteElement= ()=>{

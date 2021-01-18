@@ -1,5 +1,6 @@
 const mysql = require('mysql2')
 const config = require('config');
+const triggerScript = require('../scriptsImplementation/triggerScripts');
 
 let conection;
 module.exports.connect = ()=>{
@@ -7,7 +8,7 @@ module.exports.connect = ()=>{
 }
 module.exports.desconnect = async function(){
   await conection.end((err)=>{
-    console.log('errr2',err.message);
+    console.error('errr2',err.message);
   })
 }
 
@@ -39,7 +40,7 @@ const devices = async()=>{
     return result[0];
 
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return;
   }
 }
@@ -55,7 +56,7 @@ const device = async(id)=>{
     return result[0][0];
 
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return;
   }
 }
@@ -69,7 +70,6 @@ module.exports.addDevice = async function(data){
     }
     if(!data.name) return;
     if(!data.config)data.config = {};
-    console.log(data.id, data.name,data.systemName, data.typeConnect, data.typeDevice, data.config);
     await conection.execute(
       "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`,`DeviceSystemName`, `DeviceTypeConnect`, `DeviceType`, `DeviceConfig`) VALUES (?,?,?,?,?,?)",
       [data.id, data.name,data.systemName, data.typeConnect, data.typeDevice, data.config]
@@ -78,7 +78,7 @@ module.exports.addDevice = async function(data){
     return true;
   }
   catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
@@ -87,7 +87,7 @@ module.exports.lookForDeviceByName = async function (name) {
     const result = await conection.execute(`SELECT * FROM smarthome_devices WHERE DeviceName = '${name}'`)
     return result[0];
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
@@ -101,7 +101,7 @@ module.exports.lookForDeviceBySystemName = async function (systemname) {
       result[0][0].DeviceValue = JSON.parse(result[0][0].DeviceValue)
     return result[0];
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
@@ -121,13 +121,12 @@ module.exports.updataDevice = async function(data){
     return true;
   }
   catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
 //device lamp1 color 3000
 module.exports.setValue = async function (id,key,value) {
-  console.log(id,key,value);
   try {
     if(!id)
       return
@@ -138,10 +137,11 @@ module.exports.setValue = async function (id,key,value) {
       "UPDATE `smarthome_devices` SET `DeviceValue`=? WHERE `DeviceId`=?" ,
       [newValue, id]
     )
+    triggerScript.trigger(id)
     return true;
   }
   catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
@@ -163,14 +163,13 @@ module.exports.lookForDeviceByTopic = async function (topic) {
     }
     return ret;
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
 
 module.exports.deleteDevice = async function(id){
   try {
-    console.log(id);
     if(!id){
       return;
     }
@@ -182,7 +181,7 @@ module.exports.deleteDevice = async function(id){
     return true;
   }
   catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }

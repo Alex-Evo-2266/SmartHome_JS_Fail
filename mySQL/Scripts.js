@@ -7,7 +7,7 @@ module.exports.connect = ()=>{
 }
 module.exports.desconnect = async function(){
   await conection.end((err)=>{
-    console.log('errr2',err.message);
+    console.error('errr2',err.message);
   })
 }
 
@@ -32,6 +32,7 @@ const scripts = async()=>{
     const result = await conection.execute(`SELECT * FROM smarthome_scripts`)
     if(result&&result[0]){
       for (var item of result[0]) {
+        item.ScriptTrigger = JSON.parse(item.ScriptTrigger)
         item.ScriptIf = JSON.parse(item.ScriptIf)
         item.ScriptThen = JSON.parse(item.ScriptThen)
         item.ScriptElse = JSON.parse(item.ScriptElse)
@@ -40,7 +41,7 @@ const scripts = async()=>{
     return result[0];
 
   } catch (e) {
-    console.log("Error",e);
+    console.error();("Error",e);
     return;
   }
 }
@@ -50,6 +51,7 @@ const script = async(id)=>{
   try {
     const result = await conection.execute(`SELECT * FROM smarthome_scripts WHERE ScriptId = ${id}`)
     if(result&&result[0][0]){
+      result[0][0].ScriptTrigger = JSON.parse(result[0][0].ScriptTrigger)
       result[0][0].ScriptIf = JSON.parse(result[0][0].ScriptIf)
       result[0][0].ScriptThen = JSON.parse(result[0][0].ScriptThen)
       result[0][0].ScriptElse = JSON.parse(result[0][0].ScriptElse)
@@ -57,7 +59,7 @@ const script = async(id)=>{
     return result[0][0];
 
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return;
   }
 }
@@ -78,7 +80,6 @@ module.exports.addScript = async function(data){
       data.if = {}
     }
     if(!data.else)data.else = [];
-    console.log(data);
     await conection.execute(
       "INSERT INTO `smarthome_scripts`(`ScriptId`, `ScriptName`, `ScriptStatus`, `ScriptTrigger`, `ScriptIf`, `ScriptThen`, `ScriptElse`) VALUES (?,?,?,?,?,?,?)",
       [data.id, data.name,data.status,data.trigger, data.if, data.then, data.else]
@@ -87,7 +88,7 @@ module.exports.addScript = async function(data){
     return true;
   }
   catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
@@ -96,7 +97,7 @@ module.exports.lookForScriptByName = async function (name) {
     const result = await conection.execute(`SELECT * FROM smarthome_scripts WHERE ScriptName = '${name}'`)
     return result[0];
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
@@ -104,16 +105,23 @@ module.exports.lookForScriptByName = async function (name) {
 module.exports.lookForScriptByStatus = async function (status) {
   try {
     const result = await conection.execute(`SELECT * FROM smarthome_scripts WHERE ScriptStatus = '${status}'`)
+    if(result&&result[0]){
+      for (var item of result[0]) {
+        item.ScriptTrigger = JSON.parse(item.ScriptTrigger)
+        item.ScriptIf = JSON.parse(item.ScriptIf)
+        item.ScriptThen = JSON.parse(item.ScriptThen)
+        item.ScriptElse = JSON.parse(item.ScriptElse)
+      }
+    }
     return result[0];
   } catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }
 
 module.exports.deleteDevice = async function(id){
   try {
-    console.log(id);
     if(!id){
       return;
     }
@@ -125,7 +133,7 @@ module.exports.deleteDevice = async function(id){
     return true;
   }
   catch (e) {
-    console.log("Error",e);
+    console.error("Error",e);
     return
   }
 }

@@ -1,6 +1,6 @@
 const mqtt = require('../../mqtt/mqtt')
 
-module.exports = async function (device,action,atrebut,socket) {
+module.exports = async function (device,action,atrebut) {
   try {
     console.log(device.DeviceValue.power,device.DeviceConfig.turnOffSignal);
     if(action === "powerOn"||(action === "powerTogle"&&device.DeviceValue.power===device.DeviceConfig.turnOffSignal)){
