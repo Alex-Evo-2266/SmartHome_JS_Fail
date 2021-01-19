@@ -1,0 +1,18 @@
+.light .navigation nav ul li:hover > a,
+.light .navigation nav ul li a.active,
+.light .menuTogle:hover
+{
+  background: #1E90FF;
+  transition: 0.3s;
+}
+.light .topMenu,
+.light .navigation nav
+{
+  background:#76d7ff;
+  color: black;
+}
+.light .navigation nav ul li a,
+.light .navigation nav ul li a .icon,
+.light .menuTogle .icon{
+  color: black;
+}

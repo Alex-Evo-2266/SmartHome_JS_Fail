@@ -1,3 +1,5 @@
+@import "./leftMenu.light.css";
+@import "./leftMenu.night.css";
 .topMenu{
   display: none;
   position: fixed;

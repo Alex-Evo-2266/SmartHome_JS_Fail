@@ -5,38 +5,14 @@
   background: #E0FFFF;
   color: black;
 }
-.light .navigation nav ul li:hover > a,
-.light .navigation nav ul li a.active,
-.light .menuTogle:hover
-{
-  background: #1E90FF;
-  transition: 0.3s;
-}
-.light .topMenu,
-.light .navigation nav
-{
-  background:#76d7ff;
-  color: black;
-}
+
 .light .editDevicesForm{
   background: #eee;
-}
-.light header{
-  background: #eee;
-  color: #000;
-}
-.light .searchBtn{
-  background: #76d7ff;
-  color: #000;
 }
 .light li.hidingLi{
   background: #76d7ff;
 }
-.light .navigation nav ul li a,
-.light .navigation nav ul li a .icon,
-.light .menuTogle .icon{
-  color: black;
-}
+
 .light .titlePage{
   color: black;
   background: #76d7ff;
@@ -46,35 +22,8 @@
 .light .titlePage i{
   color: #000;
 }
-.light .form {
-  background: #fffc;
-  color: #000;
-  /* background: url(../../img/formFon.jpg);
-  background-size: cover;
-  background-position: center; */
-  /* background-attachment: fixed; */
-}
-.light .form .formFooter{
-  background: #1E90FFc0
-}
-.light .form .FormControlBtn{
-  background: #1E90FF00;
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-}
-.light .titleButtonAdd{
-  background: #76d7ff;
-}
-.light .titleButtonAdd:hover{
-  box-shadow: inset 0 0 5px #000;
-}
-.light .form .FormControlBtn:hover{
-  box-shadow: inset 0 0 5px #000;
-}
-.light .CardElement .CardBody p{
-  color: #000;
-}
+
+
 .light .choiceElem{
   background: #888;
   color: white;
@@ -82,12 +31,7 @@
 .light .choiceElem.square{
   border: 2px solid #000;
 }
-.light .formFooter button[disabled]:hover{
-  background: red;
-}
-.light .CardConteiner .CardElement{
-  background: #fffa;
-}
+
 .light .pages .page{
   background: #fffc;
   border: 2px solid #1E90FF;

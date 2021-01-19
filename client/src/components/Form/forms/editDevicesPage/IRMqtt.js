@@ -60,7 +60,7 @@ const changeHandlerTest = event=>{
   }
 
   return (
-    <ul>
+    <ul className="editDevice">
       <li>
         <label>
           <h5>{`Type - ${device.DeviceType}`}</h5>

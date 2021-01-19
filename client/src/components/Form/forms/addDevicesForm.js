@@ -222,9 +222,9 @@ export const AddDevicesForm = (props)=>{
               <div className = "formContent">
                 <h2>Select communication protocol</h2>
                 <div className = "choice flex">
-                  <input type="button" content = "miio" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="miio")?"active":""}`} value = "Miio" onClick = {()=>setForm({ ...form, typeConnect: "miio" })}/>
-                  <input type="button" content = "mqtt" name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="mqtt")?"active":""}`} value = "Mqtt" onClick = {()=>setForm({ ...form, typeConnect: "mqtt" })}/>
-                  <input type="button" content = "other" name="typeConnect" className={`choiceElem circle ${(form&&form.typeConnect!=="miio"&&form.typeConnect!=="mqtt"&&form.typeConnect!=="")?"active":""}`} value = "Other" onClick = {()=>setForm({ ...form, typeConnect: "other" })}/>
+                  <input type="button" content = "miio" style={{background:"red"}} name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="miio")?"active":""}`} value = "Miio" onClick = {()=>setForm({ ...form, typeConnect: "miio" })}/>
+                  <input type="button" content = "mqtt" style={{background:"#4B0082",color:"#fff"}} name = "typeConnect" className ={`choiceElem circle ${(form&&form.typeConnect==="mqtt")?"active":""}`} value = "Mqtt" onClick = {()=>setForm({ ...form, typeConnect: "mqtt" })}/>
+                  <input type="button" content = "other" style={{background:"red"}} name="typeConnect" className={`choiceElem circle ${(form&&form.typeConnect!=="miio"&&form.typeConnect!=="mqtt"&&form.typeConnect!=="")?"active":""}`} value = "Other" onClick = {()=>setForm({ ...form, typeConnect: "other" })}/>
                 </div>
               </div>
               <div className="formFooter">

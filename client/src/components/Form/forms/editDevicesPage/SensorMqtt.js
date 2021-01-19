@@ -61,7 +61,7 @@ export const SensorMqttEdit = ({deviceData,hide})=>{
   }
 
   return (
-    <ul>
+    <ul className="editDevice">
       <li>
         <label>
           <h5>{`Type - ${device.DeviceType}`}</h5>

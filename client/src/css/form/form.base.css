@@ -1,10 +1,5 @@
-.backForm{
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 11;
-}
+@import "./form.light.css";
+@import "./form.night.css";
 .form{
   position: relative;
   width: 65%;
@@ -73,7 +68,9 @@
   font-size: 30px;
   padding-top: 15px;
 }
-
+.formFooter button[disabled]:hover{
+  background: red;
+}
 .choice.flex{
     width: 100%;
     display: flex;
@@ -107,69 +104,9 @@
 {
   box-shadow: inset 0 0 10px #000;
 }
-#lightDevices{
-  background: url(../img/lightDevices.jpg);
-  background-size: cover;
-  background-position: center;
-}
-#lightDevices:hover,
-#lightDevices.active{
-  box-shadow: inset 0 0 10px #fff;
-}
-button.typeDevice{
-  width: 100px;
-  height: 100px;
-  margin: 50px auto;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-}
-#typeLight div.img{
-  background: url(../img/lightDevices.jpg);
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-}
-#typeSwitch div.img{
-  background: url(../img/switchDevices.jpg);
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-}
-#typeSensor div.img{
-  background: url(../img/sensorDevices.jpg);
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-}
-#typeBinarySensor div.img{
-  background: url(../img/binarySensorDevices.jpg);
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-}
-#typeIR div.img{
-  background: url(../img/IR.jpg);
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-}
-#typeDimmer div.img{
-  background: url(../img/dimmerDevices.jpg);
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-}
 .formContent ul.devicesList li{
   width: calc(100% - 20px);
   height: 80px;
-  background: #999;
   margin: 10px;
   box-shadow: 0 0 5px #000;
   transition: 0.5s;
@@ -191,7 +128,7 @@ button.typeDevice{
 {
   transform: scale(1.02);
 }
-.formContent ul li label{
+.formContent ul.devicesList li label{
   display: flex;
 }
 .formContent ul li label input[type="button"]{
@@ -217,20 +154,6 @@ button.typeDevice{
   0 0 25px #fff,
   0 0 30px #fff;
 }
-.form *.moreInput label{
-  border-top: 2px solid #333;
-  border-bottom: 2px solid #333;
-  padding: 30px;
-  display: block;
-}
-.form * label h5{
-  position: relative;
-  width: 100%;
-  top: 0;
-  left: 0;
-  font-size: 24px;
-  text-align: center;
-}
 .formContent label input,
 .editDevicesForm label input{
   text-align: center;
@@ -238,24 +161,36 @@ button.typeDevice{
   width: calc(100% - 20px);
   top: 25px;
 }
-.textInput{
-  position: relative;
-  font-size: 1.5em;
-  display: block;
-  padding: 5px 2px 5px 2px;
-  width: calc(100% - 80px);
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  outline: none;
-  border-radius: 5px;
-  border: none;
-}
 .check p.pading0{
   padding: 0;
   padding-top: 0;
   font-size: 30px;
   margin-top: 10px;
+}
+.editDevice li .textInput{
+  position: relative;
+  font-size: 1.5em;
+  display: block;
+  padding: 5px 2px 5px 2px;
+  width: calc(100% - 80px);
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  outline: none;
+  border-radius: 5px;
+  border: none;
+}
+.editDevice li label{
+  padding:15px;
+  display: block;
+}
+.editDevice li label h5{
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  font-size: 24px;
+  text-align: center;
 }
 
 @media (max-width: 700px){
