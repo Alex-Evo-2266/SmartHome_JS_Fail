@@ -1,10 +1,5 @@
 import React,{useState,useEffect,useContext,useCallback} from 'react'
 import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
-import {AddScriptContext} from '../../addScript/addScriptContext'
-import {StatusValue} from './actBlockElement/statusValue'
-import {DeviceValue} from './actBlockElement/DeviseValue'
-import {TextValue} from './actBlockElement/TextValue'
-import {valueClass} from '../../../myClass.js'
 
 export const TriggerBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
   const [device, setDevice]=useState({})

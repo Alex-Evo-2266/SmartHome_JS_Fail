@@ -341,4 +341,14 @@
 .scriptElement .scriptStatus{
   position: absolute;
   right: 0;
+  display: flex;
+}
+.scriptElement .scriptStatus .switchConteiner{
+  display: flex;
+  position: relative;
+  width:100px;
+  margin-right: 20px;
+}
+.scriptElement .scriptStatus .switchConteiner .switch{
+  top: 5px;
 }

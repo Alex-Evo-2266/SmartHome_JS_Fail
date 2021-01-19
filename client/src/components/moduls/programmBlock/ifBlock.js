@@ -19,7 +19,6 @@ export const IfBlock = ({deviceId,updata,index,el,deleteEl})=>{
     let el2 = result
     el2.changeHandler(key,value)
     setResult(el2)
-    console.log("u1");
     return el2
   },[result])
 

@@ -5,6 +5,7 @@ import {CenterWindow} from '../modalWindow/centerWindow'
 import {IfBlock} from '../moduls/programmBlock/ifBlock'
 import {GroupBlock} from '../moduls/programmBlock/groupBlock'
 import {AddScriptStatus} from './addScript/addScriptStatus'
+import {ShowScript} from './addScript/showScript'
 
 export const AddScriptBase = ()=>{
   const {addScript, hide} = useContext(AddScriptContext)
@@ -40,6 +41,14 @@ export const AddScriptBase = ()=>{
 
   if(!addScript.visible){
     return null;
+  }
+
+  if(addScript.type==="showScript"){
+    return (
+      <CenterWindow hide={close}>
+        <ShowScript data={addScript.data}/>
+      </CenterWindow>
+    )
   }
 
   if(addScript.type==="statusBlock"){

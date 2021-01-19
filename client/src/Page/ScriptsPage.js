@@ -5,17 +5,23 @@ import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/AuthContext.js'
 import {Loader} from '../components/Loader'
 import {ScriptElement} from '../components/scriptCarts/scriptElement'
+import {AddScriptBase} from '../components/addScript/addScriptBase'
 
 export const ScriptsPage = () => {
   const [search, setSearch] = useState('')
   const [scripts, setScripts] = useState([])
+  const [allScripts, setAllScripts] = useState([])
   const auth = useContext(AuthContext)
   const {message} = useMessage();
-  const {loading, request, error, clearError} = useHttp();
+  const {request, error, clearError} = useHttp();
 
-  const searchout =()=>{
+  useEffect(()=>{
+    message(error,"error")
+    return ()=>{
+      clearError();
+    }
+  },[error,message, clearError])
 
-  }
   const searchHandler = event => {
     setSearch(event.target.value)
   }
@@ -23,18 +29,25 @@ export const ScriptsPage = () => {
   const updataScripts = useCallback(async()=>{
     const data = await request('/api/script/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
     setScripts(data);
-  },[])
+    setAllScripts(data)
+  },[request,auth.token])
+
+  const searchout = ()=>{
+    if(search===""){
+      setScripts(allScripts)
+      return
+    }
+    let array = allScripts.filter(item => item.ScriptName.indexOf(search)!==-1)
+    setScripts(array)
+  }
 
   useEffect(()=>{
     updataScripts()
-  },[])
-
-  useEffect(()=>{
-    console.log(scripts);
-  },[scripts])
+  },[updataScripts])
 
   return(
     <>
+      <AddScriptBase/>
       <div className = "conteiner">
         <header>
           <h1>All Scripts</h1>
@@ -48,7 +61,7 @@ export const ScriptsPage = () => {
               (scripts&&scripts[0])?
               scripts.map((item,index)=>{
                 return(
-                  <ScriptElement key={index} script={item}/>
+                  <ScriptElement key={index} script={item} updata={updataScripts}/>
                 )
               }):
               <Loader/>

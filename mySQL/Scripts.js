@@ -120,7 +120,7 @@ module.exports.lookForScriptByStatus = async function (status) {
   }
 }
 
-module.exports.deleteDevice = async function(id){
+module.exports.deleteScript = async function(id){
   try {
     if(!id){
       return;
@@ -137,3 +137,21 @@ module.exports.deleteDevice = async function(id){
     return
   }
 }
+
+const setStatus = async function (id,value) {
+  try {
+    if(!id||!value)
+      return
+    await conection.execute(
+      "UPDATE `smarthome_scripts` SET `ScriptStatus`=? WHERE `ScriptId`=?" ,
+      [value, id]
+    )
+    return true;
+  }
+  catch (e) {
+    console.error("Error",e);
+    return
+  }
+}
+
+module.exports.setStatus = setStatus

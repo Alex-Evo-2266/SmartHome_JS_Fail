@@ -52,7 +52,6 @@ export const useBackground = () => {
       return ;
     }
     const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${token}`})
-    console.log(data);
     let config = {
       style:"light",
       auteStyle:false,

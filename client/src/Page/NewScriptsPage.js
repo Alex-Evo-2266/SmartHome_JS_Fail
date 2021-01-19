@@ -29,7 +29,6 @@ export const NewScriptsPage = () => {
 
   const addTrigger = ()=>{
     show("triggerBlock",(none,dataDev)=>{
-      console.log(dataDev);
       if(!dataDev||!dataDev.DeviceId)
         return
       let mas = script;
@@ -61,7 +60,6 @@ export const NewScriptsPage = () => {
   },[error,message, clearError])
 
   const updata = useCallback(async(data,index,reboot)=>{
-    console.log("9",data);
     if(reboot)
       await setCost(false)
     let e = new groupIfClass("and")
@@ -76,10 +74,8 @@ export const NewScriptsPage = () => {
   },[request,auth.token])
 
   const updataDev = useCallback(async(item,index1,block1)=>{
-    console.log(item,index1,block1);
     let s = script[block1];
     s[index1]=item
-    console.log("s",s);
     setScript({...script,[block1]:s})
   },[script])
 
@@ -104,10 +100,6 @@ export const NewScriptsPage = () => {
   useEffect(()=>{
     updataDevice()
   },[updataDevice])
-
-  useEffect(()=>{
-    console.log("script",script);
-  },[script])
 
   return(
     <DeviceStatusContext.Provider value={{devices:devices, updateDevice:updataDevice}}>

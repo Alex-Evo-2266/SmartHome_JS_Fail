@@ -37,7 +37,6 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
   const updataValue = (value)=>{
     let el2 = result
     el2.value.value = value
-    console.log(el2.value);
     setResult(el2)
     updata(el2,index,block)
   }
@@ -62,9 +61,6 @@ export const ActBlock = ({deviceId,type,updata,index,el,block,deleteEl})=>{
     setResult(el2)
     updata(el2,index,block)
   }
-  useEffect(()=>{
-    console.log("7");
-  })
 
   useEffect(()=>{
     setDevice(lookForDeviceById(result.DeviseId))

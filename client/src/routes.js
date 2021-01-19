@@ -24,6 +24,9 @@ export const useRoutes = isAuthenticated=>{
         <Route path="/scripts/add" exact>
           <NewScriptsPage/>
         </Route>
+        <Route path="/scripts/edit/:id">
+          <NewScriptsPage edit={true}/>
+        </Route>
         <Route path="/profile">
           <ProfilePage/>
         </Route>

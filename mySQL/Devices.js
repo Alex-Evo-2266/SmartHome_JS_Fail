@@ -82,7 +82,9 @@ module.exports.addDevice = async function(data){
       "INSERT INTO `smarthome_devices`(`DeviceId`, `DeviceName`,`DeviceSystemName`, `DeviceTypeConnect`, `DeviceType`, `DeviceConfig`) VALUES (?,?,?,?,?,?)",
       [data.id, data.name,data.systemName, data.typeConnect, data.typeDevice, data.config]
     )
-
+    if(data.typeDevice==="sensor"||data.typeDevice==="binarySensor"){
+      return await setValue(data.id,"status",{value:"0",battery:"50"})
+    }
     return true;
   }
   catch (e) {
@@ -134,7 +136,7 @@ module.exports.updataDevice = async function(data){
   }
 }
 //device lamp1 color 3000
-module.exports.setValue = async function (id,key,value) {
+const setValue = async function (id,key,value) {
   try {
     if(!id)
       return
@@ -153,6 +155,8 @@ module.exports.setValue = async function (id,key,value) {
     return
   }
 }
+
+module.exports.setValue = setValue
 
 module.exports.lookForDeviceByTopic = async function (topic) {
   try {
