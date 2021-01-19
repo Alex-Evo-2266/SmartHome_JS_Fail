@@ -1,0 +1,12 @@
+.night .modalWindow{
+  border: 2px solid #555;
+}
+.night .modalHeader{
+  background: #555
+}
+.night .modalHeader h4{
+  color: #fff;
+}
+.night .centerWindow{
+  border: 2px solid #333;
+}

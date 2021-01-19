@@ -1,10 +1,12 @@
+@import "./inputNumber.light.css";
+@import "./inputNumber.night.css";
+
 .InputNumber{
-  border: 2px solid #555;
   margin: 5px
 }
 .InputNumber input[type="text"]{
-  width: calc(100% - 8px);
-  border: none;
+  width: calc(100% - 12px);
+  border: 2px solid;
   font-size: 20px;
   outline: none;
   text-align: center;
@@ -18,7 +20,6 @@
 {
   flex: 0 1 50%;
   height: 30px;
-  background: #777;
   margin: 5px;
   box-shadow: 0 0 5px #000;
   transition: 0.2s;
@@ -39,5 +40,4 @@
   top:50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #fff;
 }

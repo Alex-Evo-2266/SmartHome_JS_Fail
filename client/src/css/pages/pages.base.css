@@ -1,3 +1,6 @@
+@import "./pages.light.css";
+@import "./pages.night.css";
+
 .pages{
  position: fixed;
  left: 50%;
@@ -6,6 +9,7 @@
  height: 80%;
 }
 .pages .page{
+  border: 2px solid #1E90FF;
   display: none;
   position: relative;
   width: calc(100% - 64px);
@@ -46,12 +50,59 @@
 {
   z-index: 3;
 }
+.pages .page-nav li.active a,
+.pages .page-nav li:hover a
+{
+  background: #1E90FF;
+  color: #fff;
+}
 .pages .page-nav li .fas{
   position: absolute;
   font-size: 2em;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.configElement{
+  background: #0000;
+  position: relative;
+}
+.configElement.choice{
+  height: 170px;
+  display: flex;
+}
+.configElement h2{
+  display: block;
+  position: absolute;
+  width: 100%;
+  font-size: 40px;
+  text-align: center;
+}
+.configElement h3{
+  display: block;
+  position: relative;
+  width: 100%;
+  font-size: 40px;
+  text-align: center;
+}
+.configElement .switchText{
+  width: calc(100% - 120px);
+}
+.configElement img.choice{
+  position: relative;
+  padding: 0;
+  left: 0;
+  top:30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  transform: none;
+  margin: auto;
+}
+.configElement .text input{
+  font-size: 24px;
+  width: 90%;
+  text-align: center;
 }
 @media (max-width: 700px) {
   .pages{

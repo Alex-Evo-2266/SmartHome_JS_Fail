@@ -112,7 +112,6 @@ export const NewScriptsPage = () => {
             <input type="text" name="name" value={script.name} onChange={changeHandler}/>
             <button onClick={outHandler}>Send</button>
           </div>
-          <h3>If</h3>
           <div className="progammzon">
             <div className="triggerBlock">
               <div className="baseBlock">

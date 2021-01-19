@@ -6,6 +6,9 @@ import {useMessage} from '../hooks/message.hook'
 import {Loader} from '../components/Loader'
 import {ImageInput} from '../components/moduls/imageInput'
 import {InputNumber} from '../components/moduls/inputNumber'
+import lightStyle from '../img/lightstyle.png'
+import nightStyle from '../img/nightstyle.png'
+import gibridStyle from '../img/gibridstyle.png'
 
 export const OptionsPage = () => {
   const auth = useContext(AuthContext)
@@ -80,9 +83,9 @@ export const OptionsPage = () => {
             <div className = "pagecontent">
               <div className="configElement choice">
                 <h2>Style</h2>
-                <button className="choice" name="night" onClick={styleHandler}></button>
-                <button className="choice" name="gibrid" onClick={styleHandler}></button>
-                <button className="choice" name="light" onClick={styleHandler}></button>
+                <img src={nightStyle} className="choice" name="night" onClick={styleHandler}/>
+                <img src={gibridStyle} className="choice" name="gibrid" onClick={styleHandler}/>
+                <img src={lightStyle} className="choice" name="light" onClick={styleHandler}/>
               </div>
             </div>
           </div>

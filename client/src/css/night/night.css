@@ -1,24 +1,6 @@
 @import "./night-script.css";
 @import "./night-border.css";
 
-.night .navigation nav ul li:hover > a,
-.night .navigation nav ul li a.active,
-.night .menuTogle:hover
-{
-  background: #1E90FF;
-  transition: 0.3s;
-}
-.night .topMenu,
-.night .navigation nav
-{
-  background: #333;
-  color: white;
-}
-.night .navigation nav ul li a,
-.night .navigation nav ul li a .icon,
-.night .menuTogle .icon{
-  color: white;
-}
 .night hr{
   border: 1px inset #333;
 }
@@ -34,48 +16,8 @@
 .night .titlePage i{
   color: #333;
 }
-.night .form .pageForm{
-  background: #555;
-  color: #fff;
-  /* background: url(../../img/formFon.jpg);
-  background-size: cover;
-  background-position: center; */
-  /* background-attachment: fixed; */
-}
-.night .form .formFooter{
-  background: #1E90FF
-}
-.night .form .FormControlBtn{
-  background: #1E90FF;
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-}
-.night .titleButtonAdd{
-  background: #fff;
-}
-.night .titleButtonAdd:hover{
-  box-shadow: inset 0 0 5px #000;
-}
-.night .form .FormControlBtn:hover{
-  box-shadow: inset 0 0 5px #000;
-}
-.night .FormControlBtn.right{
-
-}
-.night .FormControlBtn.left{
-
-}
 .night .choiceElem{
   background: #888;
-  color: white;
-}
-.choiceElem[content = "miio"]{
-  background: orange;
-  color: black;
-}
-.choiceElem[content = "mqtt"]{
-  background: #4B0082;
   color: white;
 }
 .night .choiceElem.square{
@@ -86,76 +28,10 @@
 {
   background: red;
 }
-.night .CardConteiner .CardElement{
-  background: #111c;
-}
-.night .pages .page{
-  background: #111;
-  border: 2px solid #1E90FF;
-  color: #fff;
-}
-.night .pages .page-nav li a{
-  color: #000;
-}
-.night .pages .page-nav li a.active,
-.night .pages .page-nav li a:hover
-{
-  background: #1E90FF;
-  color: #fff;
-}
-.night .pagecontent p{
-  border: 1px solid #333;
-  background: #111c;
-}
-.night .pagecontent label.textLabel{
-  border: 1px solid #333;
-  background: #111c;
-  color: #fff;
-  padding-bottom: 8px;
-}
-.night .pagecontent label p{
-  border: none;
-  background: #0000;
-}
-.night .pagecontent label input{
-  border: 1px solid #333;
-  color: #fff;
-}
-/* .night .pagecontent p:hover{
-  box-shadow: inset 0 0 5px #1E90FF;
-} */
-.night .pagecontent label p:hover{
-  box-shadow: none;
-}
-.night .pagecontent a,
-.night .pagecontent button{
-  color: #fff;
-  background: #333;
-}
-.night .pagecontent a:hover,
-.night .pagecontent button:hover{
-  background: #1E90FF;
-  color: #000;
-}
-.night .configElement{
-  border: 2px solid #333;
-  box-shadow: inset 0 0 10px #000;
-}
-.night .pagecontent .configElement p{
-  background: #0000;
-  border: none;
-}
-.night header{
-  background: #333;
-  color: #fff;
-}
-.night .searchBtn{
-  background: #555;
-  color: #fff;
-}
-.night li.hidingLi{
-  background: #333;
-}
+
+
+
+
 .configElement button[name="night"]{
   background: url("../../img/nightstyle.png");
   background-size: cover;

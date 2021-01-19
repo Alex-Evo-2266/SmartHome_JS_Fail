@@ -1,13 +1,13 @@
-.modalWindow{
+@import "./modalWindow.light.css";
+@import "./modalWindow.night.css";
 
-  border: 2px solid #555;
+.modalWindow{
   border-radius: 4px;
   overflow: hidden;
 }
 .modalHeader{
   width: 100%;
   position: relative;
-  background: #555
 }
 .modalHeader button{
   position: absolute;
@@ -31,7 +31,6 @@
 }
 .modalHeader h4{
   position: absolute;
-  color: #fff;
   top: 50%;
   transform: translateY(-50%);
   left: 5px;
@@ -53,7 +52,6 @@
   transform: translateX(-50%);
   width: 500px;
   max-height: calc(100% - 200px);
-  border: 2px solid #333;
   border-radius: 10px;
   overflow-y: scroll;
 }

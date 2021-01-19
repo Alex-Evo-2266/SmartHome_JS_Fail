@@ -1,0 +1,12 @@
+.light .modalWindow{
+  border: 2px solid #888;
+}
+.light .modalHeader{
+  background: linear-gradient(to bottom, #888, #aaa);
+}
+.light .modalHeader h4{
+  color: #fff;
+}
+.light .centerWindow{
+  border: 2px solid #333;
+}

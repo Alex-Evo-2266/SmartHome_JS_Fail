@@ -3,27 +3,26 @@
 @import "./deviceCart/deviceCart.base.css";
 @import "./hidingLi/hidingLi.base.css";
 @import "./form/form.base.css";
+@import "./homeCart/homeCart.base.css";
+@import "./modalWindow/modalWindow.base.css";
+@import "./user/user.base.css";
+@import "./inputNumber/inputNumber.base.css";
+@import "./pages/pages.base.css";
+@import "./switch/switch.base.css";
+
+
 @import "./style-page.css";
 @import "./style-title.css";
-/* @import "./style-form.css"; */
 @import "./style-devices.css";
-@import "./style-user.css";
-@import "./style-pages.css";
-@import "./style-config.css";
 @import "./style-ImageInput.css";
 @import "./styleLoader.css";
-@import "./style-editDevices.css";
-@import "./style-modalWindow.css";
-@import "./style-inputNumber.css";
-@import "./style-slider.css";
+
 @import "./style-script.css";
 @import "./terminal.css";
-@import "./style-BtnElement.css";
-@import "./style-sensor.css";
 @import "./home.css";
-@import "./toolbar.css";
 @import "./EditCartWindow.css";
-/* @import "./light/light.css"; */
+/* @import "./light/light.css";
+@import "./night/night.css"; */
 
 .backForm{
   position: fixed;

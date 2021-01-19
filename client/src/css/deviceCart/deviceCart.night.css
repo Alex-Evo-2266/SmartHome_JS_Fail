@@ -1,0 +1,6 @@
+.night .CardConteiner .CardElement{
+  background: #111c;
+}
+.night .CardElement .CardBody p{
+  color: #fff;
+}

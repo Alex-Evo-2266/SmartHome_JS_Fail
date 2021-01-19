@@ -1,3 +1,6 @@
+@import "./user.light.css";
+@import "./user.night.css";
+
 .pagecontent{
   margin: 10px;
   position: relative;
@@ -18,9 +21,6 @@
   text-align: center;
   margin: 10px;
   border-radius: 4px;
-}
-.pagecontent label p{
-
 }
 .pagecontent label input{
  padding: 8px;
