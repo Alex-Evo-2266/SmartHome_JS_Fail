@@ -48,7 +48,6 @@ const removeCart = async(index)=>{
 }
 
 const updataCart = async(index,cart)=>{
-  console.log(index,cart,carts);
   await setCarts((prev)=>{
     let mas = prev.slice();
     mas[index] = cart
@@ -87,7 +86,6 @@ const updateDevice = useCallback(async()=>{
 useEffect(() => {
   const interval2 = setTimeout(() => {
     updateDevice()
-    console.log("tick");
     setCost((prev)=>!prev)
   }, interval*1000);
   return () => {

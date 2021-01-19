@@ -57,7 +57,7 @@ router.post('/add',
    try {
      await devices.connect();
      res.status(201).json(await devices.Devices())
-     // await devices.desconnect();
+     await devices.desconnect();
      return
    } catch (e) {
      console.log("Error AddDevices",e);
@@ -80,18 +80,15 @@ router.post('/add',
  router.post('/edit',auth,async (req, res)=>{
    console.log(req.body);
    try {
-     console.log("1");
      await devices.connect();
      const condidate = await devices.lookForDeviceByName(req.body.DeviceName)
      if(condidate&&condidate[0]&&condidate[0].DeviceId!==req.body.DeviceId){
        throw new Error("device with the same name already exists.")
      }
-     console.log("2");
      const condidate2 = await devices.lookForDeviceBySystemName(req.body.DeviceSystemName)
      if(condidate2&&condidate2[0]&&condidate2[0].DeviceId!==req.body.DeviceId){
        throw new Error("device with the same system name already exists.")
      }
-     console.log("3");
      await devices.updataDevice({
        id:req.body.DeviceId,
        name:req.body.DeviceName,

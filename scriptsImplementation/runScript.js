@@ -4,13 +4,17 @@ const devices = require('../mySQL/Devices');
 const universalMqtt = require("../mqtt/mqttDevices/universal")
 
 const run = async(script)=>{
-  await devices.connect()
-  let IfScript = await groupIf(script.ScriptIf)
-  if(IfScript)
-    await actDev(script.ScriptThen)
-  else
-    await actDev(script.ScriptElse)
-  await devices.desconnect();
+  try {
+    await devices.connect()
+    let IfScript = await groupIf(script.ScriptIf)
+    if(IfScript)
+      await actDev(script.ScriptThen)
+    else
+      await actDev(script.ScriptElse)
+    await devices.desconnect();
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 const actDev = async(act)=>{
@@ -18,7 +22,7 @@ const actDev = async(act)=>{
     if(item.type==="device"){
 
       const device = await devices.Device(item.DeviseId)
-
+      if(!device)return
         if((device.DeviceType==="light"||device.DeviceType==="switch"||device.DeviceType==="dimmer")&&item.property==="power"&&item.value&&item.value.type==="status"){
           if(item.value.value==="on") universalMqtt(device,"powerOn")
           if(item.value.value==="off") universalMqtt(device,"powerOff")
@@ -151,6 +155,7 @@ const element = async(item)=>{
     // await devices.connect()
     const device = await devices.Device(item.DeviseId)
     // await devices.desconnect();
+    if(!device)return
     let deviceValue = device.DeviceValue
     if((item.property==="value"||item.property==="battery")&&device.DeviceType!=="variable"){
       deviceValue = deviceValue.status

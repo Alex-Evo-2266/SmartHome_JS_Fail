@@ -16,7 +16,7 @@ module.exports.connect = ()=>{
 }
 module.exports.desconnect = async function(){
   await conection.end((err)=>{
-    console.error('errr2',err.message);
+    console.error('errr2');
   })
 }
 

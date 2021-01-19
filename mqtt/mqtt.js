@@ -46,26 +46,27 @@ const input = (ret)=>{
 */
 
 const updataValueDevices = async(topic,mes)=>{
-  await devices.connect()
-  const elements = await devices.lookForDeviceByTopic(topic)
-  // await devices.desconnect();
-  console.log(elements);
-  for(let item of elements) {
-    if(item.key==="status"){
-      mes = JSON.parse(mes)
-      // console.log(mes);
-      if(item.type==="binarySensor"){
-        if(!mes.value||mes.value==="false"||mes.value==="0"||mes.value==="off"||mes.value==="Off"||mes.value==="OFF")
-          mes.value = "0"
-        else
-          mes.value = "1"
-      }
-    }
-    console.log(mes);
-    let value = mes||"0"
+  try {
     await devices.connect()
-    await devices.setValue(item.deviceId,item.key,value)
+    const elements = await devices.lookForDeviceByTopic(topic)
+    if(!elements)return
+    for(let item of elements) {
+      if(item.key==="status"){
+        mes = JSON.parse(mes)
+        // console.log(mes);
+        if(item.type==="binarySensor"){
+          if(!mes.value||mes.value==="false"||mes.value==="0"||mes.value==="off"||mes.value==="Off"||mes.value==="OFF")
+            mes.value = "0"
+          else
+            mes.value = "1"
+        }
+      }
+      let value = mes||"0"
+      await devices.setValue(item.deviceId,item.key,value)
+    }
     await devices.desconnect();
+  } catch (e) {
+    console.error(e);
   }
 
 }

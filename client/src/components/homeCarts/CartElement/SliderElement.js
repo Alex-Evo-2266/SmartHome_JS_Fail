@@ -15,7 +15,6 @@ export const SliderElement = ({index,data,min=0,max=100,firstValue=0,deleteBtn,e
   const lookForDeviceById = useCallback((id)=>{
     if(!devices||!devices[0]||!data)
       return false
-    console.log(devices);
     let condidat = devices.filter((item)=>item.DeviceId===id)
     if(data.type==="dimmer"){
       setMin(condidat[0].DeviceConfig.minDimmer)
