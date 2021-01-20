@@ -12,7 +12,8 @@ export const LightFunction = ({type, device,result})=>{
       item:type,
       type:t,
       order:"0",
-      IdDevice:device.DeviceId
+      IdDevice:device.DeviceId,
+      name:device.DeviceName
     }
     if(t==="power"){
       return result({

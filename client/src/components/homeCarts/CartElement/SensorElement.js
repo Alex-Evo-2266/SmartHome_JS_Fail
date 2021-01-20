@@ -32,7 +32,7 @@ export const SensorElement = ({index,data,deleteBtn,editBtn,onClick}) =>{
     }
   }
 
-if(!device.DeviceId){
+if(!device||!device.DeviceId){
   return null;
 }
 return(

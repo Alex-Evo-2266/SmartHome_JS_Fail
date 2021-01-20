@@ -22,6 +22,7 @@ const auth = useContext(AuthContext)
 const {message} = useMessage();
 const {request, error, clearError} = useHttp();
 const [devices, setDevices] = useState({})
+const [scripts, setScripts] = useState({})
 const [interval, setInterval] = useState(2)
 const [cost, setCost] = useState(true)
 
@@ -69,6 +70,8 @@ const importCarts = useCallback(async()=>{
     setCarts(data.homePage.carts)
     const data2 = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
     setInterval(data2.server.updateFrequency)
+    const data3 = await request(`/api/script/all`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
+    await setScripts(data3);
   } catch (e) {
     console.error(e);
   }
@@ -118,7 +121,7 @@ useEffect(()=>{
 
   return(
     <EditModeContext.Provider value={{setMode:setEditMode, mode:editMode,add:addCart}}>
-    <DeviceStatusContext.Provider value={{devices:devices, updateDevice:updateDevice}}>
+    <DeviceStatusContext.Provider value={{script:scripts,devices:devices, updateDevice:updateDevice}}>
     <CartEditState>
     <AddControlState>
       <CartEdit/>

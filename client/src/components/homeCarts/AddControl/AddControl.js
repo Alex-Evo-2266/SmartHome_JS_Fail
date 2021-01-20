@@ -27,6 +27,15 @@ export const AddControl = ()=>{
   }
 
   const deviceFunction = (device)=>{
+    if(typeChild==="script"){
+      addButton({
+        item:typeChild,
+        type:"activate script",
+        order:"0",
+        name:device.ScriptName,
+        IdScript:device.ScriptId
+      })
+    }
     if(device.DeviceType==="light")
       setLightFunctionVisible(true)
     if(device.DeviceType==="switch")
@@ -40,6 +49,7 @@ export const AddControl = ()=>{
         item:typeChild,
         type:"sensor",
         order:"0",
+        name:device.DeviceName,
         IdDevice:device.DeviceId
       })
     setDevice(device)
@@ -71,7 +81,7 @@ export const AddControl = ()=>{
         <p>сontainer children</p>
         <div className="buttonGrid">
           <button onClick={()=>setTypeChild("button")}>button activate</button>
-          <button>activate scripts</button>
+          <button onClick={()=>setTypeChild("script")}>activate scripts</button>
           <button onClick={()=>setTypeChild("slider")}>slider</button>
           <button onClick={()=>setTypeChild("sensor")}>sensor</button>
         </div>

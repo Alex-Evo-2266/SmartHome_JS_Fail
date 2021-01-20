@@ -42,7 +42,7 @@ const scripts = async()=>{
 
   } catch (e) {
     console.error();("Error",e);
-    return;
+    return ;
   }
 }
 module.exports.Scripts = scripts;
@@ -74,7 +74,7 @@ module.exports.addScript = async function(data){
     if(!data.name||!data.then) return;
 
     if(!data.status)data.status = "trigger"
-    if(!data.trigger)data.status = "manual"
+    if(!data.trigger||!data.trigger[0])data.status = "manual"
     if(!data.if){
       data.status = "manual"
       data.if = {}
@@ -120,7 +120,51 @@ module.exports.lookForScriptByStatus = async function (status) {
   }
 }
 
-module.exports.deleteScript = async function(id){
+module.exports.lookForScriptByDevice = async function (id) {
+  const ifScan = async(content,scriptId)=>{
+    if(!content.ifElement)return
+    for await(var item2 of content.ifElement) {
+      if(item2.type==="ifClass"&&item2.subif&&item2.subif.DeviseId===id){
+        await deleteScript(scriptId)
+      }
+      if(item2.type==="groupIfClass"){
+        ifScan(item2.subif,scriptId)
+      }
+      console.log(item2);
+    }
+  }
+  try {
+    let arr = await scripts()
+    if(!arr)return
+    for await(var item of arr) {
+      for await(var item2 of item.ScriptTrigger) {
+        if(item2.DeviseId===id)
+          await deleteScript(item.ScriptId)
+      }
+      for await(var item2 of item.ScriptThen) {
+        if(item2.DeviseId===id)
+          await deleteScript(item.ScriptId)
+        if(item2.value&&item2.value.type==="DeviseValue"&&item2.value.value&&item2.value.value.DeviceId===id)
+          await deleteScript(item2.value.value.DeviceId)
+      }
+      for await(var item2 of item.ScriptElse) {
+        if(item2.DeviseId===id)
+          await deleteScript(item.ScriptId)
+        if(item2.value&&item2.value.type==="DeviseValue"&&item2.value.value&&item2.value.value.DeviceId===id)
+          await deleteScript(item2.value.value.DeviceId)
+      }
+      if(item.ScriptIf){
+        await ifScan(item.ScriptIf,item.ScriptId)
+      }
+    }
+    // return result[0];
+  } catch (e) {
+    console.error("Error",e);
+    return
+  }
+}
+
+ const deleteScript = async function(id){
   try {
     if(!id){
       return;
@@ -137,6 +181,8 @@ module.exports.deleteScript = async function(id){
     return
   }
 }
+
+module.exports.deleteScript = deleteScript
 
 const setStatus = async function (id,value) {
   try {

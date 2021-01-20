@@ -6,11 +6,26 @@ import {CartEditContext} from './EditCarts/CartEditContext'
 import {SliderElement} from './CartElement/SliderElement'
 import {AddControlContext} from './AddControl/AddControlContext'
 import {SensorElement} from './CartElement/SensorElement'
+import {ScriptElement} from './CartElement/ScriptElement'
 
 export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
   const {mode} = useContext(EditModeContext)
   const {target} = useContext(CartEditContext)
   const {show} = useContext(AddControlContext)
+
+  const deleteElement=(index1)=>{
+    let mas = data.children.slice();
+    let newBtns = mas.filter((item, index2)=>index2!==index1)
+    updata(index,{...data,children:newBtns})
+  }
+
+  const editElement = (index1,data1)=>{
+    if(!data1||!data1.order)
+      return
+    let mas = data.children.slice();
+    mas[index1].order=data1.order
+    updata(index,{...data,children:mas})
+  }
 
   return(
     <ModalWindow
@@ -45,20 +60,10 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
               data={item}
               switchMode={item.type==="power"}
               deleteBtn={
-                (edit)?async(index1)=>{
-                  let mas = data.children.slice();
-                  let newBtns = mas.filter((item, index2)=>index2!==index1)
-                  updata(index,{...data,children:newBtns})
-                }:null
+                (edit)?deleteElement:null
               }
               editBtn={
-                (edit)?async(index1,data1)=>{
-                  if(!data1||!data1.order)
-                    return
-                  let mas = data.children.slice();
-                  mas[index1].order=data1.order
-                  updata(index,{...data,children:mas})
-                }:null
+                (edit)?editElement:null
               }
               >
                 {
@@ -79,42 +84,37 @@ export const HomebaseCart = ({hide,index,name,updata,data,edit=false,add}) =>{
               <SliderElement
               index={indexbtn}
               data={item}
+              disabled={edit}
               deleteBtn={
-                (edit)?async(index1)=>{
-                  let mas = data.children.slice();
-                  let newBtns = mas.filter((item, index2)=>index2!==index1)
-                  updata(index,{...data,children:newBtns})
-                }:null
+                (edit)?deleteElement:null
               }
               editBtn={
-                (edit)?async(index1,data1)=>{
-                  if(!data1||!data1.order)
-                    return
-                  let mas = data.children.slice();
-                  mas[index1].order=data1.order
-                  updata(index,{...data,children:mas})
-                }:null
+                (edit)?editElement:null
               }
               />:
               (item.item==="sensor")?
-              <SensorElement index={indexbtn}
+              <SensorElement
+              index={indexbtn}
               data={item}
               deleteBtn={
-                (edit)?async(index1)=>{
-                  let mas = data.children.slice();
-                  let newBtns = mas.filter((item, index2)=>index2!==index1)
-                  updata(index,{...data,children:newBtns})
-                }:null
+                (edit)?deleteElement:null
               }
               editBtn={
-                (edit)?async(index1,data1)=>{
-                  if(!data1||!data1.order)
-                    return
-                  let mas = data.children.slice();
-                  mas[index1].order=data1.order
-                  updata(index,{...data,children:mas})
-                }:null
-              }/>:
+                (edit)?editElement:null
+              }
+              />:
+              (item.item==="script")?
+              <ScriptElement
+              index={indexbtn}
+              data={item}
+              disabled={edit}
+              deleteBtn={
+                (edit)?deleteElement:null
+              }
+              editBtn={
+                (edit)?editElement:null
+              }
+              />:
               null
             }
             </li>

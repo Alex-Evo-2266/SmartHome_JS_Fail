@@ -8,6 +8,7 @@ export const SwitchFunction = ({type,device,result})=>{
       type:"power",
       order:"0",
       IdDevice:device.DeviceId,
+      name:device.DeviceName,
       address:device.DeviceConfig.power,
       On:device.DeviceConfig.turnOnSignal,
       Off:device.DeviceConfig.turnOffSignal

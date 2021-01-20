@@ -6,6 +6,7 @@ const auth = require('../middleware/auth.middleware')
 const {check, validationResult} = require('express-validator')
 const scripts = require('../mySQL/Scripts');
 const mqtt = require('../mqtt/mqtt');
+const runScript = require('../scriptsImplementation/runScript')
 
 
 router.post('/add',
@@ -107,6 +108,18 @@ router.post('/add',
      const {ScriptId} = req.body
      await scripts.connect();
      res.status(201).json(await scripts.deleteScript(ScriptId))
+     await scripts.desconnect();
+     return
+   } catch (e) {
+     console.log("Error AddDevices",e);
+     return res.status(500).json({message: e.message})
+   }
+ })
+
+ router.get('/run/:id',auth,async (req, res)=>{
+   try {
+     await scripts.connect();
+     res.status(201).json({result:await runScript(await scripts.Script(req.params.id))})
      await scripts.desconnect();
      return
    } catch (e) {

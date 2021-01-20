@@ -27,6 +27,10 @@ export const ScriptElement = ({script,updata})=>{
     updata()
   }
 
+  const runScript = async()=>{
+    await request(`/api/script/run/${script.ScriptId}`, 'GET', null,{Authorization: `Bearer ${auth.token}`})
+  }
+
   const checkedHandler = async event => {
     console.log(event.target.checked);
     if(status==="trigger"){
@@ -46,15 +50,19 @@ export const ScriptElement = ({script,updata})=>{
     <div className="scriptElement">
       <p>{script.ScriptName}</p>
       <div className="scriptStatus">
-        <button className="activateBtn">activate</button>
+        <button onClick={runScript} className="activateBtn">activate</button>
         <button onClick={()=>showData("showScript",script)} className="showBtn">show</button>
         <div className="switchConteiner">
         <p className="switchText">{status}</p>
+        {
+          (script.ScriptTrigger&&script.ScriptTrigger[0])?
           <label className="switch">
             <input onChange={checkedHandler} name="auteStyle" type="checkbox" checked={(status==="trigger")}></input>
             <span></span>
             <i className="indicator"></i>
           </label>
+          :null
+        }
         </div>
         <button onClick={deleteScript} className="deleteBtn"><i className="fas fa-trash"></i></button>
       </div>

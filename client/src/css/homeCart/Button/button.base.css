@@ -11,7 +11,8 @@ ul.elementConteiner li{
 ul.elementConteiner li label{
   position: relative;
 }
-ul.elementConteiner li label input[type="checkbox"]{
+ul.elementConteiner li label input[type="checkbox"],
+ul.elementConteiner li label input[type="button"]{
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -30,7 +31,8 @@ ul.elementConteiner li label .icon-box i{
   font-size: 30px;
   /* color: #222; */
 }
-.BtnElement .deleteBtn{
+.BtnElement .deleteBtn,
+.ScriptElement .deleteBtn{
   position: absolute;
   width: 15px;
   height: 15px;
@@ -43,7 +45,8 @@ ul.elementConteiner li label .icon-box i{
   font-size: 18px;
   color: #fff;
 }
-.BtnElement .editBtn{
+.BtnElement .editBtn,
+.ScriptElement .editBtn{
   position: absolute;
   width: 15px;
   height: 15px;
@@ -56,7 +59,8 @@ ul.elementConteiner li label .icon-box i{
   font-size: 18px;
   color: #fff;
 }
-.BtnElement .icon-box button i.i-cost{
+.BtnElement .icon-box button i.i-cost,
+.ScriptElement .icon-box button i.i-cost{
   font-size: 10px;
   color: #fff;
   text-align: center;

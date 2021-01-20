@@ -12,8 +12,10 @@ const run = async(script)=>{
     else
       await actDev(script.ScriptElse)
     await devices.desconnect();
+    return true;
   } catch (e) {
     console.error(e);
+    return false;
   }
 }
 

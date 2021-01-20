@@ -1,6 +1,7 @@
 const mysql = require('mysql2')
 const config = require('config');
 const triggerScript = require('../scriptsImplementation/triggerScripts');
+const script = require('./Scripts')
 
 let conection;
 module.exports.connect = ()=>{
@@ -185,6 +186,10 @@ module.exports.deleteDevice = async function(id){
     if(!id){
       return;
     }
+    await script.connect()
+    await script.lookForScriptByDevice(id)
+    console.log("пиздец");
+    await script.desconnect()
     await conection.execute(
       "DELETE FROM `smarthome_devices` WHERE `DeviceId`= ?" ,
       [id]

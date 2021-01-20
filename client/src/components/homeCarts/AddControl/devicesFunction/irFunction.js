@@ -16,6 +16,7 @@ export const IrFunction = ({type,device,result})=>{
       order:"0",
       address:device.DeviceConfig.command,
       IdDevice:device.DeviceId,
+      name:device.DeviceName,
       value:value})
   }
 

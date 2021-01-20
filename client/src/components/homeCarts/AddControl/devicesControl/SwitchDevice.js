@@ -10,6 +10,11 @@ export const SwitchDevice = ({type,result})=>{
   const {request, error, clearError} = useHttp();
 
   const updataDevice = useCallback(async()=>{
+    if(type==="script"){
+      const dataScript = await request('/api/script/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
+      setDevices(dataScript)
+      return
+    }
     const data = await request('/api/devices/all', 'GET', null,{Authorization: `Bearer ${auth.token}`})
     if(type==="button")
       setDevices(data.filter((item)=>(item.DeviceType==='light')||(item.DeviceType==='switch')||(item.DeviceType==='dimmer')||(item.DeviceType==='ir')));
@@ -33,7 +38,7 @@ export const SwitchDevice = ({type,result})=>{
   return devices.map((item,index)=>{
     return(
       <div className="deviceItem" key={index} onClick={()=>result(item)}>
-        <p>{item.DeviceName}</p>
+        <p>{item.DeviceName||item.ScriptName}</p>
       </div>
     )
   })
