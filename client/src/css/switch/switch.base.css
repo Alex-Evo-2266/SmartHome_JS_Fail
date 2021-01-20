@@ -65,3 +65,6 @@
   0 0 30px #0f0,
   0 0 40px #0f0;
 }
+.switchText{
+  width: calc(100% - 120px);
+}

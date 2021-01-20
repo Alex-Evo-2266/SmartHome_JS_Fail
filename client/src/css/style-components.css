@@ -9,6 +9,8 @@
 @import "./inputNumber/inputNumber.base.css";
 @import "./pages/pages.base.css";
 @import "./switch/switch.base.css";
+@import "./scriptsPage/scriptsPage.base.css";
+@import "./newScriptsPage/newScriptsPage.base.css";
 
 
 @import "./style-page.css";
@@ -17,7 +19,7 @@
 @import "./style-ImageInput.css";
 @import "./styleLoader.css";
 
-@import "./style-script.css";
+
 @import "./terminal.css";
 @import "./home.css";
 @import "./EditCartWindow.css";

@@ -4,11 +4,21 @@
 {
   background: #1E90FF;
   transition: 0.3s;
+  color: #fff;
 }
-.light .topMenu,
+.light .navigation nav ul li:hover > a i,
+.light .navigation nav ul li a.active i,
+.light .menuTogle:hover i{
+  color: #fff;
+}
+.light .topMenu{
+  background:linear-gradient(to top, #ddd, #bbb);
+  color: black;
+  z-index: 10;
+}
 .light .navigation nav
 {
-  background:#76d7ff;
+  background: #edf5fc;
   color: black;
 }
 .light .navigation nav ul li a,

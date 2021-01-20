@@ -29,7 +29,6 @@ ul.elementConteiner li label .icon-box{
 ul.elementConteiner li label .icon-box i{
   font-size: 30px;
   /* color: #222; */
-  transition: 0.5s;
 }
 .BtnElement .deleteBtn{
   position: absolute;

@@ -1,5 +1,5 @@
 .light header{
-  background: #eee;
+  background: linear-gradient(to top, #ddd, #bbb);
   color: #000;
 }
 .light .searchBtn{

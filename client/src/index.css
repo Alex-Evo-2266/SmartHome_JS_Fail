@@ -16,6 +16,9 @@ body {
   outline: none;
   transition: 0.5s;
 }
+* li{
+  list-style: none;
+}
 .App{
   overflow: hidden;
 }

@@ -4,3 +4,7 @@
 .light .CardConteiner .CardElement{
   background: #fffa;
 }
+.light .CardConteiner .CardElement .CardBody .CardControl button{
+  background: linear-gradient(to top, #ddd, #aaa);
+  color: #000;
+}

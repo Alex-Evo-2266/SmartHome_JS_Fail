@@ -5,6 +5,7 @@
 .night ul.elementConteiner li label .icon-box i{
   color: #aaa;
   text-shadow: 0 0 10px rgba(33,156,243,1);
+  transition: 0.5s;
 }
 .night ul.elementConteiner li label input[type="checkbox"]:checked ~ .icon-box{
   background: #000;

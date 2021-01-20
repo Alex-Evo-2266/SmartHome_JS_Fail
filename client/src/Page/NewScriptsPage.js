@@ -1,6 +1,7 @@
 import React,{useState,useContext,useCallback,useEffect} from 'react'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
+import {useChecked} from '../hooks/checked.hook'
 import {AuthContext} from '../context/AuthContext.js'
 import {AddScriptBase} from '../components/addScript/addScriptBase'
 import {GroupBlock} from '../components/moduls/programmBlock/groupBlock'
@@ -13,6 +14,7 @@ import {groupIfClass,actClass,triggerClass} from '../myClass.js'
 
 export const NewScriptsPage = () => {
   const history = useHistory()
+  const {USText} = useChecked()
   const auth = useContext(AuthContext)
   const {show} = useContext(AddScriptContext)
   const {message} = useMessage();
@@ -43,6 +45,13 @@ export const NewScriptsPage = () => {
 
   const outHandler = async()=>{
     try {
+      if(!USText(script.name)){
+        console.error("allowed characters: 1234567890_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
+        let el = document.getElementById("scriptName")
+        el.style="background:red;"
+        message("allowed characters: 1234567890_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM","error")
+        return
+      }
       const data = await request('/api/script/add', 'POST', {...script},{Authorization: `Bearer ${auth.token}`})
       if(data){
         history.push('/scripts')
@@ -109,7 +118,7 @@ export const NewScriptsPage = () => {
         <div className="NewScripPage">
           <div className="scriptOut">
             <p>Script name</p>
-            <input type="text" name="name" value={script.name} onChange={changeHandler}/>
+            <input type="text" id="scriptName" name="name" value={script.name} onChange={changeHandler}/>
             <button onClick={outHandler}>Send</button>
           </div>
           <div className="progammzon">

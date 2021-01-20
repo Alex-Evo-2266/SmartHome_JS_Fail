@@ -4,7 +4,6 @@
 .slider-box{
   padding: 10px 20px 0 30px;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   align-items: center;
 }
 .slider-box .slider{

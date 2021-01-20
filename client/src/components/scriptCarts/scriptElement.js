@@ -46,16 +46,17 @@ export const ScriptElement = ({script,updata})=>{
     <div className="scriptElement">
       <p>{script.ScriptName}</p>
       <div className="scriptStatus">
-        <p>{status}</p>
-        <button onClick={()=>showData("showScript",script)}>show</button>
+        <button className="activateBtn">activate</button>
+        <button onClick={()=>showData("showScript",script)} className="showBtn">show</button>
         <div className="switchConteiner">
+        <p className="switchText">{status}</p>
           <label className="switch">
             <input onChange={checkedHandler} name="auteStyle" type="checkbox" checked={(status==="trigger")}></input>
             <span></span>
             <i className="indicator"></i>
           </label>
         </div>
-        <button onClick={deleteScript}><i className="fas fa-trash"></i></button>
+        <button onClick={deleteScript} className="deleteBtn"><i className="fas fa-trash"></i></button>
       </div>
     </div>
   )
