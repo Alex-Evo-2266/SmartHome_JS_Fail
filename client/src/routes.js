@@ -7,6 +7,7 @@ import {ProfilePage} from './Page/ProfilePage'
 import {OptionsPage} from './Page/OptionsPage'
 import {ScriptsPage} from './Page/ScriptsPage'
 import {NewScriptsPage} from './Page/NewScriptsPage'
+import {UsersPage} from './Page/UsersPage'
 
 export const useRoutes = isAuthenticated=>{
   if(isAuthenticated){
@@ -32,6 +33,9 @@ export const useRoutes = isAuthenticated=>{
         </Route>
         <Route path="/config">
           <OptionsPage/>
+        </Route>
+        <Route path="/users">
+          <UsersPage/>
         </Route>
         <Redirect to="/home"/>
       </Switch>

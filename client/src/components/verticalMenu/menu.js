@@ -59,10 +59,24 @@ export const Menu = ()=>{
             </Link>
           </li>
           <li>
-            <Link to = "#" onClick={auth.logout}>
-              <span className = "icon"><i className="fas fa-sign-out-alt"></i></span>
-              <span className = "title">Logout</span>
-            </Link>
+            <span className="liinfo">
+              <span className = "icon"><i className="fas fa-sort-down"></i></span>
+              <span className = "title">Other</span>
+            </span>
+            <ul>
+              <li>
+                <NavLink to = "/users">
+                  <span className = "icon"><i className="fas fa-users"></i></span>
+                  <span className = "title">Users</span>
+                </NavLink>
+              </li>
+              <li>
+                <Link to = "#" onClick={auth.logout}>
+                  <span className = "icon"><i className="fas fa-sign-out-alt"></i></span>
+                  <span className = "title">Logout</span>
+                </Link>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

@@ -1,4 +1,5 @@
 .light .navigation nav ul li:hover > a,
+.light .navigation nav ul li:hover > span.liinfo,
 .light .navigation nav ul li a.active,
 .light .menuTogle:hover
 {
@@ -7,6 +8,7 @@
   color: #fff;
 }
 .light .navigation nav ul li:hover > a i,
+.light .navigation nav ul li:hover > span.liinfo i,
 .light .navigation nav ul li a.active i,
 .light .menuTogle:hover i{
   color: #fff;

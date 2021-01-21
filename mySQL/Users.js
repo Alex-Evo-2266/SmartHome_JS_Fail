@@ -12,28 +12,25 @@ module.exports.desconnect = async function(){
   })
 }
 
-// const idEmpty = async ()=>{
-//   const Users = await users();
-//   console.log( Users);
-//   let b = false;
-//   for (let i = 1; i < Users.length+1; i++) {
-//     console.log("1");
-//     b = false
-//     for (let j = 0; j < Users.length; j++) {
-//       console.log(b,i,Users[j].User_Id);
-//       if(Users[j].User_Id==i){
-//         b=true;
-//         break;
-//       }
-//     }
-//     if(!b) return i;
-//   }
-//   return 1;
-// }
+const idEmpty = (elements)=>{
+  let b = false;
+  for (let i = 1; i <= elements.length+1; i++) {
+    b = false
+
+    for (let j = 0; j < elements.length; j++) {
+      if(elements[j].UserId==i){
+        b=true;
+        break;
+      }
+    }
+    if(!b) return i;
+  }
+  return 1;
+}
 
 const users = async()=>{
   try {
-    const result = await conection.execute(`SELECT 'UserId', 'Email', 'UserName', 'UserSurname', 'Level', 'ImageId', 'Mobile' FROM smarthome_user`)
+    const result = await conection.execute("SELECT `UserId`, `Email`, `UserName`, `UserSurname`, `Mobile`, `Level`, `ImageId`, `Style` FROM `smarthome_user`")
     return result[0];
 
   } catch (e) {
@@ -41,6 +38,8 @@ const users = async()=>{
     return;
   }
 }
+
+module.exports.users = users;
 
 module.exports.lookForUserByEmail = async(email)=>{
   try {
@@ -83,9 +82,10 @@ module.exports.lookForConfigUserById = async(id)=>{
 module.exports.addUser = async function(data){
   try {
     if(!data.name||!data.password) return;
+    let id = idEmpty(await users())
     await conection.execute(
-      "INSERT INTO `smarthome_user`(`Email`, `Password`, `UserName`, `UserSurname`, `Mobile`, `Level`) VALUES (?,?,?,?,?,?)",
-      [data.email, data.password, data.name,data.surname, data.mobile,data.level]
+      "INSERT INTO `smarthome_user`(`UserId`,`Email`, `Password`, `UserName`, `UserSurname`, `Mobile`, `Level`) VALUES (?,?,?,?,?,?,?)",
+      [id,data.email, data.password, data.name,data.surname, data.mobile,data.level]
     )
     return true;
   }

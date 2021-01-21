@@ -1,6 +1,7 @@
 .night ul.elementConteiner li label .icon-box{
   background: #101010;
   border: 3px solid #000;
+  box-shadow: none;
 }
 .night ul.elementConteiner li label .icon-box i{
   color: #aaa;

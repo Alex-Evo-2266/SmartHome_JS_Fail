@@ -5,6 +5,7 @@ const routerAuth = require('./routers/autorizationRouter')
 const imageRouter = require('./routers/imageRouter')
 const devicesRouter = require('./routers/devicesRouter')
 const userRouter = require('./routers/userRouter')
+const usersRouter = require('./routers/usersRouter')
 const configRouter = require('./routers/configRouter')
 const homeConfig = require('./routers/homeRouter')
 const terminalRouter = require('./routers/terminalRouter')
@@ -29,6 +30,7 @@ app.use('/api/auth',routerAuth);
 app.use('/api/base',imageRouter);
 app.use('/api/devices',devicesRouter);
 app.use('/api/user',userRouter);
+app.use('/api/users',usersRouter);
 app.use('/api/server',configRouter);
 app.use('/api/homeConfig',homeConfig);
 app.use('/api/terminal',terminalRouter);

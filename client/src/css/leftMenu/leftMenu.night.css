@@ -1,4 +1,5 @@
 .night .navigation nav ul li:hover > a,
+.night .navigation nav ul li:hover > span.liinfo,
 .night .navigation nav ul li a.active,
 .night .menuTogle:hover
 {
