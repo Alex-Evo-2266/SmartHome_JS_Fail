@@ -47,7 +47,7 @@ export const AddControl = ()=>{
     if(device.DeviceType==="sensor"||device.DeviceType==="binarySensor")
       addButton({
         item:typeChild,
-        type:"sensor",
+        type:"value",
         order:"0",
         name:device.DeviceName,
         IdDevice:device.DeviceId

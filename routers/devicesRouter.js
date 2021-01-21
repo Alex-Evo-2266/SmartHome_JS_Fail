@@ -6,6 +6,7 @@ const auth = require('../middleware/auth.middleware')
 const {check, validationResult} = require('express-validator')
 const devices = require('../mySQL/Devices');
 const mqtt = require('../mqtt/mqtt');
+const deleteElFromHomePage = require('../sort/deleteDeviceFromHomePage')
 
 router.post('/add',
   [
@@ -119,6 +120,7 @@ router.post('/add',
      await devices.connect();
      res.status(201).json(await devices.deleteDevice(DeviceId))
      await devices.desconnect();
+     deleteElFromHomePage(DeviceId)
      return
    } catch (e) {
      console.log("Error AddDevices",e);

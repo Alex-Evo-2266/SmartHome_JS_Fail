@@ -188,7 +188,6 @@ module.exports.deleteDevice = async function(id){
     }
     await script.connect()
     await script.lookForScriptByDevice(id)
-    console.log("пиздец");
     await script.desconnect()
     await conection.execute(
       "DELETE FROM `smarthome_devices` WHERE `DeviceId`= ?" ,

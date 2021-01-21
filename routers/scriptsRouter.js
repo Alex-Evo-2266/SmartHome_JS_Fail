@@ -7,6 +7,7 @@ const {check, validationResult} = require('express-validator')
 const scripts = require('../mySQL/Scripts');
 const mqtt = require('../mqtt/mqtt');
 const runScript = require('../scriptsImplementation/runScript')
+const deleteScriptFromHomePage = require('../sort/deleteScriptFromHomePage')
 
 
 router.post('/add',
@@ -109,6 +110,7 @@ router.post('/add',
      await scripts.connect();
      res.status(201).json(await scripts.deleteScript(ScriptId))
      await scripts.desconnect();
+     deleteScriptFromHomePage(ScriptId)
      return
    } catch (e) {
      console.log("Error AddDevices",e);

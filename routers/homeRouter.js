@@ -32,7 +32,6 @@ router.post('/config/edit',
     return
   } catch (e) {
     console.log("Error AddDevices",e);
-    await user.desconnect();
     return res.status(500).json({message: e.message})
   }
 })

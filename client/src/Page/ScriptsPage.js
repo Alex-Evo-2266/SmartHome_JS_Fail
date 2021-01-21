@@ -13,7 +13,7 @@ export const ScriptsPage = () => {
   const [allScripts, setAllScripts] = useState([])
   const auth = useContext(AuthContext)
   const {message} = useMessage();
-  const {request, error, clearError} = useHttp();
+  const {loading,request, error, clearError} = useHttp();
 
   useEffect(()=>{
     message(error,"error")
@@ -58,13 +58,15 @@ export const ScriptsPage = () => {
         <div className = "Scripts">
           <div className="scriptsList">
             {
+              (loading)?
+              <Loader/>:
               (scripts&&scripts[0])?
               scripts.map((item,index)=>{
                 return(
                   <ScriptElement key={index} script={item} updata={updataScripts}/>
                 )
               }):
-              <Loader/>
+              <h2 className="empty">Not elements</h2>
             }
           </div>
         </div>
