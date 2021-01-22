@@ -227,7 +227,31 @@
   transform:none;
   box-shadow: none;
 }
-
+.formContent.moreInput label{
+  padding: 30px;
+  display: block;
+}
+.formContent.moreInput label h5{
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  font-size: 24px;
+  text-align: center;
+}
+.formContent .textInput{
+  position: relative;
+  font-size: 1.5em;
+  display: block;
+  padding: 5px 2px 5px 2px;
+  width: calc(100% - 80px);
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  outline: none;
+  border-radius: 5px;
+  border: none;
+}
 @media (max-width: 700px){
   .form{
     width: 100%;

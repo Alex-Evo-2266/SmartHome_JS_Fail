@@ -1,4 +1,4 @@
-.night .form .pageForm{
+.night .form{
   background: #555;
   color: #fff;
 }
@@ -16,4 +16,7 @@
 }
 .night .formContent ul.devicesList li{
   background: #999;
+}
+.night .formContent label h5{
+  color: #fff;
 }

@@ -25,6 +25,7 @@
 }
 .light .navigation nav ul li a,
 .light .navigation nav ul li a .icon,
+.light .navigation nav ul li span.liinfo .icon,
 .light .menuTogle .icon{
   color: black;
 }

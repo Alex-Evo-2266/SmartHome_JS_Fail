@@ -17,3 +17,6 @@
 .light .formContent ul.devicesList li{
   background: #999;
 }
+.light .formContent label h5{
+  color: #000;
+}

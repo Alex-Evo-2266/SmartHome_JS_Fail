@@ -50,7 +50,11 @@ export const UsersPage = () => {
       <div className = "conteiner">
         <header>
           <h1>All Users</h1>
-          <Link to = "/" className="titleButtonAdd"><i onClick={()=>{}} className="fas fa-plus"></i></Link>
+          {
+            (auth.userLevel===3)?
+            <Link to = "/config/users" className="titleButtonAdd"><i className="fas fa-cog"></i></Link>:
+            null
+          }
           <input type="search" name="search" id="searchDevices" onChange={searchHandler} onKeyDown={()=>{}} value={search}/>
           <button onClick={searchout} className="searchBtn">Search</button>
         </header>

@@ -1,5 +1,6 @@
 import {useCallback,useEffect} from 'react';
 import {useHttp} from './http.hook'
+import defFon from '../img/fon-base.jpg'
 
 export const useBackground = () => {
   const {request, error, clearError} = useHttp();
@@ -49,6 +50,9 @@ export const useBackground = () => {
   const updataBackground = useCallback(async(token)=>{
     if(!token){
       console.error("no Autorization");
+      document.body.style = `background: url(${defFon});
+        background-size: cover;
+        background-attachment: fixed;`;
       return ;
     }
     const data = await request(`/api/server/config`, 'GET', null,{Authorization: `Bearer ${token}`})

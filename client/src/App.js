@@ -23,7 +23,7 @@ function App() {
   const {token, login, logout, userId, userLevel,ready,socket} = useAuth();
   const {updataBackground} = useBackground(token);
   const isAuthenticated = !!token;
-  const routes = useRoutes(isAuthenticated);
+  const routes = useRoutes(isAuthenticated,userLevel);
 
   useEffect(()=>{
     if(ready)
@@ -46,7 +46,7 @@ function App() {
     <FormState>
     <TerminalState>
     <AddScriptState>
-    
+
     <BrowserRouter>
       <div className="App">
         <Alert/>

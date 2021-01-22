@@ -59,7 +59,7 @@ const {name, password} = req.body;
     check('email', 'wrong email').isEmail(),
     check('name', "wrong name user ").isLength({min:2}),
     check('password', "wrong password ").isLength({min:6}),
-    //check('key', "некоректное имя пользователя ").isLength({min:1})
+    check('key', "wrong key").isLength({min:1})
   ],
   async (req, res)=> {
     try {
@@ -74,14 +74,19 @@ const {name, password} = req.body;
             }
       //---------------------------------------------------//
 
-      const {email, password,name,surname,mobile} = req.body;
-
-      const heshedPassword = await bcrypt.hash(req.body.password, 12)
-      userbd.connect();
-      if(userbd.lookForUserByName(name)){
-        throw new Error('Пользователь с таким Email уже создан');
+      const {email, password,name,surname,mobile,key} = req.body;
+      let keyconf = require('../serverConfig/usersConf.json')
+      console.log(keyconf.registerKey,key,req.body);
+      if(keyconf.registerKey!==key){
+        throw new Error('the key is not valid');
       }
-      if(!userbd.addUser({
+      const heshedPassword = await bcrypt.hash(req.body.password, 12)
+      await userbd.connect();
+      if(await userbd.lookForUserByName(name)){
+        throw new Error('Пользователь с таким name уже создан');
+      }
+      console.log("6");
+      if(!await userbd.addUser({
         email,
         password: heshedPassword,
         name,
@@ -90,12 +95,12 @@ const {name, password} = req.body;
       })){
         throw new Error('Пользователь с таким Email уже создан');
       }
-      userbd.desconnect();
+      console.log("7");
+      await userbd.desconnect();
       return res.status(201).json({message: "Новый пользователь создан"})
     }
     catch (e) {
       console.log("Error register",e);
-      userbd.desconnect();
       return res.status(500).json({message: e.message})
     }
   })

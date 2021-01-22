@@ -52,7 +52,9 @@ module.exports.lookForUserByEmail = async(email)=>{
 }
 module.exports.lookForUserByName = async(name)=>{
   try {
+    console.log("3");
     const result = await conection.execute(`SELECT * FROM \`smarthome_user\` WHERE \`UserName\` = '${name}'`);
+    console.log("4",result[0][0]);
     return result[0][0];
   } catch (e) {
     console.log("Error",e);
@@ -82,11 +84,15 @@ module.exports.lookForConfigUserById = async(id)=>{
 module.exports.addUser = async function(data){
   try {
     if(!data.name||!data.password) return;
+    if(!data.surname)data.surname=""
+    if(!data.level)data.level="1"
     let id = idEmpty(await users())
+    console.log(id,data);
     await conection.execute(
       "INSERT INTO `smarthome_user`(`UserId`,`Email`, `Password`, `UserName`, `UserSurname`, `Mobile`, `Level`) VALUES (?,?,?,?,?,?,?)",
       [id,data.email, data.password, data.name,data.surname, data.mobile,data.level]
     )
+    console.log("9");
     return true;
   }
   catch (e) {

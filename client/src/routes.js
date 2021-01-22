@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {Switch,Route,Redirect} from 'react-router-dom'
 import {HomePage} from './Page/HomePage'
 import {AuthPage} from './Page/AuthPage'
+import RegisterPage from './Page/RegisterPage'
 import {DevicesPage} from './Page/DevicesPage'
 import {ProfilePage} from './Page/ProfilePage'
 import {OptionsPage} from './Page/OptionsPage'
@@ -9,7 +10,7 @@ import {ScriptsPage} from './Page/ScriptsPage'
 import {NewScriptsPage} from './Page/NewScriptsPage'
 import {UsersPage} from './Page/UsersPage'
 
-export const useRoutes = isAuthenticated=>{
+export const useRoutes = (isAuthenticated,level)=>{
   if(isAuthenticated){
     return(
       <Switch>
@@ -31,6 +32,13 @@ export const useRoutes = isAuthenticated=>{
         <Route path="/profile">
           <ProfilePage/>
         </Route>
+        <Route path="/config/users" exact>
+        {
+          (level===3)?
+          <OptionsPage/>:
+          <Redirect to="/config"/>
+        }
+        </Route>
         <Route path="/config">
           <OptionsPage/>
         </Route>
@@ -45,6 +53,9 @@ export const useRoutes = isAuthenticated=>{
     <Switch>
       <Route path="/" exact>
         <AuthPage/>
+      </Route>
+      <Route path="/register" exact>
+        <RegisterPage/>
       </Route>
       <Redirect to="/"/>
     </Switch>

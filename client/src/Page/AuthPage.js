@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
+import {Link} from 'react-router-dom'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/AuthContext.js'
@@ -26,7 +27,7 @@ export const AuthPage = function (){
   const loginHandler = async () => {
     try {
       const data = await request('/api/auth/login', 'POST', {...form})
-      auth.login(data.token, data.userId, data.userLevel)
+      auth.login(data.token, data.userId, data.userLavel)
     } catch (e) {
       console.error(e);
     }
@@ -48,8 +49,8 @@ export const AuthPage = function (){
             <p>Password</p>
             <input placeholder="•••••••" id="password" type="password" name="password" value={form.password} onChange={changeHandler} required/>
             <input type="submit" onClick={loginHandler} disabled={loading} value="Sign In"/>
+            <Link to="/register">Register</Link>
           </div>
-
       </div>
     </form>
     </div>

@@ -14,6 +14,7 @@
 }
 .night .navigation nav ul li a,
 .night .navigation nav ul li a .icon,
+.night .navigation nav ul li span.liinfo .icon,
 .night .menuTogle .icon{
   color: white;
 }

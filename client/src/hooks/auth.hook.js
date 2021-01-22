@@ -32,7 +32,7 @@ export const useAuth = () => {
     const data = JSON.parse(localStorage.getItem(storegeName))
 
     if(data&&data.token){
-      login(data.token, data.urerId, data.userLevel)
+      login(data.token, data.userId, data.userLevel)
     }
     setReady(true);
   },[login])
