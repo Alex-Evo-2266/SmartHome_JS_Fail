@@ -21,7 +21,7 @@ const auth = require('../middleware/auth.middleware')
 //---------------------validation--------------------//
       const errors = validationResult(req);
       if(!errors.isEmpty()){
-        res.status(400).json({
+        return res.status(400).json({
           errors: errors.array(),
           message: 'wrong input data'
         })

@@ -134,7 +134,7 @@
     width: calc(100% - 4px);
   }
 }
-@media (max-width: 400px){
+@media (max-width: 550px){
   .pages .page-nav li,
   .pages .page-nav li a{
     border-radius: 20px 20px 0 0;

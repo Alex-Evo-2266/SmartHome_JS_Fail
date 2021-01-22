@@ -6,10 +6,10 @@ export const useMessage = (type = 'error') => {
   const {show,hide} = useContext(AlertContext);
 
 
-  const message = useCallback((text, type) =>{
+  const message = useCallback((text, type,ok,no) =>{
       if(text){
         setMessage(text)
-        show(text, type)
+        show(text, type,ok,no)
       }
       // setTimeout(function () {
       //   setMessage('')

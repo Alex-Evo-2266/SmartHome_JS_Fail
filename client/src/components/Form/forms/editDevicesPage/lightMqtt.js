@@ -66,8 +66,10 @@ export const LightMqttEdit = ({deviceData,hide})=>{
   }
 
   const deleteHandler = async () =>{
-    await request(`/api/devices/delete`, 'POST', {DeviceId:device.DeviceId},{Authorization: `Bearer ${auth.token}`})
-    hide();
+    message("All dependent scripts and controls will be removed along with the device. Delete?","dialog",async()=>{
+      await request(`/api/devices/delete`, 'POST', {DeviceId:device.DeviceId},{Authorization: `Bearer ${auth.token}`})
+      hide();
+    },"no")
   }
 
   return (

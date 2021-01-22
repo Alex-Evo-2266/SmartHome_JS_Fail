@@ -9,7 +9,7 @@ export const UserElement = ({user,updata})=>{
         <p>Email: {user.Email}
         <br/>Mobile: {user.Mobile}</p>
         <img alt="user icon" src={userDefault} className="userImg"/>
-        <h3>{user.UserName} {user.Surname}</h3>
+        <h3>{user.UserName} {user.UserSurname}</h3>
       </div>
     </div>
   )

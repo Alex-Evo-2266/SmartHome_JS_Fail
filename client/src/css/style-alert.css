@@ -8,7 +8,7 @@
   transform: translateX(-50%);
   position: fixed;
   width: 70%;
-  height: 50px;
+  min-height: 50px;
   z-index: 100;
   padding: 10px;
   border-radius: 10px;
@@ -41,8 +41,13 @@
   border: 2px solid #127512;
   color: #000;
 }
+.alert-dialog{
+  background: #333;
+  border: 2px solid yellow;
+  color: #fff;
+}
 
-.alert button{
+.alert button.close{
   font-weight: bold;
   position: absolute;
   right: 10px;
@@ -55,9 +60,9 @@
   background: #f00;
   color: #fff;
 }
-.alert button:hover,
-.alert.alert-info button:hover,
-.alert.alert-information button:hover{
+.alert button.close:hover,
+.alert.alert-info button.close:hover,
+.alert.alert-information button.close:hover{
   color: #000;
   background: #c00;
 }
@@ -75,4 +80,19 @@
   background: #f00;
   font-size: 20px;
   color: #fff;
+}
+.div-alert-btnConteiner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.div-alert-btnConteiner button{
+  border: none;
+  background: #ddd;
+  padding: 8px 20px;
+  border-radius: 5px;
+  margin: 10px;
+}
+.div-alert-btnConteiner button:hover{
+  box-shadow: inset 0 0 10px #000;
 }

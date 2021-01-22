@@ -27,9 +27,9 @@ router.post('/edit',
   async (req, res)=>{
   try {
     //---------------------validation--------------------//
-          const errors = validationResult(req);
+          const errors = validationResult(req.body.newuser);
           if(!errors.isEmpty()){
-            res.status(400).json({
+            return res.status(400).json({
               errors: errors.array(),
               message: 'wrong input data'
             })
@@ -45,8 +45,9 @@ router.post('/edit',
       imageId:0,
       id: req.user.userId
     })
-    res.status(201).json(await user.lookForUserById(req.user.userId))
+    let p = await user.lookForUserById(req.user.userId)
     await user.desconnect();
+    res.status(201).json(p)
     return
   } catch (e) {
     console.log("Error AddDevices",e);
@@ -65,7 +66,7 @@ router.post('/config/style/edit',
     //---------------------validation--------------------//
           const errors = validationResult(req);
           if(!errors.isEmpty()){
-            res.status(400).json({
+            return res.status(400).json({
               errors: errors.array(),
               message: 'wrong input data'
             })
