@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import {NavLink,useLocation,useHistory} from 'react-router-dom'
+import {NavLink,useLocation} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext.js'
 import {UserOption} from '../components/pages/optionPages/userOption'
 import {ServerOption} from '../components/pages/optionPages/serverOption'
@@ -9,7 +9,6 @@ import {UsersOption} from '../components/pages/optionPages/usersOption'
 export const OptionsPage = () => {
   const auth = useContext(AuthContext)
   const location = useLocation();
-  const history = useHistory()
 
   return(
     <div className = "conteiner">

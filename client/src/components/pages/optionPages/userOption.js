@@ -32,9 +32,9 @@ export const UserOption = () =>{
     <div className = "pagecontent">
       <div className="configElement choice">
         <h2>Style</h2>
-        <img src={nightStyle} className="choice" name="night" onClick={styleHandler}/>
-        <img src={gibridStyle} className="choice" name="gibrid" onClick={styleHandler}/>
-        <img src={lightStyle} className="choice" name="light" onClick={styleHandler}/>
+        <img alt="style night" src={nightStyle} className="choice" name="night" onClick={styleHandler}/>
+        <img alt="style gibrid" src={gibridStyle} className="choice" name="gibrid" onClick={styleHandler}/>
+        <img alt="style light" src={lightStyle} className="choice" name="light" onClick={styleHandler}/>
       </div>
     </div>
 )

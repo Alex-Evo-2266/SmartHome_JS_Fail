@@ -45,6 +45,12 @@ export const UsersPage = () => {
     updataUsers()
   },[updataUsers])
 
+  if(loading){
+    return(
+      <Loader/>
+    )
+  }
+
   return(
     <>
       <div className = "conteiner">
@@ -64,7 +70,7 @@ export const UsersPage = () => {
               (users&&users[0])?
                 users.map((item,index)=>{
                   return(
-                    <UserElement key={index} user={item}/>
+                    <UserElement key={index} user={item} updata={updataUsers}/>
                   )
                 })
               :null

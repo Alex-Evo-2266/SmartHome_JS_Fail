@@ -1,16 +1,10 @@
-import React,{useState,useContext,useEffect,useCallback} from 'react'
-import {SocketContext} from '../../../hooks/socket.hook'
-import {DeviceStatusContext} from '../../../context/DeviceStatusContext'
+import React,{useContext,useEffect} from 'react'
 import {CartEditContext} from '../EditCarts/CartEditContext'
 import {useHttp} from '../../../hooks/http.hook'
 import {useMessage} from '../../../hooks/message.hook'
 import {AuthContext} from '../../../context/AuthContext.js'
 
 export const ScriptElement = ({data,className,index,children,name,onClick,disabled=false,editBtn,firstValue=false,switchMode=true,deleteBtn}) =>{
-  const socket = useContext(SocketContext)
-  const {devices, updateDevice} = useContext(DeviceStatusContext)
-  const [value, setValue]=useState(firstValue)
-  const [device, setDevice] = useState({})
   const {target} = useContext(CartEditContext)
   const {message} = useMessage();
   const {request, error, clearError} = useHttp();

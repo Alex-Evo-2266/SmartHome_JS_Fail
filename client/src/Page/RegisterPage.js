@@ -6,7 +6,7 @@ import {useMessage} from '../hooks/message.hook'
 export default function RegisterPage(){
   const history = useHistory()
   const {loading, request, error, clearError} = useHttp();
-  const {message,MessageIndicator} = useMessage();
+  const {message} = useMessage();
   const [form, setForm] = useState({
     name: '', password: '', email: '', mobile: '', key: ''
   });
@@ -24,7 +24,10 @@ export default function RegisterPage(){
     try {
       const data = await request('/api/auth/register', 'POST', {...form})
       console.log(data);
-      if(data)history.push('/')
+      if(data){
+        history.push('/')
+        message("user registered","ok")
+      }
     } catch (e) {
 
     }

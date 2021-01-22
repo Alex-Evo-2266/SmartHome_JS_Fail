@@ -137,3 +137,20 @@ module.exports.style = async function (data) {
     return
   }
 }
+
+module.exports.deleteUser = async function(id){
+  try {
+    if(!id){
+      return;
+    }
+    await conection.execute(
+      "DELETE FROM `smarthome_user` WHERE `UserId`= ?" ,
+      [id]
+    )
+    return true;
+  }
+  catch (e) {
+    console.error("Error",e);
+    return
+  }
+}

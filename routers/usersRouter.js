@@ -20,4 +20,17 @@ router.get('/all',auth,async (req, res)=>{
   }
 })
 
+router.post('/delete',auth,async (req, res)=>{
+  try {
+    const {UserId} = req.body
+    await user.connect();
+    res.status(201).json(await user.deleteUser(UserId))
+    await user.desconnect();
+    return
+  } catch (e) {
+    console.log("Error AddDevices",e);
+    return res.status(500).json({message: e.message})
+  }
+})
+
 module.exports = router;
