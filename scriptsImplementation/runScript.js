@@ -4,9 +4,11 @@ const devices = require('../mySQL/Devices');
 const universalMqtt = require("../mqtt/mqttDevices/universal")
 
 const run = async(script)=>{
+  console.log(script);
   try {
     await devices.connect()
     let IfScript = await groupIf(script.ScriptIf)
+    console.log(IfScript);
     if(IfScript)
       await actDev(script.ScriptThen)
     else
@@ -145,6 +147,7 @@ const groupIf = async(group)=>{
       returns.push(ret)
     }
   }
+  console.log(returns);
   if(group.oper === "and"&& returns.indexOf(false) !== -1)
     return false
   else if (group.oper === "or"&& returns.indexOf(true) === -1)
@@ -157,8 +160,13 @@ const element = async(item)=>{
     // await devices.connect()
     const device = await devices.Device(item.DeviseId)
     // await devices.desconnect();
+
     if(!device)return
     let deviceValue = device.DeviceValue
+    console.log(deviceValue,item,"fg");
+    console.log(item.oper===">=");
+    console.log(deviceValue[item.property],item.value);
+    console.log(Number(deviceValue[item.property])>=Number(item.value));
     if((item.property==="value"||item.property==="battery")&&device.DeviceType!=="variable"){
       deviceValue = deviceValue.status
     }
@@ -171,16 +179,16 @@ const element = async(item)=>{
     if(item.oper==="!="&&deviceValue[item.property]!==item.value){
       return true;
     }
-    if(item.oper===">="&&deviceValue[item.property]>=item.value){
+    if(item.oper===">="&&Number(deviceValue[item.property])>=Number(item.value)){
       return true;
     }
-    if(item.oper==="<="&&deviceValue[item.property]<=item.value){
+    if(item.oper==="<="&&Number(deviceValue[item.property])<=Number(item.value)){
       return true;
     }
-    if(item.oper===">"&&deviceValue[item.property]>item.value){
+    if(item.oper===">"&&Number(deviceValue[item.property])>Number(item.value)){
       return true;
     }
-    if(item.oper==="<"&&deviceValue[item.property]<item.value){
+    if(item.oper==="<"&&Number(deviceValue[item.property])<Number(item.value)){
       return true;
     }
     return false

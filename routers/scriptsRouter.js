@@ -120,6 +120,7 @@ router.post('/add',
 
  router.get('/run/:id',auth,async (req, res)=>{
    try {
+     console.log(req.params.id);
      await scripts.connect();
      res.status(201).json({result:await runScript(await scripts.Script(req.params.id))})
      await scripts.desconnect();
