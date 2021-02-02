@@ -12,6 +12,7 @@ const terminalRouter = require('./routers/terminalRouter')
 const scriptRouter = require('./routers/scriptsRouter')
 const socket = require('./socket/socket')
 const mqtt = require('./mqtt/mqtt')
+const path = require('path')
 // const fon = require('./multerConfig/fon.js')
 const app = express();
 const server = require('http').createServer(app);
@@ -36,6 +37,14 @@ app.use('/api/homeConfig',homeConfig);
 app.use('/api/terminal',terminalRouter);
 app.use('/api/script',scriptRouter);
 ///api/base/fonImage/:type
+
+if(process.env.NODE_ENV==="production"){
+  app.use('/',express.static(path.join(__dirname, 'client', 'build')));
+
+  app.get('*', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 try {
   server.listen(PORT, () => {
