@@ -324,3 +324,19 @@
 .deleteBlock:hover{
   background: #a00;
 }
+@media (max-width: 850px) {
+  .NewScripConteiner{
+    margin-left: 0;
+  }
+  .NewScripPage{
+    border-radius: 0;
+    width: 100%;
+  }
+  .scriptOut{
+    display: block;
+  }
+  .scriptOut input{
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}

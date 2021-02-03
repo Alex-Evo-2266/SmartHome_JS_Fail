@@ -11,7 +11,7 @@ export const TerminalCart = ()=>{
   }
 
   return(
-    <ModalWindow hide={hide} width={250} height={350} title="terminal">
+    <ModalWindow top="80" left="60" hide={hide} width={250} height={350} title="terminal">
       <Terminal/>
     </ModalWindow>
   )

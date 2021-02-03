@@ -94,4 +94,8 @@
     align-items: center;
     padding-bottom: 10px;
   }
+  .scriptElement .scriptStatus .deleteBtn{
+    margin-top: 10px;
+    width: 50%;
+  }
 }
